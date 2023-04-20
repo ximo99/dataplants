@@ -9,7 +9,7 @@ const cors = require("cors");
 // import routers
 const categoriesRouter = require("./routers/categories");
 const ordersRouter = require("./routers/orders");
-const productsRouter = require("./routers/products");
+const productsRouter = require("./routers/species");
 const usersRouter = require("./routers/users");
 
 // import helpers

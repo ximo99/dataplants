@@ -67,7 +67,7 @@ router.put("/:id", authJwt(), async (req, res) => {
   res.send(category);
 });
 
-// delete path to delete a product
+// delete path to delete a category
 router.delete("/:id", authJwt(), async (req, res) => {
   Category.findByIdAndRemove(req.params.id)
     .then((category) => {

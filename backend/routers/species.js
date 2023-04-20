@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 
 // import files
-const { Category } = require("../models/category");
-const { Product } = require("../models/product");
+const { Category } = require("./categories");
+const { Specie } = require("../models/species");
 
 const authJwt = require("../helpers/jwt");
 
@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
 const uploadOptions = multer({ storage: storage });
 
 // paths
-// read path to get a list of products and can be filtered by category
+// read path to get a list of species and can be filtered by category
 router.get(`/`, async (req, res) => {
   let filter = {};
 
@@ -47,52 +47,52 @@ router.get(`/`, async (req, res) => {
     filter = { category: req.query.categories.split(",") };
   }
 
-  const productList = await Product.find(filter).populate("category");
+  const specieList = await Specie.find(filter).populate("category");
 
-  if (!productList) {
+  if (!specieList) {
     res.status(500).json({ success: false });
   }
 
-  res.send(productList);
+  res.send(specieList);
 });
 
-// read path to get a product by id
+// read path to get a specie by id
 router.get(`/:id`, async (req, res) => {
-  const product = await Product.findById(req.params.id).populate("category");
+  const specie = await Specie.findById(req.params.id).populate("category");
 
-  if (!product) {
+  if (!specie) {
     res.status(500).json({ success: false });
   }
 
-  res.send(product);
+  res.send(specie);
 });
 
-// write path to get the total count of products in the database
+// write path to get the total count of species in the database
 router.get(`/get/count`, async (req, res) => {
-  const productCount = await Product.countDocuments();
+  const specieCount = await Specie.countDocuments();
 
-  if (!productCount) {
+  if (!specieCount) {
     res.status(500).json({ success: false });
   }
 
   res.send({
-    productCount: productCount,
+    specieCount: specieCount,
   });
 });
 
-// write path to get the featured products
-router.get(`/get/featured/:count`, async (req, res) => {
+// write path to get the verified species
+router.get(`/get/verified/:count`, async (req, res) => {
   const count = req.params.count ? req.params.count : 0;
-  const products = await Product.find({ isFeatured: true }).limit(+count);
+  const species = await Specie.find({ isVerified: true }).limit(+count);
 
-  if (!products) {
+  if (!species) {
     res.status(500).json({ success: false });
   }
 
-  res.send(products);
+  res.send(species);
 });
 
-// write path to add new products
+// write path to add new species
 router.post(`/`, uploadOptions.single("image"), authJwt(), async (req, res) => {
   const category = await Category.findById(req.body.category);
 
@@ -109,34 +109,33 @@ router.post(`/`, uploadOptions.single("image"), authJwt(), async (req, res) => {
   const fileName = req.file.filename;
   const basePath = `${req.protocol}://${req.get("host")}/public/upload/`;
 
-  let product = new Product({
-    name: req.body.name,
+  let specie = new Specie({
+    scientific_name: req.body.scientific_name,
+    common_name: req.body.common_name,
     description: req.body.description,
-    richDescription: req.body.richDescription,
-    image: `${basePath}${fileName}`,
-    brand: req.body.brand,
-    price: req.body.price,
     category: req.body.category,
-    countInStock: req.body.countInStock,
-    rating: req.body.rating,
-    numReviews: req.body.numReviews,
-    isFeatured: req.body.isFeatured,
+    division: req.body.division,
+    family: req.body.family,
+    gender: req.body.gender,
+    state_conservation: req.body.state_conservation,
+    image: `${basePath}${fileName}`,
+    isVerified: req.body.isVerified,
   });
 
-  product = await product.save();
+  specie = await specie.save();
 
-  if (!product) {
-    return res.status(500).send("the product cannot be created");
+  if (!specie) {
+    return res.status(500).send("the specie cannot be created");
   }
 
-  return res.send(product);
+  return res.send(specie);
 });
 
-// put path to update a product by id
+// put path to update a specie by id
 router.put("/:id", async (req, res) => {
   console.log("ENTERING")
   if (!mongoose.isValidObjectId(req.params.id)) {
-    res.status(400).send("Invalid product ID");
+    res.status(400).send("Invalid specie ID");
   }
 
   const category = await Category.findById(req.body.category);
@@ -145,29 +144,28 @@ router.put("/:id", async (req, res) => {
     return res.status(400).send("invalid category");
   }
 
-  const product = await Product.findByIdAndUpdate(
+  const specie = await Specie.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
+      scientific_name: req.body.scientific_name,
+      common_name: req.body.common_name,
       description: req.body.description,
-      richDescription: req.body.richDescription,
-      image: req.body.image,
-      brand: req.body.brand,
-      price: req.body.price,
       category: req.body.category,
-      countInStock: req.body.countInStock,
-      rating: req.body.rating,
-      numReviews: req.body.numReviews,
-      isFeatured: req.body.isFeatured,
+      division: req.body.division,
+      family: req.body.family,
+      gender: req.body.gender,
+      state_conservation: req.body.state_conservation,
+      image: req.body.image,
+      isVerified: req.body.isVerified,
     },
     { new: true }
   );
 
-  if (!product) {
-    return res.status(500).send("the product cannot be updated!");
+  if (!specie) {
+    return res.status(500).send("the specie cannot be updated!");
   }
 
-  res.send(product);
+  res.send(specie);
 });
 
 // put path to update the array images
@@ -178,7 +176,7 @@ router.put(
   authJwt(),
   async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
-      res.status(400).send("Invalid product ID");
+      res.status(400).send("Invalid specie ID");
     }
 
     const files = req.files;
@@ -193,7 +191,7 @@ router.put(
       }
     }
 
-    const product = await Product.findByIdAndUpdate(
+    const specie = await Specie.findByIdAndUpdate(
       req.params.id,
       {
         images: imagesPaths,
@@ -201,26 +199,26 @@ router.put(
       { new: true }
     );
 
-    if (!product) {
-      return res.status(500).send("the product cannot be updated!");
+    if (!specie) {
+      return res.status(500).send("the specie cannot be updated!");
     }
 
-    res.send(product);
+    res.send(specie);
   }
 );
 
-// delete path to delete a product
+// delete path to delete a specie
 router.delete("/:id", authJwt(), async (req, res) => {
-  Product.findByIdAndRemove(req.params.id)
-    .then((product) => {
-      if (product) {
+  Specie.findByIdAndRemove(req.params.id)
+    .then((specie) => {
+      if (specie) {
         return res
           .status(200)
-          .json({ success: true, message: "the product is delated" });
+          .json({ success: true, message: "the specie is delated" });
       } else {
         return res
           .status(404)
-          .json({ success: false, message: "product not found" });
+          .json({ success: false, message: "specie not found" });
       }
     })
     .catch((err) => {
