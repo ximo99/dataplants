@@ -1,0 +1,57 @@
+[{
+  "_id": {
+    "$oid": "641ef8608599d952e3778624"
+  },
+  "name": "Fruit",
+  "icon": "icon-fruit",
+  "color": "#444",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642c708f8c65df840cf022f0"
+  },
+  "name": "Fish",
+  "icon": "icon-fish",
+  "color": "#7777",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64356f7156407405c6722327"
+  },
+  "name": "Wine",
+  "icon": "icon-wine",
+  "color": "#3333",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64385b47fc43339a8499585a"
+  },
+  "name": "Meat",
+  "icon": "icon-meat",
+  "color": "#1111",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64385b67fc43339a8499585c"
+  },
+  "name": "Beauty",
+  "icon": "icon-beauty",
+  "color": "#3333",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64385b7cfc43339a8499585e"
+  },
+  "name": "Cleaning",
+  "icon": "icon-cleaning",
+  "color": "#4444",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64385b93fc43339a84995860"
+  },
+  "name": "Technology",
+  "icon": "icon-technology",
+  "color": "#6666",
+  "__v": 0
+}]
