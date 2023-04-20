@@ -8,8 +8,6 @@ const secret = process.env.SECRET;
 const api = process.env.API_URL;
 
 function authJwt() {
-  console.log("Auth middleware", secret);
-
   return jwt({
     secret,
     algorithms: ["HS256"],

@@ -15,33 +15,21 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  phone: {
+  country: {
     type: String,
-    required: true,
+    default: "",
+  },
+  profession: {
+    type: String,
+    default: "",
+  },
+  photoUser: {
+    type: String,
+    default: "",
   },
   isAdmin: {
     type: Boolean,
     default: false,
-  },
-  street: {
-    type: String,
-    default: "",
-  },
-  apartment: {
-    type: String,
-    default: "",
-  },
-  zip: {
-    type: String,
-    default: "",
-  },
-  city: {
-    type: String,
-    default: "",
-  },
-  country: {
-    type: String,
-    default: "",
   },
 });
 

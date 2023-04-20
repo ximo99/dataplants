@@ -56,13 +56,10 @@ router.post("/", authJwt(), async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     passwordHash: bcrypt.hashSync(req.body.password, 10),
-    phone: req.body.phone,
-    isAdmin: req.body.isAdmin,
-    street: req.body.street,
-    apartment: req.body.apartment,
-    zip: req.body.zip,
-    city: req.body.city,
     country: req.body.country,
+    profession: req.body.profession,
+    photoUser: req.body.photoUser,
+    isAdmin: req.body.isAdmin,
   });
 
   user = await user.save();
@@ -104,13 +101,10 @@ router.post("/register", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     passwordHash: bcrypt.hashSync(req.body.password, 10),
-    phone: req.body.phone,
-    isAdmin: req.body.isAdmin,
-    street: req.body.street,
-    apartment: req.body.apartment,
-    zip: req.body.zip,
-    city: req.body.city,
     country: req.body.country,
+    profession: req.body.profession,
+    photoUser: req.body.photoUser,
+    isAdmin: req.body.isAdmin,
   });
 
   user = await user.save();
@@ -139,11 +133,10 @@ router.put("/:id", authJwt(), async (req, res) => {
       passwordHash: newPassword,
       name: req.body.name,
       phone: req.body.phone,
-      street: req.body.street,
-      apartment: req.body.apartment,
-      zip: req.body.zip,
-      city: req.body.city,
       country: req.body.country,
+      profession: req.body.profession,
+      photoUser: req.body.photoUser,
+      isAdmin: req.body.isAdmin,
     },
     { new: true }
   );

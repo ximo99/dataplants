@@ -6,16 +6,14 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-// import dependencies
-const Product = require("./models/product");
-
+// import routers
 const categoriesRouter = require("./routers/categories");
 const ordersRouter = require("./routers/orders");
 const productsRouter = require("./routers/products");
 const usersRouter = require("./routers/users");
 
+// import helpers
 const errorHandler = require("./helpers/error-handler");
-const authJwt = require("./helpers/jwt");
 
 // load the .env configuration file and define variables
 require("dotenv/config");
@@ -51,7 +49,7 @@ mongoose
   .connect(connection, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "eshop-database",
+    dbName: "dataplants-db",
   })
   .then(() => {
     console.log("Database Connection is ready...");
@@ -63,13 +61,13 @@ mongoose
 // starting the server and listen on port 3000
 
 // development
-/* app.listen(port, () => {
+app.listen(port, () => {
   console.log("server is running at http://localhost:" + `${port}`);
-}); */
+});
 
 // production
-var server = app.listen(process.env.PORT || 3000, function () {
+/* var server = app.listen(process.env.PORT || 3000, function () {
   var port = server.address().port;
 
   console.log("Express is working on port " + port);
-});
+}); */
