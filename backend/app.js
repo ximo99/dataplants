@@ -9,6 +9,7 @@ const cors = require("cors");
 // import routers
 const categoriesRouter = require("./routers/categories");
 const speciesRouter = require("./routers/species");
+const postsRouter = require("./routers/posts");
 const usersRouter = require("./routers/users");
 
 // import helpers
@@ -40,6 +41,7 @@ app.use(errorHandler);
 // routes
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/species`, speciesRouter);
+app.use(`${api}/species`, postsRouter);
 app.use(`${api}/users`, usersRouter);
 
 // connecting to the MongoDB database
