@@ -1,9 +1,10 @@
 // import dependencies
 const mongoose = require("mongoose");
 const { Category } = require("./category");
+const { User } = require("./user");
 
 // mongoose schema
-const speciesSchema = mongoose.Schema({
+const specieSchema = mongoose.Schema({
   scientific_name: {
     type: String,
     required: true,
@@ -19,6 +20,11 @@ const speciesSchema = mongoose.Schema({
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   division: {
@@ -60,14 +66,14 @@ const speciesSchema = mongoose.Schema({
   },
 });
 
-// add a virtual property called "id" to the speciesSchema, this virtual property returns the specie's _id value as a hexadecimal string
-speciesSchema.virtual("id").get(function () {
+// add a virtual property called "id" to the specieSchema, this virtual property returns the specie's _id value as a hexadecimal string
+specieSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 
 // configure the speciesSchema's toJSON method to include virtual properties
-speciesSchema.set("toJSON", {
+specieSchema.set("toJSON", {
   virtuals: true,
 });
 
-exports.Species = mongoose.model("Species", speciesSchema);
+exports.Specie = mongoose.model("Specie", specieSchema);

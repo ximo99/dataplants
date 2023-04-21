@@ -4,10 +4,12 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
 
-// import files
-const { Category } = require("./categories");
-const { Specie } = require("../models/species");
+// import models
+const { User } = require("../models/user");
+const { Specie } = require("../models/specie");
+const { Category } = require("../models/category");
 
+// import authenticate file
 const authJwt = require("../helpers/jwt");
 
 // files extensions
@@ -93,7 +95,7 @@ router.get(`/get/verified/:count`, async (req, res) => {
 });
 
 // write path to add new species
-router.post(`/`, uploadOptions.single("image"), authJwt(), async (req, res) => {
+router.post(`/`, uploadOptions.single("image"), async (req, res) => {
   const category = await Category.findById(req.body.category);
 
   if (!category) {
@@ -114,6 +116,7 @@ router.post(`/`, uploadOptions.single("image"), authJwt(), async (req, res) => {
     common_name: req.body.common_name,
     description: req.body.description,
     category: req.body.category,
+    user: req.body.user,
     division: req.body.division,
     family: req.body.family,
     gender: req.body.gender,
@@ -133,7 +136,6 @@ router.post(`/`, uploadOptions.single("image"), authJwt(), async (req, res) => {
 
 // put path to update a specie by id
 router.put("/:id", async (req, res) => {
-  console.log("ENTERING")
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
@@ -151,6 +153,7 @@ router.put("/:id", async (req, res) => {
       common_name: req.body.common_name,
       description: req.body.description,
       category: req.body.category,
+      user: req.body.user,
       division: req.body.division,
       family: req.body.family,
       gender: req.body.gender,
@@ -171,9 +174,7 @@ router.put("/:id", async (req, res) => {
 // put path to update the array images
 router.put(
   "/gallery-images/:id",
-  authJwt(),
   uploadOptions.array("images", 10),
-  authJwt(),
   async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
       res.status(400).send("Invalid specie ID");
@@ -208,7 +209,7 @@ router.put(
 );
 
 // delete path to delete a specie
-router.delete("/:id", authJwt(), async (req, res) => {
+router.delete("/:id", async (req, res) => {
   Specie.findByIdAndRemove(req.params.id)
     .then((specie) => {
       if (specie) {

@@ -8,8 +8,7 @@ const cors = require("cors");
 
 // import routers
 const categoriesRouter = require("./routers/categories");
-const ordersRouter = require("./routers/orders");
-const productsRouter = require("./routers/species");
+const speciesRouter = require("./routers/species");
 const usersRouter = require("./routers/users");
 
 // import helpers
@@ -40,8 +39,7 @@ app.use(errorHandler);
 
 // routes
 app.use(`${api}/categories`, categoriesRouter);
-app.use(`${api}/orders`, ordersRouter);
-app.use(`${api}/products`, productsRouter);
+app.use(`${api}/species`, speciesRouter);
 app.use(`${api}/users`, usersRouter);
 
 // connecting to the MongoDB database
