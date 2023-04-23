@@ -42,14 +42,31 @@ const uploadOptions = multer({ storage: storage });
 
 // paths
 // read path to get a list of species and can be filtered by category
-router.get(`/`, async (req, res) => {
+router.get(`/categoriesFilter`, async (req, res) => {
   let filter = {};
 
   if (req.query.categories) {
     filter = { category: req.query.categories.split(",") };
   }
 
-  const specieList = await Specie.find(filter).populate("category");
+  const specieList = await Specie.find(filter).populate("category").populate("user");
+
+  if (!specieList) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send(specieList);
+});
+
+// read path to get a list of species and can be filtered by user
+router.get(`/usersFilter`, async (req, res) => {
+  let filter = {};
+
+  if (req.query.users) {
+    filter = { user: req.query.users.split(",") };
+  }
+
+  const specieList = await Specie.find(filter).populate("category").populate("user");
 
   if (!specieList) {
     res.status(500).json({ success: false });
@@ -60,7 +77,7 @@ router.get(`/`, async (req, res) => {
 
 // read path to get a specie by id
 router.get(`/:id`, async (req, res) => {
-  const specie = await Specie.findById(req.params.id).populate("category");
+  const specie = await Specie.findById(req.params.id).populate("category").populate("user");
 
   if (!specie) {
     res.status(500).json({ success: false });

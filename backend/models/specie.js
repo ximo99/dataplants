@@ -1,5 +1,7 @@
 // import dependencies
 const mongoose = require("mongoose");
+
+// import other routers
 const { Category } = require("./category");
 const { User } = require("./user");
 
