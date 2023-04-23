@@ -86,7 +86,7 @@ router.get(`/:id`, async (req, res) => {
   res.send(specie);
 });
 
-// write path to get the total count of species in the database
+// read path to get the total count of species in the database
 router.get(`/get/count`, async (req, res) => {
   const specieCount = await Specie.countDocuments();
 
@@ -100,8 +100,8 @@ router.get(`/get/count`, async (req, res) => {
 });
 
 // write path to get the verified species
-router.get(`/get/verified/:count`, async (req, res) => {
-  const count = req.params.count ? req.params.count : 0;
+router.get(`/get/verified`, async (req, res) => {
+  const count = req.query.count ? req.query.count : 0;
   const species = await Specie.find({ isVerified: true }).limit(+count);
 
   if (!species) {
@@ -157,29 +157,28 @@ router.put("/:id", async (req, res) => {
     res.status(400).send("Invalid specie ID");
   }
 
-  const category = await Category.findById(req.body.category);
+  let updatedData = {
+    scientific_name: req.body.scientific_name,
+    common_name: req.body.common_name,
+    description: req.body.description,
+    user: req.body.user,
+    division: req.body.division,
+    family: req.body.family,
+    gender: req.body.gender,
+    state_conservation: req.body.state_conservation,
+    image: req.body.image,
+    isVerified: req.body.isVerified,
+  };
 
-  if (!category) {
-    return res.status(400).send("invalid category");
+  if (req.body.category) {
+    const category = await Category.findById(req.body.category);
+    if (!category) {
+      return res.status(400).send("invalid category");
+    }
+    updatedData.category = req.body.category;
   }
 
-  const specie = await Specie.findByIdAndUpdate(
-    req.params.id,
-    {
-      scientific_name: req.body.scientific_name,
-      common_name: req.body.common_name,
-      description: req.body.description,
-      category: req.body.category,
-      user: req.body.user,
-      division: req.body.division,
-      family: req.body.family,
-      gender: req.body.gender,
-      state_conservation: req.body.state_conservation,
-      image: req.body.image,
-      isVerified: req.body.isVerified,
-    },
-    { new: true }
-  );
+  const specie = await Specie.findByIdAndUpdate(req.params.id, updatedData, { new: true });
 
   if (!specie) {
     return res.status(500).send("the specie cannot be updated!");
@@ -187,6 +186,7 @@ router.put("/:id", async (req, res) => {
 
   res.send(specie);
 });
+
 
 // put path to update the array images
 router.put(
