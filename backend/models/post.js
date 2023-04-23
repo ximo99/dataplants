@@ -1,13 +1,13 @@
 // import dependencies
 const mongoose = require("mongoose");
-const { Specie } = require("./specie");
 const { User } = require("./user");
+const { Specie } = require("./specie");
 
 // mongoose schema
-const specieSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
   specie: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Specie",
     required: true,
   },
   description: {
@@ -43,7 +43,7 @@ postSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 
-// configure the speciesSchema's toJSON method to include virtual properties
+// configure the postSchema's toJSON method to include virtual properties
 postSchema.set("toJSON", {
   virtuals: true,
 });

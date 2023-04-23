@@ -2,8 +2,8 @@
 const mongoose = require("mongoose");
 
 // import other routers
-const { Category } = require("./category");
 const { User } = require("./user");
+const { Category } = require("./category");
 
 // mongoose schema
 const specieSchema = mongoose.Schema({

@@ -6,6 +6,7 @@ const multer = require("multer");
 
 // import models
 const { User } = require("../models/user");
+const { Post } = require("../models/post");
 const { Specie } = require("../models/specie");
 const { Category } = require("../models/category");
 
@@ -41,48 +42,105 @@ const storage = multer.diskStorage({
 const uploadOptions = multer({ storage: storage });
 
 // paths
-// read path to get a posts by id
-router.get(`/:id`, async (req, res) => {
-  const specie = await Specie.findById(req.params.id).populate("category");
+// read path to get a list of posts
+router.get(`/`, async (req, res) => {
+  const postList = await Post.find().populate("specie").populate("user");
 
-  if (!specie) {
+  if (!postList) {
     res.status(500).json({ success: false });
   }
 
-  res.send(specie);
+  res.send(postList);
 });
 
-// write path to get the total count of species in the database
-router.get(`/get/count`, async (req, res) => {
-  const specieCount = await Specie.countDocuments();
+// read path to get a list of species filtered by the specie
+router.get(`/speciesFilter`, async (req, res) => {
+  let filter = {};
 
-  if (!specieCount) {
+  if (req.query.species) {
+    filter = { specie: req.query.species.split(",") };
+  }
+
+  const postList = await Post.find(filter)
+    .populate("specie")
+    .populate("user");
+
+  if (!postList) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send(postList);
+});
+
+// read path to get a list of species filtered by the user
+router.get(`/usersFilter`, async (req, res) => {
+  let filter = {};
+
+  if (req.query.users) {
+    filter = { user: req.query.users.split(",") };
+  }
+
+  const postList = await Post.find(filter)
+    .populate("category")
+    .populate("user");
+
+  if (!postList) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send(postList);
+});
+
+// read path to get a post by id
+router.get(`/:id`, async (req, res) => {
+  const post = await Post.findById(req.params.id)
+    .populate("category")
+    .populate("user");
+
+  if (!post) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send(post);
+});
+
+// read path to get the total count of posts in the database
+router.get(`/get/count`, async (req, res) => {
+  const postCount = await Post.countDocuments();
+
+  if (!postCount) {
     res.status(500).json({ success: false });
   }
 
   res.send({
-    specieCount: specieCount,
+    postCount: postCount,
   });
 });
 
-// write path to get the verified species
-router.get(`/get/verified/:count`, async (req, res) => {
-  const count = req.params.count ? req.params.count : 0;
-  const species = await Specie.find({ isVerified: true }).limit(+count);
+// read path to get the verified posts
+router.get(`/get/verified`, async (req, res) => {
+  const count = req.query.count ? req.query.count : 0;
+  const posts = await Post.find({ isVerified: true }).limit(+count);
 
-  if (!species) {
+  if (!posts) {
     res.status(500).json({ success: false });
   }
 
-  res.send(species);
+  res.send(posts);
 });
 
-// write path to add new species
+// write path to add new posts
 router.post(`/`, uploadOptions.single("image"), async (req, res) => {
-  const category = await Category.findById(req.body.category);
+  const specie = await Specie.findById(req.body.specie);
 
-  if (!category) {
-    return res.status(400).send("invalid category");
+  if (!specie) {
+    return res.status(400).send("invalid specie");
+  }
+
+  const user = await User.findById(req.body.user);
+
+  if (!user) {
+    return res.status(400).send("invalid user");
   }
 
   const file = req.file;
@@ -94,64 +152,59 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
   const fileName = req.file.filename;
   const basePath = `${req.protocol}://${req.get("host")}/public/upload/`;
 
-  let specie = new Specie({
+  let post = new Post({
+    specie: req.body.specie,
+    description: req.body.description,
+    user: req.body.user,
+    location: req.body.location,
+    image: `${basePath}${fileName}`,
+  });
+
+  post = await post.save();
+
+  if (!post) {
+    return res.status(500).send("the post cannot be created");
+  }
+
+  return res.send(post);
+});
+
+// put path to update a post by id
+router.put("/:id", async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(400).send("Invalid post ID");
+  }
+
+  let updatedData = {
     scientific_name: req.body.scientific_name,
     common_name: req.body.common_name,
     description: req.body.description,
-    category: req.body.category,
     user: req.body.user,
     division: req.body.division,
     family: req.body.family,
     gender: req.body.gender,
     state_conservation: req.body.state_conservation,
-    image: `${basePath}${fileName}`,
+    image: req.body.image,
     isVerified: req.body.isVerified,
+  };
+
+  if (req.body.category) {
+    const category = await Category.findById(req.body.category);
+    if (!category) {
+      return res.status(400).send("invalid category");
+    }
+    updatedData.category = req.body.category;
+  }
+
+  const post = await Post.findByIdAndUpdate(req.params.id, updatedData, {
+    new: true,
   });
 
-  specie = await specie.save();
-
-  if (!specie) {
-    return res.status(500).send("the specie cannot be created");
+  if (!post) {
+    return res.status(500).send("the post cannot be updated!");
   }
 
-  return res.send(specie);
-});
-
-// put path to update a specie by id
-router.put("/:id", async (req, res) => {
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    res.status(400).send("Invalid specie ID");
-  }
-
-  const category = await Category.findById(req.body.category);
-
-  if (!category) {
-    return res.status(400).send("invalid category");
-  }
-
-  const specie = await Specie.findByIdAndUpdate(
-    req.params.id,
-    {
-      scientific_name: req.body.scientific_name,
-      common_name: req.body.common_name,
-      description: req.body.description,
-      category: req.body.category,
-      user: req.body.user,
-      division: req.body.division,
-      family: req.body.family,
-      gender: req.body.gender,
-      state_conservation: req.body.state_conservation,
-      image: req.body.image,
-      isVerified: req.body.isVerified,
-    },
-    { new: true }
-  );
-
-  if (!specie) {
-    return res.status(500).send("the specie cannot be updated!");
-  }
-
-  res.send(specie);
+  res.send(post);
 });
 
 // put path to update the array images
@@ -160,7 +213,7 @@ router.put(
   uploadOptions.array("images", 10),
   async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
-      res.status(400).send("Invalid specie ID");
+      res.status(400).send("Invalid post ID");
     }
 
     const files = req.files;
@@ -175,7 +228,7 @@ router.put(
       }
     }
 
-    const specie = await Specie.findByIdAndUpdate(
+    const post = await Post.findByIdAndUpdate(
       req.params.id,
       {
         images: imagesPaths,
@@ -183,26 +236,26 @@ router.put(
       { new: true }
     );
 
-    if (!specie) {
-      return res.status(500).send("the specie cannot be updated!");
+    if (!post) {
+      return res.status(500).send("the post cannot be updated!");
     }
 
-    res.send(specie);
+    res.send(post);
   }
 );
 
-// delete path to delete a specie
+// delete path to delete a post
 router.delete("/:id", async (req, res) => {
-  Specie.findByIdAndRemove(req.params.id)
-    .then((specie) => {
-      if (specie) {
+  Post.findByIdAndRemove(req.params.id)
+    .then((post) => {
+      if (post) {
         return res
           .status(200)
-          .json({ success: true, message: "the specie is delated" });
+          .json({ success: true, message: "the post is delated" });
       } else {
         return res
           .status(404)
-          .json({ success: false, message: "specie not found" });
+          .json({ success: false, message: "post not found" });
       }
     })
     .catch((err) => {

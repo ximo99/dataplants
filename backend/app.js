@@ -41,7 +41,7 @@ app.use(errorHandler);
 // routes
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/species`, speciesRouter);
-app.use(`${api}/species`, postsRouter);
+app.use(`${api}/posts`, postsRouter);
 app.use(`${api}/users`, usersRouter);
 
 // connecting to the MongoDB database

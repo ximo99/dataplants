@@ -41,7 +41,19 @@ const storage = multer.diskStorage({
 const uploadOptions = multer({ storage: storage });
 
 // paths
-// read path to get a list of species and can be filtered by category
+// read path to get a list of species
+router.get(`/`, async (req, res) => {
+
+  const specieList = await Specie.find().populate("category").populate("user");
+
+  if (!specieList) {
+    res.status(500).json({ success: false });
+  }
+
+  res.send(specieList);
+});
+
+// read path to get a list of species filtered by the category
 router.get(`/categoriesFilter`, async (req, res) => {
   let filter = {};
 
@@ -58,7 +70,7 @@ router.get(`/categoriesFilter`, async (req, res) => {
   res.send(specieList);
 });
 
-// read path to get a list of species and can be filtered by user
+// read path to get a list of species filtered by the user
 router.get(`/usersFilter`, async (req, res) => {
   let filter = {};
 
@@ -99,7 +111,7 @@ router.get(`/get/count`, async (req, res) => {
   });
 });
 
-// write path to get the verified species
+// read path to get the verified species
 router.get(`/get/verified`, async (req, res) => {
   const count = req.query.count ? req.query.count : 0;
   const species = await Specie.find({ isVerified: true }).limit(+count);
