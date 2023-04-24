@@ -4,7 +4,7 @@ const router = express.Router();
 
 // import files
 const { Category } = require("../models/category");
-const authJwt = require("../helpers/jwt");
+const authAdmin = require("../helpers/jwtAdmin");
 
 // paths
 // read path to get a list of categories
@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // write path to add new categories
-router.post("/", authJwt(), async (req, res) => {
+router.post("/", authAdmin(), async (req, res) => {
   let category = new Category({
     name: req.body.name,
     icon: req.body.icon,
@@ -49,7 +49,7 @@ router.post("/", authJwt(), async (req, res) => {
 });
 
 // path to update a category by id
-router.put("/:id", authJwt(), async (req, res) => {
+router.put("/:id", authAdmin(), async (req, res) => {
   const category = await Category.findByIdAndUpdate(
     req.params.id,
     {
@@ -68,7 +68,7 @@ router.put("/:id", authJwt(), async (req, res) => {
 });
 
 // delete path to delete a category
-router.delete("/:id", authJwt(), async (req, res) => {
+router.delete("/:id", authAdmin(), async (req, res) => {
   Category.findByIdAndRemove(req.params.id)
     .then((category) => {
       if (category) {

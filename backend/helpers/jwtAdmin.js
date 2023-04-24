@@ -18,7 +18,7 @@ function authJwt() {
 // checks if a token has been revoked, if the user is not an admin, revoke the token
 function isRevoked(req, data) {
   const { payload } = data;
-  console.log("payload", payload);
+  
   try {
     if (payload.isAdmin !== true || !payload) {
       return true;
