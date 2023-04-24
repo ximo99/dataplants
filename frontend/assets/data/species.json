@@ -1,0 +1,241 @@
+[{
+  "_id": {
+    "$oid": "64425ba5981e5aeb9f96116f"
+  },
+  "scientific_name": "Salvia rosmarinus",
+  "common_name": "Rosemary",
+  "description": "The native range of this species is Medit. It is a shrub and grows primarily in the temperate biome. It is used as animal food, a medicine and invertebrate food, has environmental uses and social uses and for food.",
+  "category": {
+    "$oid": "64424f8df6b57526de0652ed"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Lamiaceae",
+  "gender": "Salvia",
+  "state_conservation": "Not threatened",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Abejamonfrague.jpg/1280px-Abejamonfrague.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-21T09:47:17.973Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64426338bf2fa0add3e77fcf"
+  },
+  "scientific_name": "Tulipa gesneriana",
+  "common_name": "Didier's tulip",
+  "description": "The native range of this species is a cultigen from Türkiye. It is a bulbous geophyte and grows primarily in the temperate biome.",
+  "category": {
+    "$oid": "64424f38f6b57526de0652eb"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Liliaceae",
+  "gender": "Tulipa",
+  "state_conservation": "Not threatened",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Tulipa_gesneriana_001.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-21T10:19:36.310Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644263f4bf2fa0add3e77fd8"
+  },
+  "scientific_name": "Myrtus communis",
+  "common_name": "Common Myrtle",
+  "description": "The native range of this species is Macaronesia to Pakistan. It is a shrub or tree and grows primarily in the subtropical biome. It is used as a medicine and invertebrate food, has environmental uses and for fuel and food.",
+  "category": {
+    "$oid": "64424f8df6b57526de0652ed"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Myrtaceae",
+  "gender": "Myrtus",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Starr_080304-3229_Myrtus_communis.jpg/1280px-Starr_080304-3229_Myrtus_communis.jpg",
+  "images": [],
+  "isVerified": "true",
+  "dateCreated": {
+    "$date": "2023-04-21T10:22:44.781Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6442795bfd83fcab715f71bc"
+  },
+  "scientific_name": "Lilium pomponium",
+  "common_name": "Lis de Pompone",
+  "description": "The native range of this species is SW Alps. It is a bulbous geophyte and grows primarily in the temperate biome.",
+  "category": {
+    "$oid": "64424f38f6b57526de0652eb"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Liliaceae",
+  "gender": "Lilium",
+  "state_conservation": "Low risk",
+  "image": "https://d2seqvvyy3b8p2.cloudfront.net/4e666c862e396d4b2954ce7e4ca6235c.jpg",
+  "images": [],
+  "isVerified": "true",
+  "dateCreated": {
+    "$date": "2023-04-21T11:54:03.828Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64466efc7b1c84cbd9ba47b4"
+  },
+  "scientific_name": "Gnetum africanum",
+  "common_name": "Okazi",
+  "description": "The native range of this species is W. Central Tropical Africa to Angola. It is a climber and grows primarily in the wet tropical biome. Has common names and is grown in various countries across Africa, including: Cameroon (okok), Central African Republic, Congo and Angola (KoKo), Nigeria (okazi or afang), Gabon (Nkumu) and the Democratic Republic of Congo (fumbua).",
+  "category": {
+    "$oid": "64424f30f6b57526de0652e9"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Gnetophyta",
+  "family": "Gnetaceae",
+  "gender": "Gnetum",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Gnetum_africanum_MS_3428.jpg/1280px-Gnetum_africanum_MS_3428.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T11:58:52.263Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64467e317b1c84cbd9ba47b7"
+  },
+  "scientific_name": "Welwitschia mirabilis",
+  "common_name": "Tree tumbo",
+  "description": "The native range of this species is SW. Angola to NW. & W. Central Namibia. It is a subshrub and grows primarily in the desert or dry shrubland biome.",
+  "category": {
+    "$oid": "64424f30f6b57526de0652e9"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Spermatophyta",
+  "family": "Welwitschiaceae",
+  "gender": "Welwitschia",
+  "state_conservation": "Not threatened",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Welwitschia_mirabilis0425.jpg/1280px-Welwitschia_mirabilis0425.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T13:03:45.144Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6446805f7b1c84cbd9ba47ba"
+  },
+  "scientific_name": "Pinus halepensis",
+  "common_name": "Aleppo Pine",
+  "description": "The native range of this species is the Mediterranean. It is a tree and grows mainly in the temperate biome. Also known as Jerusalem pine. It can reach 25 m in height. The trunk is massive and tortuous, with whitish gray bark and an irregular crown.",
+  "category": {
+    "$oid": "64424f24f6b57526de0652e7"
+  },
+  "user": {
+    "$oid": "644634e85b73a6a456d38721"
+  },
+  "division": "Pinophyta",
+  "family": "Pinaceae",
+  "gender": "Pinus",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Pinus_halepensis_foliage.jpg/1280px-Pinus_halepensis_foliage.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T13:13:03.661Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644682017b1c84cbd9ba47bd"
+  },
+  "scientific_name": "Pseudotsuga menziesii",
+  "common_name": "Douglas Fir",
+  "description": "The Douglas fir is an evergreen conifer species in the pine family. It is native to western North America and is also known as Douglas spruce, Oregon pine, and Columbian pine. There are three varieties: coast Douglas-fir (P. menziesii var. menziesii), Rocky Mountain Douglas-fir (P. menziesii var. glauca) and Mexican Douglas-fir (P. menziesii var. lindleyana). Despite its common names, it is not a true fir (genus Abies), spruce (genus Picea), or pine (genus Pinus). It is also not a hemlock; the genus name Pseudotsuga means false hemlock.",
+  "category": {
+    "$oid": "64424f24f6b57526de0652e7"
+  },
+  "user": {
+    "$oid": "644634e85b73a6a456d38721"
+  },
+  "division": "Pinophyta",
+  "family": "Pinaceae",
+  "gender": "Pseudotsuga",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/North_Fork_Skykomish_Trail_0211.jpg/1280px-North_Fork_Skykomish_Trail_0211.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T13:20:01.923Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644683467b1c84cbd9ba47c0"
+  },
+  "scientific_name": "Sequoia sempervirens",
+  "common_name": "Coastal Redwood",
+  "description": "The native range of this species is SW. Oregon to W. California. It is a tree and grows primarily in the temperate biome. It is used as a medicine and has environmental uses. ",
+  "category": {
+    "$oid": "64424f18f6b57526de0652e5"
+  },
+  "user": {
+    "$oid": "644634e85b73a6a456d38721"
+  },
+  "division": "Pinophyta",
+  "family": "Cupressaceae",
+  "gender": "Sequoia",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/0/09/Sequoyas_del_Monte_Cabez%C3%B3n.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T13:25:26.246Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "644683df7b1c84cbd9ba47c3"
+  },
+  "scientific_name": "Thuja occidentalis",
+  "common_name": "Arbor Vitae",
+  "description": "The native range of this species is Central & E. Canada to N. Central & E. U.S.A. It is a tree and grows primarily in the temperate biome. It is used as a medicine, has environmental uses and for food.",
+  "category": {
+    "$oid": "64424f18f6b57526de0652e5"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Pinophyta",
+  "family": "Cupressaceae",
+  "gender": "Thuja",
+  "state_conservation": "Low risk",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Thuja_occidentalis1.jpg/1280px-Thuja_occidentalis1.jpg",
+  "images": [],
+  "isVerified": "false",
+  "dateCreated": {
+    "$date": "2023-04-24T13:27:59.723Z"
+  },
+  "__v": 0
+}]

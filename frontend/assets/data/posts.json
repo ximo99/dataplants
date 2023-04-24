@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "6445151e76c6ece4b46503be"
+  },
+  "specie": {
+    "$oid": "64425ba5981e5aeb9f96116f"
+  },
+  "description": "I have found a specimen of Salvia rosmarinus, in the area of the Tagus mouth Natural Park, in Portugal. It was a very large specimen, as it was in a humid area.",
+  "location": "Portugal",
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "image": "http://localhost:3000/public/upload/salvia_rosmarinus_2.jpg-1682248990471.jpeg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-04-23T11:23:10.701Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6445170d0f1e6cd62f4e9742"
+  },
+  "specie": {
+    "$oid": "64426338bf2fa0add3e77fcf"
+  },
+  "description": "While exploring Uyluk Hill in Turkey, I came across a beautiful specimen of Tulipa gesneriana. The plant had a tall, slender stem with a large, cup-shaped flower at the top, which was about 12 centimeters in diameter. The flower had vibrant red petals with a distinct yellow and black center, which contrasted beautifully with the green foliage. The plant was growing in a rocky, dry area, surrounded by other wildflowers. It was a stunning sight and a true testament to the resilience of this species in harsh environments.",
+  "location": "Turkey",
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "image": "http://localhost:3000/public/upload/salvia_rosmarinus_2.jpg-1682249484846.jpeg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-04-23T11:31:25.079Z"
+  },
+  "__v": 0
+}]

@@ -9,6 +9,7 @@ const { Category } = require("./category");
 const specieSchema = mongoose.Schema({
   scientific_name: {
     type: String,
+    unique: true,
     required: true,
   },
   common_name: {

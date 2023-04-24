@@ -1,0 +1,86 @@
+import React from "react";
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Dimensions,
+} from "react-native";
+
+// screen width definition
+var { width } = Dimensions.get("window");
+
+const SpecieCard = (props) => {
+  const {
+    scientific_name,
+    common_name,
+    description,
+    category,
+    user,
+    division,
+    family,
+    gender,
+    state_conservation,
+    image,
+    isVerified,
+  } = props;
+
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        resizeMode="cover"
+        source={{
+          uri: image
+            ? image
+            : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
+        }}
+      />
+      
+      <View style={styles.card} />
+      <Text style={styles.title}>
+        {common_name.length > 15
+          ? common_name.substring(0, 15 - 3) + "..."
+          : common_name}
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: width / 2 - 20,
+    height: width / 2,
+    borderRadius: 10,
+    marginVertical: 25,
+    marginHorizontal: 10,
+    alignItems: "center",
+    overflow: "hidden",
+    elevation: 3,
+    backgroundColor: "#2ea082",
+  },
+  image: {
+    width: "100%",
+    height: 170,
+    backgroundColor: "transparent",
+    position: "absolute",
+    top: 0,
+  },
+  card: {
+    marginBottom: 5,
+    marginTop: 160,
+    height: width / 2 - 20 - 240,
+    backgroundColor: "transparent",
+  },
+  title: {
+    fontWeight: "bold",
+    color: "black",
+    fontSize: 16,
+    textAlign: "center",
+    marginVertical: 10,
+  },
+});
+
+export default SpecieCard;
