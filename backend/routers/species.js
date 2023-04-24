@@ -199,7 +199,6 @@ router.put("/:id", authUser(), async (req, res) => {
   res.send(specie);
 });
 
-
 // put path to update the array images
 router.put(
   "/gallery-images/:id",
