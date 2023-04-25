@@ -3,6 +3,8 @@ import React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Badge, Text } from "native-base";
 
+import colors from "../../assets/common/colors";
+
 const CategoryFilter = (props) => {
   return (
     <ScrollView
@@ -58,16 +60,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   active: {
-    backgroundColor: "#69c16f",
+    backgroundColor: colors.secondary,
     borderRadius: 25,
   },
   inactive: {
-    backgroundColor: "#2ea082",
+    backgroundColor: colors.primary,
     borderRadius: 25,
   },
   text: {
     color: "white",
-    fontFamily: "Lato",
+    fontFamily: 'Lato',
     fontWeight: "bold",
     fontSize: 14,
   },

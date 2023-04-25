@@ -10,6 +10,8 @@ import {
 import { Text } from "native-base";
 import { useFonts } from "expo-font";
 
+import colors from "../../assets/common/colors";
+
 // screen width definition
 var { width } = Dimensions.get("window");
 
@@ -27,16 +29,6 @@ const SpecieCard = (props) => {
     image,
     isVerified,
   } = props;
-
-  const [fontsLoaded] = useFonts({
-    DelaGothicOne: require("../../assets/fonts/Dela_Gothic_One/DelaGothicOne-Regular.ttf"),
-    Lato: require("../../assets/fonts/Lato/Lato-Regular.ttf"),
-    Arsenal: require("../../assets/fonts/Arsenal/Arsenal-Regular.ttf"),
-    ArsenalBold: require("../../assets/fonts/Arsenal/Arsenal-Bold.ttf"),
-    ArsenalItalic: require("../../assets/fonts/Arsenal/Arsenal-Italic.ttf"),
-  });
-
-  if(!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
@@ -70,7 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     elevation: 3,
-    backgroundColor: "#2ea082",
+    backgroundColor: colors.primary,
   },
   image: {
     width: "100%",
@@ -90,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginVertical: 13,
-    fontFamily: "Lato",
+    fontFamily: 'Lato',
     fontWeight: 'bold'
   },
 });

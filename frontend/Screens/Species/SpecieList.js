@@ -1,6 +1,8 @@
 import React from "react";
 import { TouchableOpacity, View, Dimensions } from "react-native";
 
+import colors from "../../assets/common/colors";
+
 // import screens
 import SpecieCard from "./SpecieCard";
 
@@ -11,7 +13,11 @@ const SpecieList = (props) => {
   const { item } = props;
 
   return (
-    <TouchableOpacity style={{ width: "50%" }} activeOpacity={0.9}>
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate("Specie Detail", { item: item })}
+      style={{ width: "50%" }}
+      activeOpacity={0.9}
+    >
       <View style={{ width: width / 2, backgroundColor: "#515760" }}>
         <SpecieCard {...item} />
       </View>

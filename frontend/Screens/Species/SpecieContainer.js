@@ -6,9 +6,8 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { Box, HStack, Input, ScrollView, Text } from "native-base";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useFonts } from "expo-font";
+import { Box, HStack, Input, ScrollView, Text } from "native-base";
 
 // import screens
 import SpecieList from "./SpecieList";
@@ -17,13 +16,15 @@ import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 
 // import data
-const data = require("../../assets/data/species.json");
-const speciesCategories = require("../../assets/data/categories.json");
+import data from '../../assets/data/species.json'
+import speciesCategories from '../../assets/data/categories.json'
+import colors from '../../assets/common/colors';
+
 
 // screen height definition
 var { height } = Dimensions.get("window");
 
-const SpecieContainer = () => {
+const SpecieContainer = (props) => {
   const [species, setSpecies] = useState([]);
   const [speciesFiltered, setSpeciesFiltered] = useState([]);
   const [focus, setFocus] = useState([]);
@@ -83,23 +84,14 @@ const SpecieContainer = () => {
     }
   };
 
-  // font definition
-  const [fontsLoaded] = useFonts({
-    DelaGothicOne: require("../../assets/fonts/Dela_Gothic_One/DelaGothicOne-Regular.ttf"),
-    Lato: require("../../assets/fonts/Lato/Lato-Regular.ttf"),
-    Arsenal: require("../../assets/fonts/Arsenal/Arsenal-Regular.ttf"),
-  });
-
-  if (!fontsLoaded) return null;
-
   return (
-    <View style={{ flex: 1, backgroundColor: "#515760" }}>
+    <View style={styles.searchBarContainer}>
       <HStack style={styles.searchBar}>
         <Box flex={1} style={styles.boxSearch}>
           <Input
             placeholder="Search"
             style={styles.inputSearch}
-            placeholderTextColor="#646464"
+            placeholderTextColor={colors.search}
             onFocus={openList}
             onChangeText={(text) => {
               searchSpecies(text);
@@ -108,7 +100,7 @@ const SpecieContainer = () => {
               <FontAwesome
                 name="search"
                 size={20}
-                color="#646464"
+                color={colors.search}
                 paddingLeft={15}
               />
             }
@@ -118,7 +110,7 @@ const SpecieContainer = () => {
                   onPress={onBlur}
                   name="times"
                   size={20}
-                  color="#646464"
+                  color={colors.search}
                   paddingRight={10}
                 />
               )
@@ -150,7 +142,7 @@ const SpecieContainer = () => {
               {speciesCtg.map((item) => {
                 return (
                   <SpecieList
-                    //navigation={props.navigation}
+                    navigation={props.navigation}
                     key={item._id.$oid}
                     item={item}
                   />
@@ -159,12 +151,7 @@ const SpecieContainer = () => {
             </View>
           ) : (
             <View>
-              <Text
-                style={[
-                  { alignSelf: "center" },
-                  styles.text,
-                ]}
-              >
+              <Text style={[{ alignSelf: "center" }, styles.text]}>
                 No species found
               </Text>
             </View>
@@ -177,13 +164,16 @@ const SpecieContainer = () => {
 };
 
 const styles = StyleSheet.create({
+  searchBarContainer: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   searchBar: {
     paddingHorizontal: 10,
     paddingTop: 10,
   },
   boxSearch: {
-    backgroundColor: "#c8c8c8",
-    borderColor: "#c8c8c8",
+    backgroundColor: colors.grey,
     borderRadius: 5,
   },
   inputSearch: {
@@ -193,7 +183,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#515760",
+    backgroundColor: colors.background,
   },
   listContainer: {
     flex: 1,
