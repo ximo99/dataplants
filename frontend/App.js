@@ -30,8 +30,8 @@ function App() {
 
   return (
     <Auth>
-      <Provider store={store}>
-        <NativeBaseProvider>
+      <Provider store={store} >
+        <NativeBaseProvider >
           <NavigationContainer>
             <StatusBar backgroundColor="#515760" barStyle="dark-content" />
             <SpecieContainer />

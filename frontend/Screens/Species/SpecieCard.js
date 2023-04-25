@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginVertical: 13,
-    fontFamily: "ArsenalBold",
+    fontFamily: "Lato",
+    fontWeight: 'bold'
   },
 });
 

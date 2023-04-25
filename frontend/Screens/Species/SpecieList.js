@@ -11,7 +11,7 @@ const SpecieList = (props) => {
   const { item } = props;
 
   return (
-    <TouchableOpacity style={{ width: "50%" }}>
+    <TouchableOpacity style={{ width: "50%" }} activeOpacity={0.9}>
       <View style={{ width: width / 2, backgroundColor: "#515760" }}>
         <SpecieCard {...item} />
       </View>
