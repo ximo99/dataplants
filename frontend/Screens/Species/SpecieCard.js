@@ -3,11 +3,12 @@ import {
   Button,
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   Dimensions,
 } from "react-native";
+import { Text } from "native-base";
+import { useFonts } from "expo-font";
 
 // screen width definition
 var { width } = Dimensions.get("window");
@@ -27,6 +28,16 @@ const SpecieCard = (props) => {
     isVerified,
   } = props;
 
+  const [fontsLoaded] = useFonts({
+    DelaGothicOne: require("../../assets/fonts/Dela_Gothic_One/DelaGothicOne-Regular.ttf"),
+    Lato: require("../../assets/fonts/Lato/Lato-Regular.ttf"),
+    Arsenal: require("../../assets/fonts/Arsenal/Arsenal-Regular.ttf"),
+    ArsenalBold: require("../../assets/fonts/Arsenal/Arsenal-Bold.ttf"),
+    ArsenalItalic: require("../../assets/fonts/Arsenal/Arsenal-Italic.ttf"),
+  });
+
+  if(!fontsLoaded) return null;
+
   return (
     <View style={styles.container}>
       <Image
@@ -42,7 +53,7 @@ const SpecieCard = (props) => {
       <View style={styles.card} />
       <Text style={styles.title}>
         {common_name.length > 15
-          ? common_name.substring(0, 15 - 3) + "..."
+          ? common_name.substring(0, 20 - 3) + "..."
           : common_name}
       </Text>
     </View>
@@ -75,11 +86,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   title: {
-    fontWeight: "bold",
-    color: "black",
-    fontSize: 16,
+    color: "white",
+    fontSize: 20,
     textAlign: "center",
-    marginVertical: 10,
+    marginVertical: 13,
+    fontFamily: "ArsenalBold",
   },
 });
 
