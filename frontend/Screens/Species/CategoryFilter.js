@@ -3,6 +3,7 @@ import React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Badge, Text } from "native-base";
 
+// import data
 import colors from "../../assets/common/colors";
 
 const CategoryFilter = (props) => {
@@ -69,7 +70,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontFamily: 'Lato',
     fontWeight: "bold",
     fontSize: 14,
   },

@@ -8,8 +8,8 @@ import {
   Dimensions,
 } from "react-native";
 import { Text } from "native-base";
-import { useFonts } from "expo-font";
 
+// import data
 import colors from "../../assets/common/colors";
 
 // screen width definition
@@ -41,7 +41,7 @@ const SpecieCard = (props) => {
             : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
         }}
       />
-      
+
       <View style={styles.card} />
       <Text style={styles.title}>
         {common_name.length > 15
@@ -82,8 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginVertical: 13,
-    fontFamily: 'Lato',
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
 });
 

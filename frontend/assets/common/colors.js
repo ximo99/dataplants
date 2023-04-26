@@ -5,6 +5,7 @@ const colors = {
   background: "#515760",
   search: "#646464",
   grey: "#c8c8c8",
+  green: "#5cb85c"
 };
 
 export default colors;

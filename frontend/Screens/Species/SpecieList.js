@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View, Dimensions } from "react-native";
 
+// import data
 import colors from "../../assets/common/colors";
 
 // import screens

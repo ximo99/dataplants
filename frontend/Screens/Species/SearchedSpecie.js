@@ -2,8 +2,8 @@
 import React from "react";
 import { Dimensions, TouchableOpacity, StyleSheet, View } from "react-native";
 import { Avatar, VStack, HStack, Image, Text, ScrollView } from "native-base";
-import { useFonts } from "expo-font";
 
+// import data
 import colors from "../../assets/common/colors";
 
 // screen width definition
@@ -20,7 +20,9 @@ const SearchedSpecies = (props) => {
             speciesFiltered.map((item) => (
               <TouchableOpacity
                 key={item._id.$oid}
-                //onPress={}
+                onPress={() =>
+                  props.navigation.navigate("Specie Detail", { item: item })
+                }
               >
                 <HStack style={styles.items}>
                   <Avatar
@@ -66,19 +68,16 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontFamily: 'Lato',
     fontSize: 16,
   },
   noSpecies: {
     color: "white",
-    fontFamily: 'Lato',
     alignSelf: "center",
     marginVertical: 20,
     fontSize: 20,
   },
   subtitle: {
     color: colors.grey,
-    fontFamily: 'Lato',
     fontSize: 14,
   },
   center: {

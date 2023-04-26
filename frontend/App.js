@@ -4,7 +4,6 @@ import { LogBox, StatusBar } from "react-native";
 import { Provider } from "react-redux";
 import { NativeBaseProvider, Toast } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 
 // import navigatiors
 import Main from "./Navigators/Main";
@@ -24,15 +23,6 @@ function App() {
       Toast.setRef(toastRef.current);
     }
   }, [toastRef]);
-  
-  // font definition
-  const [fontsLoaded] = useFonts({
-    DelaGothicOne: require("./assets/fonts/DelaGothicOne.ttf"),
-    Lato: require("./assets/fonts/Lato.ttf"),
-    Arsenal: require("./assets/fonts/Arsenal.ttf"),
-  });
-
-  if (!fontsLoaded) return null;
 
   return (
     <Auth>

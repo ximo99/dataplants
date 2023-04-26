@@ -60,7 +60,7 @@ const specieSchema = mongoose.Schema({
     },
   ],
   isVerified: {
-    type: String,
+    type: Boolean,
     default: false,
   },
   dateCreated: {

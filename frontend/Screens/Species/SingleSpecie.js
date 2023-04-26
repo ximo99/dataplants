@@ -1,18 +1,42 @@
-// import dependencies
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Box, Button, HStack, ScrollView, Toast } from "native-base";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
+// import data
+import colors from "../../assets/common/colors";
+
+// screen width definition
+var { width, height } = Dimensions.get("window");
 
 const SingleSpecie = (props) => {
   const [item, setItem] = useState(props.route.params.item);
   const [availability, setAvailability] = useState(null);
-  const [availabilityText, setAvailabilityText] = useState("");
 
   return (
     <Box style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 80, padding: 5 }}>
-        <View>
+      <ScrollView>
+        <View style={styles.info}>
+          {item.isVerified === "true" ? null : (
+            <View style={styles.verifyIcon}>
+              <Icon name="exclamation-triangle" color={"yellow"} size={30} />
+              <Text style={styles.verifyText}>
+                This information isn't verified
+              </Text>
+            </View>
+          )}
+          <Text style={styles.title}>{item.scientific_name}</Text>
+          <Text style={styles.subtitle}>{item.common_name}</Text>
+          <Text style={styles.conservation}>State conservation</Text>
+        </View>
+
+        <View style={styles.info}>
+          <Text style={styles.others}>Division: {item.division}</Text>
+          <Text style={styles.others}>Family: {item.family}</Text>
+          <Text style={styles.others}>Gender: {item.gender}</Text>
+        </View>
+
+        <View style={{ marginHorizontal: 20 }}>
           <Image
             style={styles.image}
             source={{
@@ -20,8 +44,14 @@ const SingleSpecie = (props) => {
                 ? item.image
                 : "https://cdn.pixabay.com/photo/2014/03/24/17/06/box-295029_1280.png",
             }}
-            resizeMode="contain"
           />
+        </View>
+
+        <View style={styles.info}>
+          <Text style={styles.others}>Description:</Text>
+          <Text style={[styles.others, { textAlign: "justify" }]}>
+            {item.description}
+          </Text>
         </View>
       </ScrollView>
     </Box>
@@ -30,55 +60,49 @@ const SingleSpecie = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
     height: "100%",
+    backgroundColor: colors.background,
   },
-  imageContainer: {
-    backgroundColor: "white",
-    padding: 0,
-    margin: 0,
+  verifyIcon: {
+    flexDirection: "column",
+    alignItems: "flex-end",
+    right: 0,
+    position: "absolute",
+  },
+  verifyText: {
+    fontSize: 15,
+    color: colors.grey,
+    textAlign: "right",
+    width: 125,
+    marginTop: 5,
   },
   image: {
+    height: 300,
     width: "100%",
-    height: 250,
-  },
-  contentContainer: {
-    marginTop: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  contentHeader: {
-    fontSize: 24,
-    fontWeight: "bold",
+    position: "relative",
     marginBottom: 20,
+    borderRadius: 10,
   },
-  contentText: {
+  info: {
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+  title: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+  },
+  subtitle: {
+    color: colors.grey,
+    fontSize: 20,
+  },
+  others: {
+    color: colors.grey,
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
   },
-  bottomContainer: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    width: "100%",
-  },
-  price: {
-    fontSize: 24,
-    color: "red",
-  },
-  availabilityContainer: {
-    marginBottom: 60,
-    alignItems: "center",
-  },
-  availability: {
-    flexDirection: "row",
-    marginBottom: 10,
+  conservation: {
+    color: colors.grey,
+    fontSize: 15,
   },
 });
 

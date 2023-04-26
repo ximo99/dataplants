@@ -8,18 +8,15 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Box, HStack, Input, ScrollView, Text } from "native-base";
-
 // import screens
 import SpecieList from "./SpecieList";
 import SearchedSpecies from "./SearchedSpecie";
-import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 
 // import data
-import data from '../../assets/data/species.json'
-import speciesCategories from '../../assets/data/categories.json'
-import colors from '../../assets/common/colors';
-
+import data from "../../assets/data/species.json";
+import speciesCategories from "../../assets/data/categories.json";
+import colors from "../../assets/common/colors";
 
 // screen height definition
 var { height } = Dimensions.get("window");
@@ -121,7 +118,10 @@ const SpecieContainer = (props) => {
 
       {focus == true ? (
         <View>
-          <SearchedSpecies speciesFiltered={speciesFiltered} />
+          <SearchedSpecies
+            navigation={props.navigation}
+            speciesFiltered={speciesFiltered}
+          />
         </View>
       ) : (
         <ScrollView>
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
   },
   inputSearch: {
     fontSize: 18,
-    fontFamily: "Lato",
     width: "100%",
   },
   container: {
@@ -194,7 +193,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontFamily: "Lato",
     fontSize: 20,
     marginVertical: 20,
   },
