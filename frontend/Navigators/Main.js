@@ -5,11 +5,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // import navigators
-import SpeciesNavigator from "./Species";
-import PostsNavigator from "./PostsNavigator";
+import SpecieNavigator from "./SpecieNavigator";
+import PostNavigator from "./PostNavigator";
 import AdminNavigator from "./AdminNavigator";
 import UserNavigator from "./UserNavigator";
-import HomeNavigator from "./HomeNavigator";
 
 // import context API
 import AuthGlobal from "../Context/store/AuthGlobal";
@@ -21,7 +20,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Posts"
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -38,8 +37,8 @@ const Main = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeNavigator}
+        name="Posts"
+        component={PostNavigator}
         options={{
           
           tabBarIcon: ({ color }) => (
@@ -55,7 +54,7 @@ const Main = () => {
 
       <Tab.Screen
         name="Species"
-        component={HomeNavigator}
+        component={SpecieNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <View>
@@ -74,7 +73,7 @@ const Main = () => {
         context.stateUser.user.isAdmin == true ? ( */}
       <Tab.Screen
         name="Admin"
-        component={HomeNavigator}
+        component={SpecieNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="cog" color={color} size={30} />
@@ -86,7 +85,7 @@ const Main = () => {
 
       <Tab.Screen
         name="User"
-        component={HomeNavigator}
+        component={SpecieNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="user" color={color} size={30} />

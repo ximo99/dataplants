@@ -82,7 +82,7 @@ const SpecieContainer = (props) => {
   };
 
   return (
-    <View style={styles.searchBarContainer}>
+    <View style={styles.container}>
       <HStack style={styles.searchBar}>
         <Box flex={1} style={styles.boxSearch}>
           <Input
@@ -127,8 +127,6 @@ const SpecieContainer = (props) => {
         <ScrollView>
           <View>
             <CategoryFilter
-              //paddingHorizontal={20}
-              //marginHorizontal={20}
               categories={categories}
               categoryFilter={changeCtg}
               speciesCtg={speciesCtg}
@@ -156,7 +154,6 @@ const SpecieContainer = (props) => {
               </Text>
             </View>
           )}
-          <View style={styles.container}></View>
         </ScrollView>
       )}
     </View>
@@ -164,13 +161,14 @@ const SpecieContainer = (props) => {
 };
 
 const styles = StyleSheet.create({
-  searchBarContainer: {
+  container: {
     flex: 1,
     backgroundColor: colors.background,
   },
   searchBar: {
     paddingHorizontal: 10,
     paddingTop: 10,
+    marginBottom: 10,
   },
   boxSearch: {
     backgroundColor: colors.grey,
@@ -180,16 +178,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     width: "100%",
   },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
   listContainer: {
     flex: 1,
     height: height * 1.4,
     flexDirection: "row",
     alignItems: "flex-start",
     flexWrap: "wrap",
+    marginBottom: 50,
   },
   text: {
     color: "white",

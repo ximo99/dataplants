@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     width: width / 2 - 20,
     height: width / 2,
     borderRadius: 10,
-    marginVertical: 25,
+    marginVertical: 15,
     marginHorizontal: 10,
     alignItems: "center",
     overflow: "hidden",

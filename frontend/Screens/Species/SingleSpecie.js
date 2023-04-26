@@ -3,6 +3,7 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Box, Button, HStack, ScrollView, Toast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
+
 // import data
 import colors from "../../assets/common/colors";
 
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
     fontWeight: "bold",
+    fontStyle: "italic",
   },
   subtitle: {
     color: colors.grey,

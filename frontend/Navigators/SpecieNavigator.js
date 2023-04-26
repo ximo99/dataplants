@@ -12,7 +12,7 @@ function MyStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Specice Container"
+        name="Specie Container"
         component={SpecieContainer}
         options={{
           headerShown: false,
@@ -30,6 +30,6 @@ function MyStack() {
   );
 }
 
-export default function HomeNavigator() {
+export default function SpecieNavigator() {
   return <MyStack />;
 }

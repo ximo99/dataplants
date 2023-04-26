@@ -40,7 +40,6 @@ const CategoryFilter = (props) => {
           <Badge
             style={[
               styles.center,
-
               { margin: 5 },
               props.active == props.categories.indexOf(item)
                 ? styles.active
@@ -76,4 +75,3 @@ const styles = StyleSheet.create({
 });
 
 export default CategoryFilter;
-

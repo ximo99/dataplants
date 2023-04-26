@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 16,
+    fontStyle: "italic",
   },
   noSpecies: {
     color: "white",
