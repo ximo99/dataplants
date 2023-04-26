@@ -80,7 +80,7 @@ const PostCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: width - 20,
-    height: width / 1.5,
+    height: width / 1.45,
     borderRadius: 10,
     marginVertical: 15,
     marginHorizontal: 10,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 280,
+    height: 285,
     backgroundColor: "transparent",
     position: "absolute",
     top: 0,

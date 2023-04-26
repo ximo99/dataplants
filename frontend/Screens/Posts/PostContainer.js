@@ -25,7 +25,9 @@ const PostContainer = () => {
   const [focus, setFocus] = useState([]);
 
   useEffect(() => {
-    const sortedData = data.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
+    const sortedData = data.sort(
+      (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
+    );
 
     const lastThreePosts = sortedData.slice(0, 20);
 
@@ -44,7 +46,10 @@ const PostContainer = () => {
   const searchPosts = (text) => {
     setPostsFiltered(
       posts.filter((i) =>
-        i.specie.scientific_name.toLowerCase().includes(text.toLowerCase())
+        i.specie.scientific_name.toLowerCase().includes(text.toLowerCase()) ||
+        i.specie.common_name.toLowerCase().includes(text.toLowerCase()) ||
+        i.user.name.toLowerCase().includes(text.toLowerCase()) ||
+        i.location.toLowerCase().includes(text.toLowerCase())
       )
     );
   };
@@ -92,16 +97,11 @@ const PostContainer = () => {
         </Box>
       </HStack>
 
-      <ScrollView>
-        <FlatList
-        style={styles.listContainer}
-          data={postsFiltered}
-          renderItem={({ item }) => (
-            <PostList key={item._id.$oid} item={item} />
-          )}
-          keyExtractor={(item) => item._id}
-        />
-      </ScrollView>
+      <FlatList
+        data={postsFiltered}
+        renderItem={({ item }) => <PostList key={item._id.$oid} item={item} />}
+        keyExtractor={(item) => item._id}
+      />
     </View>
   );
 };
