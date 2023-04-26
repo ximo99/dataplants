@@ -19,7 +19,7 @@ const SearchedSpecies = (props) => {
           {speciesFiltered.length > 0 ? (
             speciesFiltered.map((item) => (
               <TouchableOpacity
-                key={item._id.$oid}
+                key={item._id}
                 onPress={() =>
                   props.navigation.navigate("Specie Detail", { item: item })
                 }

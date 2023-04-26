@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -8,12 +8,14 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Box, HStack, Input, ScrollView, Text } from "native-base";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
 
 // import screens
 import PostList from "./PostList";
 
 // import data
-import data from "../../assets/data/posts.json";
+import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 
 // screen height definition
@@ -23,33 +25,42 @@ const PostContainer = () => {
   const [posts, setPosts] = useState([]);
   const [postsFiltered, setPostsFiltered] = useState([]);
   const [focus, setFocus] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const sortedData = data.sort(
-      (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
-    );
+  useFocusEffect(
+    useCallback(() => {
+      setFocus(false);
 
-    const lastThreePosts = sortedData.slice(0, 20);
+      // posts
+      axios.get(`${baseURL}posts`).then((res) => {
+        const sortedData = res.data.sort(
+          (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
+        );
 
-    setPosts(lastThreePosts);
-    setPostsFiltered(lastThreePosts);
-    setFocus(false);
+        const lastPosts = sortedData.slice(0, 20);
 
-    return () => {
-      setPosts([]);
-      setPostsFiltered([]);
-      setFocus([]);
-    };
-  }, []);
+        setPosts(lastPosts);
+        setPostsFiltered(lastPosts);
+        setLoading(false);
+      });
+
+      return () => {
+        setPosts([]);
+        setPostsFiltered([]);
+        setFocus([]);
+      };
+    }, [])
+  );
 
   // posts methods
   const searchPosts = (text) => {
     setPostsFiltered(
-      posts.filter((i) =>
-        i.specie.scientific_name.toLowerCase().includes(text.toLowerCase()) ||
-        i.specie.common_name.toLowerCase().includes(text.toLowerCase()) ||
-        i.user.name.toLowerCase().includes(text.toLowerCase()) ||
-        i.location.toLowerCase().includes(text.toLowerCase())
+      posts.filter(
+        (i) =>
+          i.specie.scientific_name.toLowerCase().includes(text.toLowerCase()) ||
+          i.specie.common_name.toLowerCase().includes(text.toLowerCase()) ||
+          i.user.name.toLowerCase().includes(text.toLowerCase()) ||
+          i.location.toLowerCase().includes(text.toLowerCase())
       )
     );
   };
@@ -63,46 +74,66 @@ const PostContainer = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <HStack style={styles.searchBar}>
-        <Box flex={1} style={styles.boxSearch}>
-          <Input
-            placeholder="Search"
-            style={styles.inputSearch}
-            placeholderTextColor={colors.search}
-            onFocus={openList}
-            onChangeText={(text) => {
-              searchPosts(text);
-            }}
-            InputLeftElement={
-              <FontAwesome
-                name="search"
-                size={20}
-                color={colors.search}
-                paddingLeft={15}
+    <>
+      {loading == false ? (
+        <View style={styles.container}>
+          <HStack style={styles.searchBar}>
+            <Box flex={1} style={styles.boxSearch}>
+              <Input
+                placeholder="Search"
+                style={styles.inputSearch}
+                placeholderTextColor={colors.search}
+                onFocus={openList}
+                onChangeText={(text) => {
+                  searchPosts(text);
+                }}
+                InputLeftElement={
+                  <FontAwesome
+                    name="search"
+                    size={20}
+                    color={colors.search}
+                    paddingLeft={15}
+                  />
+                }
+                InputRightElement={
+                  focus && (
+                    <FontAwesome
+                      onPress={onBlur}
+                      name="times"
+                      size={20}
+                      color={colors.search}
+                      paddingRight={10}
+                    />
+                  )
+                }
               />
-            }
-            InputRightElement={
-              focus && (
-                <FontAwesome
-                  onPress={onBlur}
-                  name="times"
-                  size={20}
-                  color={colors.search}
-                  paddingRight={10}
-                />
-              )
-            }
+            </Box>
+          </HStack>
+
+          <FlatList
+            data={postsFiltered}
+            renderItem={({ item }) => (
+              <PostList key={item._id.$oid} item={item} />
+            )}
+            keyExtractor={(item) => item._id}
+          />
+        </View>
+      ) : (
+        //Loading
+        <Box
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          bgColor="#515760"
+        >
+          <ActivityIndicator
+            size="large"
+            backgroundColor="#515760"
+            color="#5cb85c"
           />
         </Box>
-      </HStack>
-
-      <FlatList
-        data={postsFiltered}
-        renderItem={({ item }) => <PostList key={item._id.$oid} item={item} />}
-        keyExtractor={(item) => item._id}
-      />
-    </View>
+      )}
+    </>
   );
 };
 

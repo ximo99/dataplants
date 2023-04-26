@@ -29,27 +29,30 @@ const CategoryFilter = (props) => {
           <Text style={styles.text}>All species</Text>
         </Badge>
       </TouchableOpacity>
-      {props.categories.map((item) => (
-        <TouchableOpacity
-          key={item._id.$oid}
-          onPress={() => {
-            props.categoryFilter(item._id.$oid),
-              props.setActive(props.categories.indexOf(item));
-          }}
-        >
-          <Badge
-            style={[
-              styles.center,
-              { margin: 5 },
-              props.active == props.categories.indexOf(item)
-                ? styles.active
-                : styles.inactive,
-            ]}
+      {props.categories
+        .slice()
+        .reverse()
+        .map((item) => (
+          <TouchableOpacity
+            key={item._id}
+            onPress={() => {
+              props.categoryFilter(item._id),
+                props.setActive(props.categories.indexOf(item));
+            }}
           >
-            <Text style={styles.text}>{item.name}</Text>
-          </Badge>
-        </TouchableOpacity>
-      ))}
+            <Badge
+              style={[
+                styles.center,
+                { margin: 5 },
+                props.active == props.categories.indexOf(item)
+                  ? styles.active
+                  : styles.inactive,
+              ]}
+            >
+              <Text style={styles.text}>{item.name}</Text>
+            </Badge>
+          </TouchableOpacity>
+        ))}
     </ScrollView>
   );
 };

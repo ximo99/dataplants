@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -8,14 +8,16 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Box, HStack, Input, ScrollView, Text } from "native-base";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
+
 // import screens
 import SpecieList from "./SpecieList";
 import SearchedSpecies from "./SearchedSpecie";
 import CategoryFilter from "./CategoryFilter";
 
 // import data
-import data from "../../assets/data/species.json";
-import speciesCategories from "../../assets/data/categories.json";
+import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 
 // screen height definition
@@ -29,26 +31,42 @@ const SpecieContainer = (props) => {
   const [speciesCtg, setSpeciesCtg] = useState([]);
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setSpecies(data);
-    setSpeciesFiltered(data);
-    setFocus(false);
-    setCategories(speciesCategories);
-    setSpeciesCtg(data);
-    setActive(-1);
-    setInitialState(data);
+  useFocusEffect(
+    useCallback(() => {
+      setFocus(false);
+      setActive(-1);
 
-    return () => {
-      setSpecies([]);
-      setSpeciesFiltered([]);
-      setFocus([]);
-      setCategories([]);
-      setActive([]);
-      setInitialState();
-    };
-  }, []);
+      // species
+      axios.get(`${baseURL}species`).then((res) => {
+        setSpecies(res.data);
+        setSpeciesFiltered(res.data);
+        setSpeciesCtg(res.data);
+        setInitialState(res.data);
+        setLoading(false);
+      });
+
+      // categories
+      axios
+        .get(`${baseURL}categories`)
+        .then((res) => {
+          setCategories(res.data);
+        })
+        .catch((error) => {
+          console.log("API call error");
+        });
+
+      return () => {
+        setSpecies([]);
+        setSpeciesFiltered([]);
+        setFocus([]);
+        setCategories([]);
+        setActive([]);
+        setInitialState();
+      };
+    }, [])
+  );
 
   // species methods
   const searchSpecies = (text) => {
@@ -75,88 +93,106 @@ const SpecieContainer = (props) => {
       ctg === "all"
         ? [setSpeciesCtg(initialState), setActive(true)]
         : [
-            setSpeciesCtg(species.filter((i) => i.category.$oid === ctg)),
+            setSpeciesCtg(species.filter((i) => i.category._id === ctg)),
             setActive(true),
           ];
     }
   };
 
   return (
-    <View style={styles.container}>
-      <HStack style={styles.searchBar}>
-        <Box flex={1} style={styles.boxSearch}>
-          <Input
-            placeholder="Search"
-            style={styles.inputSearch}
-            placeholderTextColor={colors.search}
-            onFocus={openList}
-            onChangeText={(text) => {
-              searchSpecies(text);
-            }}
-            InputLeftElement={
-              <FontAwesome
-                name="search"
-                size={20}
-                color={colors.search}
-                paddingLeft={15}
-              />
-            }
-            InputRightElement={
-              focus && (
-                <FontAwesome
-                  onPress={onBlur}
-                  name="times"
-                  size={20}
-                  color={colors.search}
-                  paddingRight={10}
-                />
-              )
-            }
-          />
-        </Box>
-      </HStack>
-
-      {focus == true ? (
-        <View>
-          <SearchedSpecies
-            navigation={props.navigation}
-            speciesFiltered={speciesFiltered}
-          />
-        </View>
-      ) : (
-        <ScrollView>
-          <View>
-            <CategoryFilter
-              categories={categories}
-              categoryFilter={changeCtg}
-              speciesCtg={speciesCtg}
-              active={active}
-              setActive={setActive}
-            />
-          </View>
-
-          {speciesCtg.length > 0 ? (
-            <View style={styles.listContainer}>
-              {speciesCtg.map((item) => {
-                return (
-                  <SpecieList
-                    navigation={props.navigation}
-                    key={item._id.$oid}
-                    item={item}
+    <>
+      {loading == false ? (
+        <View style={styles.container}>
+          <HStack style={styles.searchBar}>
+            <Box flex={1} style={styles.boxSearch}>
+              <Input
+                placeholder="Search"
+                style={styles.inputSearch}
+                placeholderTextColor={colors.search}
+                onFocus={openList}
+                onChangeText={(text) => {
+                  searchSpecies(text);
+                }}
+                InputLeftElement={
+                  <FontAwesome
+                    name="search"
+                    size={20}
+                    color={colors.search}
+                    paddingLeft={15}
                   />
-                );
-              })}
+                }
+                InputRightElement={
+                  focus && (
+                    <FontAwesome
+                      onPress={onBlur}
+                      name="times"
+                      size={20}
+                      color={colors.search}
+                      paddingRight={10}
+                    />
+                  )
+                }
+              />
+            </Box>
+          </HStack>
+
+          {focus == true ? (
+            <View>
+              <SearchedSpecies
+                navigation={props.navigation}
+                speciesFiltered={speciesFiltered}
+              />
             </View>
           ) : (
-            <View>
-              <Text style={[{ alignSelf: "center" }, styles.text]}>
-                No species found
-              </Text>
-            </View>
+            <ScrollView>
+              <View>
+                <CategoryFilter
+                  categories={categories}
+                  categoryFilter={changeCtg}
+                  speciesCtg={speciesCtg}
+                  active={active}
+                  setActive={setActive}
+                />
+              </View>
+
+              {speciesCtg.length > 0 ? (
+                <View style={styles.listContainer}>
+                  {speciesCtg.map((item) => {
+                    return (
+                      <SpecieList
+                        navigation={props.navigation}
+                        key={item._id}
+                        item={item}
+                      />
+                    );
+                  })}
+                </View>
+              ) : (
+                <View>
+                  <Text style={[{ alignSelf: "center" }, styles.text]}>
+                    No species found
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
           )}
-        </ScrollView>
+        </View>
+      ) : (
+        //Loading
+        <Box
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          bgColor="#515760"
+        >
+          <ActivityIndicator
+            size="large"
+            backgroundColor="#515760"
+            color="#5cb85c"
+          />
+        </Box>
       )}
-    </View>
+    </>
   );
 };
 
