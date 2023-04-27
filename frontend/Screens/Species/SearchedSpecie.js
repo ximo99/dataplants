@@ -17,28 +17,31 @@ const SearchedSpecies = (props) => {
       <ScrollView>
         <VStack style={styles.container}>
           {speciesFiltered.length > 0 ? (
-            speciesFiltered.map((item) => (
-              <TouchableOpacity
-                key={item._id}
-                onPress={() =>
-                  props.navigation.navigate("Specie Detail", { item: item })
-                }
-              >
-                <HStack style={styles.items}>
-                  <Avatar
-                    source={{
-                      uri: item.image
-                        ? item.image
-                        : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
-                    }}
-                  />
-                  <VStack style={styles.content}>
-                    <Text style={styles.title}>{item.scientific_name}</Text>
-                    <Text style={styles.subtitle}>{item.common_name}</Text>
-                  </VStack>
-                </HStack>
-              </TouchableOpacity>
-            ))
+            speciesFiltered
+              .slice()
+              .reverse()
+              .map((item) => (
+                <TouchableOpacity
+                  key={item._id}
+                  onPress={() =>
+                    props.navigation.navigate("Specie Detail", { item: item })
+                  }
+                >
+                  <HStack style={styles.items}>
+                    <Avatar
+                      source={{
+                        uri: item.image
+                          ? item.image
+                          : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
+                      }}
+                    />
+                    <VStack style={styles.content}>
+                      <Text style={styles.title}>{item.scientific_name}</Text>
+                      <Text style={styles.subtitle}>{item.common_name}</Text>
+                    </VStack>
+                  </HStack>
+                </TouchableOpacity>
+              ))
           ) : (
             <View style={styles.center}>
               <Text style={styles.noSpecies}>

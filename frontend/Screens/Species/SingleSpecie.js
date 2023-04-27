@@ -24,22 +24,22 @@ const SingleSpecie = (props) => {
       setAvailability(<TrafficLight gs></TrafficLight>);
       setAvailabilityText("Not threatened");
     } else if (props.route.params.item.state_conservation === "LC") {
-      setAvailability(<TrafficLight lc></TrafficLight>);
+      setAvailability(<TrafficLight lw></TrafficLight>);
       setAvailabilityText("Least Concern");
     } else if (props.route.params.item.state_conservation === "NT") {
-      setAvailability(<TrafficLight nt></TrafficLight>);
+      setAvailability(<TrafficLight lw></TrafficLight>);
       setAvailabilityText("Near Threatened");
     } else if (props.route.params.item.state_conservation === "VU") {
-      setAvailability(<TrafficLight vu></TrafficLight>);
+      setAvailability(<TrafficLight am></TrafficLight>);
       setAvailabilityText("Vulnerable");
     } else if (props.route.params.item.state_conservation === "EN") {
-      setAvailability(<TrafficLight en></TrafficLight>);
+      setAvailability(<TrafficLight cr_am></TrafficLight>);
       setAvailabilityText("Endangered");
     } else if (props.route.params.item.state_conservation === "CR") {
-      setAvailability(<TrafficLight cr></TrafficLight>);
+      setAvailability(<TrafficLight cr_am></TrafficLight>);
       setAvailabilityText("Critically Endangered");
     } else if (props.route.params.item.state_conservation === "EW") {
-      setAvailability(<TrafficLight ew></TrafficLight>);
+      setAvailability(<TrafficLight ex></TrafficLight>);
       setAvailabilityText("Extinct in the wild");
     } else if (props.route.params.item.state_conservation === "EX") {
       setAvailability(<TrafficLight ex></TrafficLight>);

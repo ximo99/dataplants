@@ -32,6 +32,7 @@ const SpecieContainer = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
 
   useFocusEffect(
     useCallback(() => {
@@ -84,6 +85,8 @@ const SpecieContainer = (props) => {
   };
 
   const onBlur = () => {
+    setSearchValue("");
+    setSpeciesFiltered(species);
     setFocus(false);
   };
 
@@ -110,7 +113,9 @@ const SpecieContainer = (props) => {
                 style={styles.inputSearch}
                 placeholderTextColor={colors.search}
                 onFocus={openList}
+                value={searchValue}
                 onChangeText={(text) => {
+                  setSearchValue(text);
                   searchSpecies(text);
                 }}
                 InputLeftElement={
@@ -157,15 +162,18 @@ const SpecieContainer = (props) => {
 
               {speciesCtg.length > 0 ? (
                 <View style={styles.listContainer}>
-                  {speciesCtg.map((item) => {
-                    return (
-                      <SpecieList
-                        navigation={props.navigation}
-                        key={item._id}
-                        item={item}
-                      />
-                    );
-                  })}
+                  {speciesCtg
+                    .slice()
+                    .reverse()
+                    .map((item) => {
+                      return (
+                        <SpecieList
+                          navigation={props.navigation}
+                          key={item._id}
+                          item={item}
+                        />
+                      );
+                    })}
                 </View>
               ) : (
                 <View>

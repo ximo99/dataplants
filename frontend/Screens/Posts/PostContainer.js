@@ -26,6 +26,7 @@ const PostContainer = () => {
   const [postsFiltered, setPostsFiltered] = useState([]);
   const [focus, setFocus] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
 
   useFocusEffect(
     useCallback(() => {
@@ -70,6 +71,8 @@ const PostContainer = () => {
   };
 
   const onBlur = () => {
+    setSearchValue("");
+    setPostsFiltered(posts);
     setFocus(false);
   };
 
@@ -84,7 +87,9 @@ const PostContainer = () => {
                 style={styles.inputSearch}
                 placeholderTextColor={colors.search}
                 onFocus={openList}
+                value={searchValue}
                 onChangeText={(text) => {
+                  setSearchValue(text);
                   searchPosts(text);
                 }}
                 InputLeftElement={
