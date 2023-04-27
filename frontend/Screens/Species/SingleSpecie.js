@@ -7,12 +7,52 @@ import { connect } from "react-redux";
 // import data
 import colors from "../../assets/common/colors";
 
+// import styles
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
+import TrafficLight from "../../Shared/StyledComponents/TrafficLight";
+
 // screen width definition
 var { width, height } = Dimensions.get("window");
 
 const SingleSpecie = (props) => {
   const [item, setItem] = useState(props.route.params.item);
   const [availability, setAvailability] = useState(null);
+  const [availabilityText, setAvailabilityText] = useState("");
+
+  useEffect(() => {
+    if (props.route.params.item.state_conservation === "GS") {
+      setAvailability(<TrafficLight gs></TrafficLight>);
+      setAvailabilityText("Not threatened");
+    } else if (props.route.params.item.state_conservation === "LC") {
+      setAvailability(<TrafficLight lc></TrafficLight>);
+      setAvailabilityText("Least Concern");
+    } else if (props.route.params.item.state_conservation === "NT") {
+      setAvailability(<TrafficLight nt></TrafficLight>);
+      setAvailabilityText("Near Threatened");
+    } else if (props.route.params.item.state_conservation === "VU") {
+      setAvailability(<TrafficLight vu></TrafficLight>);
+      setAvailabilityText("Vulnerable");
+    } else if (props.route.params.item.state_conservation === "EN") {
+      setAvailability(<TrafficLight en></TrafficLight>);
+      setAvailabilityText("Endangered");
+    } else if (props.route.params.item.state_conservation === "CR") {
+      setAvailability(<TrafficLight cr></TrafficLight>);
+      setAvailabilityText("Critically Endangered");
+    } else if (props.route.params.item.state_conservation === "EW") {
+      setAvailability(<TrafficLight ew></TrafficLight>);
+      setAvailabilityText("Extinct in the wild");
+    } else if (props.route.params.item.state_conservation === "EX") {
+      setAvailability(<TrafficLight ex></TrafficLight>);
+      setAvailabilityText("Extinct");
+    } else {
+      setAvailabilityText("No data");
+    }
+
+    return () => {
+      setAvailability(null);
+      setAvailabilityText("");
+    };
+  }, []);
 
   return (
     <Box style={styles.container}>
@@ -28,7 +68,10 @@ const SingleSpecie = (props) => {
           )}
           <Text style={styles.title}>{item.scientific_name}</Text>
           <Text style={styles.subtitle}>{item.common_name}</Text>
-          <Text style={styles.conservation}>State conservation</Text>
+          <View style={{ flexDirection: "row", marginTop: 8 }}>
+            <Text style={styles.conservation}>{availabilityText}</Text>
+            {availability}
+          </View>
         </View>
 
         <View style={styles.info}>
@@ -105,6 +148,7 @@ const styles = StyleSheet.create({
   conservation: {
     color: colors.grey,
     fontSize: 15,
+    marginRight: 10,
   },
 });
 

@@ -4,24 +4,56 @@ const TrafficLight = styled.View`
   border-radius: 50px;
   width: 10px;
   height: 10px;
-  padding: 10px;
+  margin: 3px
+  padding: 7px;
 
   ${(props) =>
-    props.available &&
+    props.gs &&
     css`
-      background: #afec1a;
+      background: #18ff00;
     `}
 
   ${(props) =>
-    props.limited &&
+    props.lc &&
     css`
-      background: #dde033;
+      background: #bdff00;
     `}
 
     ${(props) =>
-    props.unavailable &&
+    props.nt &&
     css`
-      background: #ec241a;
+      background: #d6ff00;
+    `}
+
+    ${(props) =>
+    props.vu &&
+    css`
+      background: #ffed00;
+    `}
+  
+    ${(props) =>
+    props.en &&
+    css`
+      background: #ff8700;
+    `}
+  
+      ${(props) =>
+    props.cr &&
+    css`
+      background: #ff0000;
+    `}
+
+      
+    ${(props) =>
+    props.ew &&
+    css`
+      background: #000000;
+    `}
+    
+        ${(props) =>
+    props.ex &&
+    css`
+      background: #000000;
     `}
 `;
 
