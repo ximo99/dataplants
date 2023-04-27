@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef, } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -35,7 +35,6 @@ const SpecieContainer = (props) => {
   const [searchText, setSearchText] = useState("");
 
   const searchInputRef = useRef();
-
 
   useFocusEffect(
     useCallback(() => {
@@ -119,7 +118,7 @@ const SpecieContainer = (props) => {
           <HStack style={styles.searchBar}>
             <Box flex={1} style={styles.boxSearch}>
               <Input
-              ref={searchInputRef}
+                ref={searchInputRef}
                 placeholder="Search"
                 style={styles.inputSearch}
                 placeholderTextColor={colors.search}
@@ -140,7 +139,7 @@ const SpecieContainer = (props) => {
                 InputRightElement={
                   focus && (
                     <FontAwesome
-                    onPress={clearSearch}
+                      onPress={clearSearch}
                       name="times"
                       size={20}
                       color={colors.search}
@@ -150,6 +149,13 @@ const SpecieContainer = (props) => {
                 }
               />
             </Box>
+            <FontAwesome
+              style={styles.moreIcon}
+              name="plus-circle"
+              size={50}
+              color={colors.grey}
+              paddingRight={10}
+            />
           </HStack>
 
           {focus == true ? (
@@ -224,6 +230,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     marginBottom: 10,
+    width: "100%",
   },
   boxSearch: {
     backgroundColor: colors.grey,
@@ -232,6 +239,10 @@ const styles = StyleSheet.create({
   inputSearch: {
     fontSize: 18,
     width: "100%",
+  },
+  moreIcon: {
+    paddingLeft: 20,
+    //right: 0
   },
   listContainer: {
     flex: 1,
