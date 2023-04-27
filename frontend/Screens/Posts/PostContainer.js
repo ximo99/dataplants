@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -26,7 +26,9 @@ const PostContainer = () => {
   const [postsFiltered, setPostsFiltered] = useState([]);
   const [focus, setFocus] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  const searchInputRef = useRef();
 
   useFocusEffect(
     useCallback(() => {
@@ -76,6 +78,13 @@ const PostContainer = () => {
     setFocus(false);
   };
 
+  const clearSearch = () => {
+    setSearchText("");
+    searchPosts("");
+    setFocus(false);
+    searchInputRef.current.blur();
+  };
+
   return (
     <>
       {loading == false ? (
@@ -83,17 +92,19 @@ const PostContainer = () => {
           <HStack style={styles.searchBar}>
             <Box flex={1} style={styles.boxSearch}>
               <Input
+                ref={searchInputRef}
                 placeholder="Search"
                 style={styles.inputSearch}
                 placeholderTextColor={colors.search}
                 onFocus={openList}
-                value={searchValue}
+                value={searchText}
                 onChangeText={(text) => {
-                  setSearchValue(text);
+                  setSearchText(text);
                   searchPosts(text);
                 }}
                 InputLeftElement={
                   <FontAwesome
+                    //onBlur={clearSearch}
                     name="search"
                     size={20}
                     color={colors.search}
@@ -103,7 +114,7 @@ const PostContainer = () => {
                 InputRightElement={
                   focus && (
                     <FontAwesome
-                      onPress={onBlur}
+                      onPress={clearSearch}
                       name="times"
                       size={20}
                       color={colors.search}

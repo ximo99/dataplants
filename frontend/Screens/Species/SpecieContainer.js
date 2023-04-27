@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef, } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -32,7 +32,10 @@ const SpecieContainer = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  const searchInputRef = useRef();
+
 
   useFocusEffect(
     useCallback(() => {
@@ -90,6 +93,13 @@ const SpecieContainer = (props) => {
     setFocus(false);
   };
 
+  const clearSearch = () => {
+    setSearchText("");
+    searchSpecies("");
+    setFocus(false);
+    searchInputRef.current.blur();
+  };
+
   // categories methods
   const changeCtg = (ctg) => {
     {
@@ -109,13 +119,14 @@ const SpecieContainer = (props) => {
           <HStack style={styles.searchBar}>
             <Box flex={1} style={styles.boxSearch}>
               <Input
+              ref={searchInputRef}
                 placeholder="Search"
                 style={styles.inputSearch}
                 placeholderTextColor={colors.search}
                 onFocus={openList}
-                value={searchValue}
+                value={searchText}
                 onChangeText={(text) => {
-                  setSearchValue(text);
+                  setSearchText(text);
                   searchSpecies(text);
                 }}
                 InputLeftElement={
@@ -129,7 +140,7 @@ const SpecieContainer = (props) => {
                 InputRightElement={
                   focus && (
                     <FontAwesome
-                      onPress={onBlur}
+                    onPress={clearSearch}
                       name="times"
                       size={20}
                       color={colors.search}

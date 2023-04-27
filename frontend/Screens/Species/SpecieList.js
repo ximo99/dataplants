@@ -14,7 +14,7 @@ const SpecieList = (props) => {
     <TouchableOpacity
       onPress={() => props.navigation.navigate("Specie Detail", { item: item })}
       style={{ width: "50%" }}
-      activeOpacity={0.9}
+      //activeOpacity={0.5}
     >
       <View style={{ width: width / 2, backgroundColor: "#515760" }}>
         <SpecieCard {...item} />

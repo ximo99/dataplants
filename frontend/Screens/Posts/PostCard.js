@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -11,12 +11,55 @@ import { Avatar, VStack, HStack, Text, ScrollView } from "native-base";
 // import data
 import colors from "../../assets/common/colors";
 
+// import styles
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
+import TrafficLight from "../../Shared/StyledComponents/TrafficLight";
+
+
 // screen width definition
 var { width } = Dimensions.get("window");
 
 const PostCard = (props) => {
   const { specie, description, location, user, image } = props;
+  //const [item, setItem] = useState(props.route.params.item);
   const [fullDescription, setFullDescription] = useState(false);
+  const [availability, setAvailability] = useState(null);
+  const [availabilityText, setAvailabilityText] = useState("");
+
+  useEffect(() => {
+    if (specie.state_conservation === "GS") {
+      setAvailability(<TrafficLight gs></TrafficLight>);
+      setAvailabilityText("Not threatened");
+    } else if (specie.state_conservation === "LC") {
+      setAvailability(<TrafficLight lw></TrafficLight>);
+      setAvailabilityText("Least Concern");
+    } else if (specie.state_conservation === "NT") {
+      setAvailability(<TrafficLight lw></TrafficLight>);
+      setAvailabilityText("Near Threatened");
+    } else if (specie.state_conservation === "VU") {
+      setAvailability(<TrafficLight am></TrafficLight>);
+      setAvailabilityText("Vulnerable");
+    } else if (specie.state_conservation === "EN") {
+      setAvailability(<TrafficLight cr_am></TrafficLight>);
+      setAvailabilityText("Endangered");
+    } else if (specie.state_conservation === "CR") {
+      setAvailability(<TrafficLight cr_am></TrafficLight>);
+      setAvailabilityText("Critically Endangered");
+    } else if (specie.state_conservation === "EW") {
+      setAvailability(<TrafficLight ex></TrafficLight>);
+      setAvailabilityText("Extinct in the wild");
+    } else if (specie.state_conservation === "EX") {
+      setAvailability(<TrafficLight ex></TrafficLight>);
+      setAvailabilityText("Extinct");
+    } else {
+      setAvailabilityText("No data");
+    }
+
+    return () => {
+      setAvailability(null);
+      setAvailabilityText("");
+    };
+  }, []);
 
   const handleTouchStart = () => {
     setFullDescription(true);
@@ -68,7 +111,9 @@ const PostCard = (props) => {
 
             <View style={styles.rightContent}>
               <Text style={styles.info}>{location}</Text>
-              <Text style={styles.info}>State state_conservation</Text>
+              <View style={{ flexDirection: "row", marginVertical: 1, bottom: 0 }}>
+                <Text style={styles.info}>{availabilityText}</Text>
+              </View>
             </View>
           </HStack>
         )}
