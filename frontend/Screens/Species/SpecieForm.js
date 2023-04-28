@@ -29,7 +29,7 @@ import statusConservation from "../../assets/data/status.json";
 // import styles
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
-const ProductForm = (props) => {
+const SpecieForm = (props) => {
   const [pickerValue, setPickerValue] = useState();
   const [scientific_name, setScientificName] = useState();
   const [common_name, setCommonName] = useState();
@@ -48,13 +48,6 @@ const ProductForm = (props) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-
-    /* AsyncStorage.getItem("jwt")
-    .then((res) => {
-      setToken(res);
-    })
-    .catch((error) => console.log(error)); */
-
     // categories
     axios
       .get(`${baseURL}categories`)
@@ -94,7 +87,7 @@ const ProductForm = (props) => {
     if (scientific_name == "" || common_name == "" || description  == "" || category == "" || division == "" || family == "" || gender == "" || state_conservation == "" ) {
       setError("Please fill in the form correctly");
     }
-    
+
     const newImageUri = "file:///" + image.split("file:/").join("");
 
     let formData = new FormData();
@@ -117,7 +110,6 @@ const ProductForm = (props) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        //Authorization: `Bearer ${token}`,
       },
     };
     
@@ -134,7 +126,7 @@ const ProductForm = (props) => {
             });
 
             setTimeout(() => {
-              props.navigation.navigate("Products");
+              props.navigation.navigate("Specie Container");
             }, 500);
           }
         })
@@ -344,4 +336,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductForm;
+export default SpecieForm;

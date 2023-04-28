@@ -28,7 +28,6 @@ const specieSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
   division: {
     type: String,
