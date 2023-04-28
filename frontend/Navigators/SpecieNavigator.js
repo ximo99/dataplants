@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 // import screens
 import SpecieContainer from "../Screens/Species/SpecieContainer";
 import SingleSpecie from "../Screens/Species/SingleSpecie";
+import SpecieForm from "../Screens/Species/SpecieForm";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,15 @@ function MyStack() {
         name="Specie Detail"
         component={SingleSpecie}
         options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="SpecieForm"
+        component={SpecieForm}
+        options={{
+          title: "SpecieForm",
           headerShown: false,
         }}
       />

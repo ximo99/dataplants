@@ -5,6 +5,10 @@ import { Dimensions, ScrollView, StyleSheet, Text } from "react-native";
 // screen width definition
 var { width } = Dimensions.get("window");
 
+
+// import data
+import colors from "../../assets/common/colors";
+
 const FormContainer = (props) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -23,9 +27,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     padding: 10,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: colors.grey
   },
 });
 

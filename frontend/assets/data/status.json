@@ -1,0 +1,10 @@
+[ 
+    {"name": "Not threatened ", "code": "GS"}, 
+    {"name": "Least Concern", "code": "LC"}, 
+    {"name": "Near Threatened", "code": "NT"}, 
+    {"name": "Vulnerable", "code": "VU"}, 
+    {"name": "Endangered", "code": "EN"}, 
+    {"name": "Critically endangered", "code": "CR"}, 
+    {"name": "Extinct in the wild", "code": "EW"}, 
+    {"name": "Extinct", "code": "EX"}
+]

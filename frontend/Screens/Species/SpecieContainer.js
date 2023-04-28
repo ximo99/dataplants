@@ -150,6 +150,7 @@ const SpecieContainer = (props) => {
               />
             </Box>
             <FontAwesome
+              onPress={() => props.navigation.navigate("SpecieForm") }
               style={styles.moreIcon}
               name="plus-circle"
               size={50}
