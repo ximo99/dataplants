@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   text: {
-    color: "red",
+    color: "#FFC300",
   },
 });
 

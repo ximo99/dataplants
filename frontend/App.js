@@ -6,7 +6,7 @@ import { NativeBaseProvider, Toast } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 
 // import navigatiors
-import Main from "./Navigators/Main";
+import Init from './Navigators/Init'
 
 // import context API
 import Auth from "./Context/store/Auth";
@@ -30,7 +30,8 @@ function App() {
         <NativeBaseProvider>
           <NavigationContainer>
             <StatusBar backgroundColor="#515760" barStyle="dark-content" />
-            <Main />
+            {/* <Main /> */}
+            <Init />
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>
