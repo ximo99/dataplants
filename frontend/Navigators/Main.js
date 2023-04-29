@@ -73,7 +73,7 @@ const Main = () => {
         context.stateUser.user.isAdmin == true ? ( */}
       <Tab.Screen
         name="Admin"
-        component={SpecieNavigator}
+        component={AdminNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="cog" color={color} size={30} />
@@ -85,7 +85,7 @@ const Main = () => {
 
       <Tab.Screen
         name="User"
-        component={SpecieNavigator}
+        component={UserNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="user" color={color} size={30} />

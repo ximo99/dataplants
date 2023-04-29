@@ -14,11 +14,12 @@ import AuthGlobal from "../../Context/store/AuthGlobal";
 // import actions
 import { logOutUser } from "../../Context/actions/Auth.actions";
 
-const UserProfile = (props) => {
+const SpeciesAdmin = (props) => {
 
   return (
+
     <View>
-      <Text>user profile screen</Text>
+      <Text>SpeciesAdmin screen</Text>
     </View>
   );
 };
@@ -34,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default SpeciesAdmin;
