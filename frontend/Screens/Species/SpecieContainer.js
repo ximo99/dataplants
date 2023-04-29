@@ -153,7 +153,7 @@ const SpecieContainer = (props) => {
               onPress={() => props.navigation.navigate("SpecieForm") }
               style={styles.moreIcon}
               name="plus-circle"
-              size={50}
+              size={45}
               color={colors.grey}
               paddingRight={10}
             />
@@ -231,7 +231,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     marginBottom: 10,
-    width: "100%",
   },
   boxSearch: {
     backgroundColor: colors.grey,
@@ -243,7 +242,6 @@ const styles = StyleSheet.create({
   },
   moreIcon: {
     paddingLeft: 20,
-    //right: 0
   },
   listContainer: {
     flex: 1,

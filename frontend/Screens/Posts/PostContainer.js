@@ -104,7 +104,6 @@ const PostContainer = () => {
                 }}
                 InputLeftElement={
                   <FontAwesome
-                    //onBlur={clearSearch}
                     name="search"
                     size={20}
                     color={colors.search}
