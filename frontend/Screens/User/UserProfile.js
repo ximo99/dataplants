@@ -10,15 +10,28 @@ import baseURL from "../../assets/common/baseUrl";
 
 // import context API
 import AuthGlobal from "../../Context/store/AuthGlobal";
+import UserContext from "../../Context/UserContext";
 
 // import actions
 import { logOutUser } from "../../Context/actions/Auth.actions";
 
 const UserProfile = (props) => {
+  const userContext = useContext(UserContext);
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    // species
+    axios.get(`${baseURL}users/${userContext.user?.userId}`).then((res) => {
+      setUser(res.data);
+    });
+  }, []);
 
   return (
     <View>
-      <Text>user profile screen</Text>
+      <Text>user profile screen: {userContext.user?.userId}</Text>
+      <Text>User name: {user?.name}</Text>
+      <Text>User email: {user?.email}</Text>
     </View>
   );
 };

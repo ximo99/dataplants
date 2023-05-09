@@ -1,6 +1,9 @@
 // import dependencies
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Text, StyleSheet, View } from "react-native";
+import jwt_decode from "jwt-decode";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Toast } from "native-base";
 
 // import of reusable components
 import FormContainer from "../../Shared/Form/FormContainer";
@@ -12,6 +15,7 @@ import Main from "../../Navigators/Main";
 
 // import context API
 import AuthGlobal from "../../Context/store/AuthGlobal";
+import UserContext from "../../Context/UserContext";
 
 // import actions
 import { loginUser } from "../../Context/actions/Auth.actions";
@@ -21,9 +25,12 @@ import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 // import data
 import colors from "../../assets/common/colors";
+import baseURL from "../../assets/common/baseUrl";
 
 const Login = (props) => {
   const context = useContext(AuthGlobal);
+  const userContext = useContext(UserContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -43,7 +50,38 @@ const Login = (props) => {
     if (email === "" || password === "") {
       setError("Please fill in your credentials");
     } else {
-      loginUser(user, context.dispatch);
+      //loginUser(user, context.dispatch);
+      fetch(`${baseURL}users/login`, {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // if response contains token, store it in AsyncStorage and set current user
+          if (data) {
+            const token = data.token;
+            AsyncStorage.setItem("jwt", token);
+            const decoded = jwt_decode(token);
+            userContext.setUser(decoded);
+            props.navigation.navigate("Main");
+          } else {
+            // if response doesn't contain token, set error
+            //logOutUser(dispatch);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Toast.show({
+            title: "Error",
+            text: "Please provide correct credentials.",
+            type: "danger",
+            duration: 3000,
+          });
+        });
     }
   };
 

@@ -4,7 +4,7 @@ const router = express.Router();
 
 // import files
 const { Category } = require("../models/category");
-const authAdmin = require("../helpers/jwtAdmin");
+const authAdmin = require("../helpers/jwt");
 
 // paths
 // read path to get a list of categories

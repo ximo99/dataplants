@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
 
 // import authenticate file
-const authAdmin = require("../helpers/jwtAdmin");
+const authJwt = require("../helpers/jwt");
 
 // defining .env configuration file variables
 require("dotenv/config");
@@ -17,7 +17,7 @@ const port = process.env.PORT;
 
 // paths
 // read path to get a list of users
-router.get(`/`, authAdmin(), async (req, res) => {
+router.get(`/`, authJwt(), async (req, res) => {
   // if .select('-field') is included, this field does not appear in the request
   // if .select('field1 field2'), these fields are the only ones that appear in the request
   const userList = await User.find().select("-passwordHash");
@@ -30,7 +30,7 @@ router.get(`/`, authAdmin(), async (req, res) => {
 });
 
 // read path to get a user by id
-router.get("/:id", authAdmin(), async (req, res) => {
+router.get("/:id", async (req, res) => {
   const user = await User.findById(req.params.id).select("-passwordHash");
 
   if (!user) {
@@ -43,7 +43,7 @@ router.get("/:id", authAdmin(), async (req, res) => {
 });
 
 // write path to get the total count of users in the database
-router.get(`/get/count`, authAdmin(), async (req, res) => {
+router.get(`/get/count`, authJwt(), async (req, res) => {
   try {
     const userCount = await User.countDocuments();
     res.send({ userCount });
@@ -53,7 +53,7 @@ router.get(`/get/count`, authAdmin(), async (req, res) => {
 });
 
 // write path to add new users
-router.post("/", authAdmin(), async (req, res) => {
+router.post("/", authJwt(), async (req, res) => {
   let user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -119,7 +119,7 @@ router.post("/register", async (req, res) => {
 });
 
 // update path of a password user by id
-router.put("/:id", authAdmin(), async (req, res) => {
+router.put("/:id", authJwt(), async (req, res) => {
   const userExist = await User.findById(req.params.id);
   let newPassword;
 
@@ -151,7 +151,7 @@ router.put("/:id", authAdmin(), async (req, res) => {
 });
 
 // delete path to delete a user
-router.delete("/:id", authAdmin(), async (req, res) => {
+router.delete("/:id", authJwt(), async (req, res) => {
   User.findByIdAndRemove(req.params.id)
     .then((user) => {
       if (user) {
