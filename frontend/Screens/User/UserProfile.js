@@ -1,7 +1,9 @@
 // import dependencies
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Button,
+  FlatList,
   Image,
   Text,
   TouchableOpacity,
@@ -10,6 +12,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import { Box } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -24,67 +27,141 @@ import colors from "../../assets/common/colors";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import UserContext from "../../Context/UserContext";
 
+// import others components
+import Login from "../Start/Login";
+import UserForm from "./UserForm";
+
 // import actions
 import { logOutUser } from "../../Context/actions/Auth.actions";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 const UserProfile = (props) => {
   const userContext = useContext(UserContext);
 
   const [user, setUser] = useState();
+  const [species, setSpecies] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const logOut = () => {
+    const { navigation } = props;
+    userContext.setUser(null);
+    navigation.navigate("Login");
+  };
 
   useEffect(() => {
     // users
-    axios.get(`${baseURL}users/${userContext.user?.userId}`).then((res) => {
-      setUser(res.data);
-    });
-  
+    axios
+      .get(`${baseURL}users/${userContext.user?.userId}`)
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data: ", error);
+      });
+
+    // species added by user
+    axios
+      .get(`${baseURL}species/usersFilter?users=${userContext.user?.userId}`)
+      .then((res) => {
+        setSpecies(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching species data: ", error);
+      });
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{user?.name}</Text>
-        <Text style={styles.subtitle}>{user?.email}</Text>
-        <View style={styles.info}>
-          <Text style={styles.others}>Country: {user?.country}</Text>
-          <Text style={styles.others}>Profession: {user?.profession}</Text>
+    <>
+      {loading == false ? (
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: user?.photoUser
+                  ? user.photoUser
+                  : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
+              }}
+            />
+          </View>
+          <View style={styles.content}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{user?.name}</Text>
 
-          {user?.isAdmin ? (
-            <View style={styles.adminContainer}>
-              <Text style={styles.admin}>Admin user</Text>
+              <View style={styles.info}>
+                <Text style={styles.others}>Email: {user?.email}</Text>
+                <Text style={styles.others}>Country: {user?.country}</Text>
+                <Text style={styles.others}>
+                  Profession: {user?.profession}
+                </Text>
+
+                {user?.isAdmin ? (
+                  <View style={styles.adminContainer}>
+                    <Text style={styles.admin}>Admin user</Text>
+                  </View>
+                ) : null}
+              </View>
             </View>
-          ) : null}
+          </View>
+
+          <View style={styles.contributionsContainer}>
+            <Text style={[styles.subtitle, { fontWeight: "bold" }]}>
+              Your contributions.
+            </Text>
+            <Text style={styles.others}>
+              {species.length > 0
+                ? `You have added ${species.length} species. Keep it up! The community thanks you.`
+                : "You haven't added any species yet! We encourage you to do so and to contribute to the community."}
+            </Text>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <EasyButton
+              secondary
+              large
+              onPress={() => props.navigation.navigate("UserForm")}
+              style={{ marginBottom: 20 }}
+            >
+              <Text style={{ color: "white" }}>Edit your profile</Text>
+            </EasyButton>
+            <EasyButton danger large onPress={() => logOut()}>
+              <Text style={{ color: "white" }}>Close session</Text>
+            </EasyButton>
+          </View>
         </View>
-      </View>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: user?.photoUser
-              ? user.photoUser
-              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
-          }}
-        />
-        <TouchableOpacity style={styles.imagePicker}>
-          <Icon style={{ color: "white" }} name="camera" />
-        </TouchableOpacity>
-      </View>
-    </View>
+      ) : (
+        //Loading
+        <Box
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          bgColor="#515760"
+        >
+          <ActivityIndicator
+            size="large"
+            backgroundColor="#515760"
+            color="#5cb85c"
+          />
+        </Box>
+      )}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    paddingVertical: 40,
-    paddingHorizontal: 40,
+    flex: 1,
     backgroundColor: colors.background,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
+    paddingTop: 40,
+  },
+  content: {
+    width: "80%",
   },
   title: {
-    fontSize: 25,
+    textAlign: "center",
+    fontSize: 30,
     color: "white",
     fontWeight: "bold",
   },
@@ -108,18 +185,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   admin: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
     fontWeight: "bold",
   },
   imageContainer: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 250,
     borderStyle: "solid",
-    borderWidth: 4,
+    borderWidth: 8,
     padding: 0,
     justifyContent: "center",
-    borderRadius: 100,
+    borderRadius: 600,
     borderColor: "#e0e0e0",
     backgroundColor: colors.background,
     elevation: 10,
@@ -127,20 +204,18 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 100,
+    borderRadius: 600,
   },
-  imagePicker: {
+  contributionsContainer: {
+    paddingHorizontal: 40,
+    paddingVertical: 20,
+    width: "100%",
+  },
+  buttonContainer: {
     position: "absolute",
-    right: 0,
     bottom: 0,
-    backgroundColor: "grey",
-    padding: 8,
-    borderRadius: 100,
-    elevation: 20,
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: "center",
+    alignSelf: "center",
+    marginBottom: 40,
   },
 });
 

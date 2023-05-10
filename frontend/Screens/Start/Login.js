@@ -14,7 +14,6 @@ import Error from "../../Shared/Error";
 import Main from "../../Navigators/Main";
 
 // import context API
-import AuthGlobal from "../../Context/store/AuthGlobal";
 import UserContext from "../../Context/UserContext";
 
 // import actions
@@ -28,18 +27,11 @@ import colors from "../../assets/common/colors";
 import baseURL from "../../assets/common/baseUrl";
 
 const Login = (props) => {
-  const context = useContext(AuthGlobal);
   const userContext = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (context.stateUser.isAuthenticated == true) {
-      props.navigation.navigate("Main");
-    }
-  }, [context.stateUser.isAuthenticated]);
 
   const handleSubmit = () => {
     const user = {

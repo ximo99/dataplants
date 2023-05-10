@@ -31,7 +31,7 @@ const SpecieCard = (props) => {
   } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <Image
         style={styles.image}
         resizeMode="cover"
