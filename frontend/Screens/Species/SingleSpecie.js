@@ -58,7 +58,7 @@ const SingleSpecie = (props) => {
     <Box style={styles.container}>
       <ScrollView>
         <View style={styles.info}>
-          {item.isVerified === "true" ? null : (
+          {item.isVerified ? null : (
             <View style={styles.verifyIcon}>
               <Icon name="exclamation-triangle" color={"yellow"} size={30} />
               <Text style={styles.verifyText}>

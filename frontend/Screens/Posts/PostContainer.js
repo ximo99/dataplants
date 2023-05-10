@@ -123,6 +123,14 @@ const PostContainer = () => {
                 }
               />
             </Box>
+            <FontAwesome
+              onPress={() => props.navigation.navigate("SpecieForm") }
+              style={styles.moreIcon}
+              name="plus-circle"
+              size={45}
+              color={colors.grey}
+              paddingRight={10}
+            />
           </HStack>
 
           <FlatList
@@ -169,6 +177,9 @@ const styles = StyleSheet.create({
   inputSearch: {
     fontSize: 18,
     width: "100%",
+  }  ,
+  moreIcon: {
+    paddingLeft: 20,
   },
   text: {
     color: "white",
