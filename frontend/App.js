@@ -20,6 +20,7 @@ function App() {
   const toastRef = useRef();
 
   const [user, setUser] = useState(null);
+  const [refresh, setRefresh] = useState(false)
 
   React.useEffect(() => {
     if (toastRef.current) {
@@ -31,7 +32,7 @@ function App() {
     <Auth>
       <Provider store={store}>
         <NativeBaseProvider>
-          <UserContext.Provider value={{user: user, setUser: setUser}}>
+          <UserContext.Provider value={{user: user, setUser: setUser, refresh: refresh, setRefresh: setRefresh}}>
             <NavigationContainer>
               <StatusBar backgroundColor="#515760" barStyle="dark-content" />
               {/* <Main /> */}

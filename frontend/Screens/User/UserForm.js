@@ -67,6 +67,9 @@ const UserForm = (props) => {
           type: "success",
         });
 
+        // Luego, cambia el valor de refresh para disparar la actualización de los datos.
+        userContext.setRefresh(!userContext.refresh);
+
         setTimeout(() => {
           props.navigation.navigate("User Profile");
         }, 500);

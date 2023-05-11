@@ -53,7 +53,7 @@ const UserProfile = (props) => {
       .catch((error) => {
         console.error("Error fetching species data: ", error);
       });
-  }, []);
+  }, [userContext.refresh]);
 
 
   return (
@@ -105,7 +105,10 @@ const UserProfile = (props) => {
             <EasyButton
               secondary
               large
-              onPress={() => props.navigation.navigate("UserForm")}
+              onPress={() => {
+                props.navigation.navigate("UserForm");
+                //userContext.setRefresh(!userContext.refresh);
+              }}
               style={{ marginBottom: 20 }}
             >
               <Text style={{ color: "white" }}>Edit your profile</Text>
