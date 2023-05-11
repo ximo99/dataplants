@@ -1,6 +1,7 @@
 // import dependencies
 import React, { useContext, useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Button,
   Image,
   Platform,
@@ -9,7 +10,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { Item, CheckIcon, Picker, Toast, Select, VStack } from "native-base";
+import { Box, Item, CheckIcon, Picker, Toast, Select, VStack } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -25,8 +26,7 @@ import UserProfile from "./UserProfile";
 // import data
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
-import statusConservation from "../../assets/data/status.json";
-
+import countries from "../../assets/data/countries.json";
 // import context API
 import UserContext from "../../Context/UserContext";
 
@@ -38,10 +38,11 @@ const UserForm = (props) => {
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
   const [country, setCountry] = useState();
+  const [pickerValue, setPickerValue] = useState();
   const [profession, setProfession] = useState();
   const [photoUser, setPhotoUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -50,16 +51,15 @@ const UserForm = (props) => {
         const user = res.data;
         setName(user.name || "");
         setEmail(user.email || "");
-        setPassword(user.password || "");
         setCountry(user.country || "");
         setProfession(user.profession || "");
         setPhotoUser(user.photoUser || "");
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching user data: ", error);
       });
   }, []);
-  
 
   const updateProfile = async () => {
     try {
@@ -68,7 +68,6 @@ const UserForm = (props) => {
         {
           name,
           email,
-          password,
           country,
           profession,
           photoUser,
@@ -104,6 +103,8 @@ const UserForm = (props) => {
   };
 
   return (
+    <>
+      {loading == false ? (
     <View backgroundColor="#515760" height="100%">
       <FormContainer title="Edit your profile">
         <View style={styles.label}>
@@ -127,25 +128,29 @@ const UserForm = (props) => {
         />
 
         <View style={styles.label}>
-          <Text style={styles.text}>Password:</Text>
-        </View>
-        <Input
-          name="password"
-          id="password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry
-        />
-
-        <View style={styles.label}>
           <Text style={styles.text}>Country:</Text>
         </View>
-        <Input
-          name="country"
-          id="country"
-          value={country}
-          onChangeText={(text) => setCountry(text)}
-        />
+        <VStack alignItems="center" space={4} style={styles.inputCountry}>
+          <Select
+            mode="dropdown"
+            iosIcon={<Icon name="chevron-down-outline" />}
+            style={{ width: undefined, color: "black" }}
+            minWidth="83%"
+            borderWidth={0}
+            fontSize={14}
+            name="country"
+            id="country"
+            value={country}
+            placeholder={country ? country : "Select your country"}
+            placeholderTextColor={"#000"}
+            selectedValue={pickerValue}
+            onValueChange={(e) => [setPickerValue(e), setCountry(e)]}
+          >
+            {countries.map((c) => {
+              return <Select.Item key={c.code} label={c.name} value={c.name} />;
+            })}
+          </Select>
+        </VStack>
 
         <View style={styles.label}>
           <Text style={styles.text}>Profession:</Text>
@@ -157,14 +162,28 @@ const UserForm = (props) => {
           onChangeText={(text) => setProfession(text)}
         />
 
-
         <View style={styles.buttonContainer}>
           <EasyButton primary large onPress={() => updateProfile()}>
             <Text style={styles.buttonText}>Confirm</Text>
           </EasyButton>
         </View>
       </FormContainer>
-    </View>
+    </View>) : (
+        //Loading
+        <Box
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          bgColor="#515760"
+        >
+          <ActivityIndicator
+            size="large"
+            backgroundColor="#515760"
+            color="#5cb85c"
+          />
+        </Box>
+      )}
+    </>
   );
 };
 
@@ -204,10 +223,10 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     elevation: 20,
   },
-  input: {
+  inputCountry: {
     height: 60,
-    marginBottom: 20,
     marginHorizontal: 12,
+    marginBottom: 25,
     borderRadius: 20,
     paddingVertical: 7,
     backgroundColor: colors.grey,
@@ -220,6 +239,19 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
   },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: 'grey',
+    marginBottom: 20,
+    width: '80%',
+  },
+  icon: {
+    flex: 1,
+  }
 });
 
 export default UserForm;

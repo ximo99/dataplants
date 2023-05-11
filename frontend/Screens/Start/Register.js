@@ -78,19 +78,19 @@ const Register = (props) => {
         >
           <FormContainer title={"Register"}>
             <Input
-              placeholder={"User Email"}
-              name={"email"}
-              id={"email"}
-              value={email}
-              onChangeText={(text) => setEmail(text.toLowerCase())}
-            />
-
-            <Input
               placeholder={"Name"}
               name={"name"}
               id={"name"}
               value={name}
               onChangeText={(text) => setName(text)}
+            />
+
+            <Input
+              placeholder={"User Email"}
+              name={"email"}
+              id={"email"}
+              value={email}
+              onChangeText={(text) => setEmail(text.toLowerCase())}
             />
 
             <Input
@@ -104,6 +104,14 @@ const Register = (props) => {
 
             <Input
               placeholder={"Profession"}
+              name={"profession"}
+              id={"profession"}
+              value={profession}
+              onChangeText={(text) => setProfession(text)}
+            />
+
+            <Input
+              placeholder={"Country"}
               name={"profession"}
               id={"profession"}
               value={profession}
