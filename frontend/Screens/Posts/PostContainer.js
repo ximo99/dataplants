@@ -21,7 +21,7 @@ import colors from "../../assets/common/colors";
 // screen height definition
 var { height } = Dimensions.get("window");
 
-const PostContainer = () => {
+const PostContainer = (props) => {
   const [posts, setPosts] = useState([]);
   const [postsFiltered, setPostsFiltered] = useState([]);
   const [focus, setFocus] = useState([]);
@@ -124,7 +124,7 @@ const PostContainer = () => {
               />
             </Box>
             <FontAwesome
-              onPress={() => props.navigation.navigate("SpecieForm") }
+              onPress={() => props.navigation.navigate("PostForm") }
               style={styles.moreIcon}
               name="plus-circle"
               size={45}

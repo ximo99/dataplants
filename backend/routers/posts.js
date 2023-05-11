@@ -131,12 +131,17 @@ router.get(`/get/verified`, async (req, res) => {
 
 // write path to add new posts
 router.post(`/`, uploadOptions.single("image"), async (req, res) => {
+  console.log(req.body.specie);
+  console.log(req.body.description);
+  console.log(req.body.user);
+  console.log(req.body.location);
   const specie = await Specie.findById(req.body.specie);
-
+  console.log('hola 2');
+  
   if (!specie) {
     return res.status(400).send("invalid specie");
   }
-
+  console.log('hola 3');
   const user = await User.findById(req.body.user);
 
   if (!user) {
@@ -158,6 +163,7 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
     user: req.body.user,
     location: req.body.location,
     image: `${basePath}${fileName}`,
+    
   });
 
   post = await post.save();
@@ -165,7 +171,7 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
   if (!post) {
     return res.status(500).send("the post cannot be created");
   }
-
+  
   return res.send(post);
 });
 

@@ -1,5 +1,5 @@
 [ 
-    {"name": "Not threatened ", "code": "GS"}, 
+    {"name": "Not threatened", "code": "GS"}, 
     {"name": "Least Concern", "code": "LC"}, 
     {"name": "Near Threatened", "code": "NT"}, 
     {"name": "Vulnerable", "code": "VU"}, 

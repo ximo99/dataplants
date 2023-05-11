@@ -1,14 +1,12 @@
 // import dependencies
 import React, { useContext, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { ActivityIndicator, Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
 import axios from "axios";
+import Icon from "react-native-vector-icons/FontAwesome";
+import * as ImagePicker from "expo-image-picker";
+import mime from "mime";
+
 // import data
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
@@ -53,8 +51,8 @@ const UserProfile = (props) => {
       .catch((error) => {
         console.error("Error fetching species data: ", error);
       });
-  }, [userContext.refresh]);
 
+  }, [userContext.refresh]);
 
   return (
     <>
@@ -193,6 +191,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 600,
+  },
+  imagePicker: {
+    position: "absolute",
+    right: 20,
+    bottom: 5,
+    backgroundColor: "grey",
+    padding: 8,
+    borderRadius: 100,
+    elevation: 20,
   },
   contributionsContainer: {
     paddingHorizontal: 40,

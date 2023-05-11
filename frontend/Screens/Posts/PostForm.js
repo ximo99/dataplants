@@ -28,36 +28,35 @@ import UserContext from "../../Context/UserContext";
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 import statusConservation from "../../assets/data/status.json";
+import countries from "../../assets/data/countries.json";
 
 // import styles
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
-const SpecieForm = (props) => {
+const PostForm = (props) => {
   const userContext = useContext(UserContext);
 
-  const [pickerValue, setPickerValue] = useState();
-  const [scientific_name, setScientificName] = useState();
-  const [common_name, setCommonName] = useState();
+  const [pickerValueSpecie, setPickerValueSpecie] = useState();
+  const [pickerValueLocation, setPickerValueLocation] = useState();
+  const [species, setSpecies] = useState([]);
+  const [specie, setSpecie] = useState();
   const [description, setDescription] = useState();
-  const [category, setCategory] = useState();
-  const [categories, setCategories] = useState([]);
+  const [location, setLocation] = useState();
   const [user, setUser] = useState();
-  const [division, setDivision] = useState();
-  const [family, setFamily] = useState();
-  const [gender, setGender] = useState();
-  const [state_conservation, setStateConservation] = useState();
   const [image, setImage] = useState();
   const [mainImage, setMainImage] = useState();
   const [token, setToken] = useState();
   const [err, setError] = useState();
   const [item, setItem] = useState(null);
 
+
+  
   useEffect(() => {
-    // categories
+    // species
     axios
-      .get(`${baseURL}categories`)
-      .then((res) => setCategories(res.data))
-      .catch((error) => alert("Error to load categories"));
+      .get(`${baseURL}species`)
+      .then((res) => setSpecies(res.data))
+      .catch((error) => alert("Error to load species"));
 
     // image picker
     (async () => {
@@ -70,7 +69,7 @@ const SpecieForm = (props) => {
     })();
 
     return () => {
-      setCategories([]);
+      setSpecies([]);
     };
   }, []);
 
@@ -88,8 +87,8 @@ const SpecieForm = (props) => {
     }
   };
 
-  const addSpecie = () => {
-    if (scientific_name == "" || common_name == "" || description  == "" || category == "" || division == "" || family == "" || gender == "" || state_conservation == "" ) {
+  const addPost = () => {
+    if (specie == "" || description == "" || location == "") {
       setError("Please fill in the form correctly");
     }
 
@@ -103,14 +102,9 @@ const SpecieForm = (props) => {
       name: newImageUri.split("/").pop(),
     });
 
-    formData.append("scientific_name", scientific_name);
-    formData.append("common_name", common_name);
+    formData.append("specie", specie);
     formData.append("description", description);
-    formData.append("category", category);
-    formData.append("division", division);
-    formData.append("family", family);
-    formData.append("gender", gender);
-    formData.append("state_conservation", state_conservation);
+    formData.append("location", location);
     setUser(userContext.user.userId);
     formData.append("user", userContext.user.userId);
 
@@ -120,41 +114,41 @@ const SpecieForm = (props) => {
       },
     };
 
-    //// LLEVAR
-    setUser(userContext.user.userId)
-    
-    
     axios
-        .post(`${baseURL}species`, formData, config)
-        .then((res) => {
-          if (res.status == 200 || res.status == 201) {
-            Toast.show({
-              title: "Added Specie.",
-              description: "The new specie was added to the DB.",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-            });
-
-            setTimeout(() => {
-              props.navigation.navigate("Specie Container");
-            }, 500);
-          }
-        })
-        .catch((error) => {
+      .post(`${baseURL}posts`, formData, config)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
           Toast.show({
-            title: "Error",
-            description: "Something went wrong. Please try again.",
-            status: "error",
+            title: "Added post.",
+            description: "The new posts was added to the DB.",
+            status: "success",
             duration: 2000,
             isClosable: true,
           });
+          console.log("hola 2");
+          setTimeout(() => {
+            props.navigation.navigate("Post Container");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        console.log("111:", error);
+        //console.error(error.response);
+        Toast.show({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
         });
-  }
+      });
+
+    console.log("hola 4");
+  };
 
   return (
     <View backgroundColor="#515760" height="100%">
-      <FormContainer title="Add new specie">
+      <FormContainer title="Add new post">
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: mainImage }} />
           <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
@@ -165,24 +159,29 @@ const SpecieForm = (props) => {
         <View style={styles.label}>
           <Text style={styles.text}>Scientific name:</Text>
         </View>
-        <Input
-          placeholder="Scientific name"
-          name="scientific_name"
-          id="scientific_name"
-          value={scientific_name}
-          onChangeText={(text) => setScientificName(text)}
-        />
-
-        <View style={styles.label}>
-          <Text style={styles.text}>Common name:</Text>
-        </View>
-        <Input
-          placeholder="Common name"
-          name="common_name"
-          id="common_name"
-          value={common_name}
-          onChangeText={(text) => setCommonName(text)}
-        />
+        <VStack alignItems="center" space={4} style={styles.input}>
+          <Select
+            mode="dropdown"
+            iosIcon={<Icon name="chevron-down-outline" />}
+            style={{ width: undefined }}
+            minWidth="83%"
+            borderWidth={0}
+            fontSize={14}
+            placeholder="Select the scientific name of the specie"
+            selectedValue={pickerValueSpecie}
+            onValueChange={(e) => [setPickerValueSpecie(e), setSpecie(e)]}
+          >
+            {species.map((c) => {
+              return (
+                <Select.Item
+                  key={c._id}
+                  label={c.scientific_name}
+                  value={c._id}
+                />
+              );
+            })}
+          </Select>
+        </VStack>
 
         <View style={styles.label}>
           <Text style={styles.text}>Description:</Text>
@@ -196,95 +195,33 @@ const SpecieForm = (props) => {
         />
 
         <View style={styles.label}>
-          <Text style={styles.text}>Category:</Text>
+          <Text style={styles.text}>Country:</Text>
         </View>
-        <VStack alignItems="center" space={4} style={styles.input}>
+        <VStack alignItems="center" space={4} style={styles.inputCountry}>
           <Select
             mode="dropdown"
             iosIcon={<Icon name="chevron-down-outline" />}
-            style={{ width: undefined }}
+            style={{ width: undefined, color: "black" }}
             minWidth="83%"
             borderWidth={0}
             fontSize={14}
-            placeholder="Select the Product Category"
-            selectedValue={pickerValue}
-            onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
+            name="location"
+            id="location"
+            value={location}
+            placeholder={location ? location : "Select the location"}
+            selectedValue={pickerValueLocation}
+            onValueChange={(e) => [setPickerValueLocation(e), setLocation(e)]}
           >
-            {categories.map((c) => {
-              return <Select.Item key={c._id} label={c.name} value={c._id} />;
+            {countries.map((c) => {
+              return <Select.Item key={c.code} label={c.name} value={c.name} />;
             })}
-          </Select>
-        </VStack>
-
-        <View style={styles.label}>
-          <Text style={styles.text}>Division:</Text>
-        </View>
-        <Input
-          placeholder="Division"
-          name="division"
-          id="division"
-          value={division}
-          onChangeText={(text) => setDivision(text)}
-        />
-
-        <View style={styles.label}>
-          <Text style={styles.text}>Family:</Text>
-        </View>
-        <Input
-          placeholder="Family"
-          name="family"
-          id="family"
-          value={family}
-          onChangeText={(text) => setFamily(text)}
-        />
-
-        <View style={styles.label}>
-          <Text style={styles.text}>Gender:</Text>
-        </View>
-        <Input
-          placeholder="Gender"
-          name="gender"
-          id="gender"
-          value={gender}
-          onChangeText={(text) => setGender(text)}
-        />
-
-        <View style={styles.label}>
-          <Text style={styles.text}>Status conservation:</Text>
-        </View>
-        <VStack alignItems="center" space={4} style={styles.input}>
-          <Select
-            selectedValue={state_conservation}
-            minWidth="83%"
-            borderWidth={0}
-            fontSize={14}
-            accessibilityLabel="Select status conservation"
-            placeholder="Select status conservation"
-            onValueChange={(value) => setStateConservation(value)}
-            _selectedItem={{
-              bg: "cyan.600",
-              endIcon: <CheckIcon size="4" />,
-            }}
-            _dropdownIcon={{
-              width: 0,
-              height: 0,
-              overflow: "hidden",
-            }}
-          >
-            {statusConservation.map((c) => (
-              <Select.Item key={c.code} label={c.name} value={c.code} />
-            ))}
           </Select>
         </VStack>
 
         {err ? <Error message={message} /> : null}
 
         <View style={styles.buttonContainer}>
-          <EasyButton
-            primary
-            large
-            onPress={() => addSpecie()}
-          >
+          <EasyButton primary large onPress={() => addPost()}>
             <Text style={styles.buttonText}>Confirm</Text>
           </EasyButton>
         </View>
@@ -329,6 +266,14 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     elevation: 20,
   },
+  inputCountry: {
+    height: 60,
+    marginHorizontal: 12,
+    marginBottom: 25,
+    borderRadius: 20,
+    paddingVertical: 7,
+    backgroundColor: colors.grey,
+  },
   input: {
     height: 60,
     marginBottom: 20,
@@ -347,4 +292,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpecieForm;
+export default PostForm;
