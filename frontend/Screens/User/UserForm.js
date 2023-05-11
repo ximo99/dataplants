@@ -43,6 +43,24 @@ const UserForm = (props) => {
   const [profession, setProfession] = useState();
   const [photoUser, setPhotoUser] = useState();
 
+  useEffect(() => {
+    axios
+      .get(`${baseURL}users/${userContext.user?.userId}`)
+      .then((res) => {
+        const user = res.data;
+        setName(user.name || "");
+        setEmail(user.email || "");
+        setPassword(user.password || "");
+        setCountry(user.country || "");
+        setProfession(user.profession || "");
+        setPhotoUser(user.photoUser || "");
+      })
+      .catch((error) => {
+        console.error("Error fetching user data: ", error);
+      });
+  }, []);
+  
+
   const updateProfile = async () => {
     try {
       const response = await axios.put(

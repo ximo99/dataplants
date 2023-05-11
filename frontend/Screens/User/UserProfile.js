@@ -71,7 +71,7 @@ const UserProfile = (props) => {
             />
           </View>
           <View style={styles.content}>
-            <View style={styles.textContainer}>
+            <View>
               <Text style={styles.title}>{user?.name}</Text>
 
               <View style={styles.info}>

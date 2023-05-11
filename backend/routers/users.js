@@ -134,6 +134,7 @@ router.put("/:id", async (req, res) => {
     {
       passwordHash: newPassword,
       name: req.body.name,
+      email: req.body.email,
       phone: req.body.phone,
       country: req.body.country,
       profession: req.body.profession,
