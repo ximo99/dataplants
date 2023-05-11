@@ -1,38 +1,22 @@
 // import dependencies
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
-  FlatList,
   Image,
   Text,
-  TouchableOpacity,
   View,
-  ScrollView,
   StyleSheet,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import { Box } from "native-base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import Icon from "react-native-vector-icons/FontAwesome";
-import * as ImagePicker from "expo-image-picker";
-import mime from "mime";
-
 // import data
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 
 // import context API
-import AuthGlobal from "../../Context/store/AuthGlobal";
 import UserContext from "../../Context/UserContext";
 
-// import others components
-import Login from "../Start/Login";
-import UserForm from "./UserForm";
-
 // import actions
-import { logOutUser } from "../../Context/actions/Auth.actions";
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 const UserProfile = (props) => {
@@ -70,6 +54,7 @@ const UserProfile = (props) => {
         console.error("Error fetching species data: ", error);
       });
   }, []);
+
 
   return (
     <>

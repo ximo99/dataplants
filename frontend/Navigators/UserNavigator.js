@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // import screens
 import UserProfile from "../Screens/User/UserProfile";
+import UserForm from "../Screens/User/UserForm";
 
 const Stack = createStackNavigator();
 
@@ -18,10 +19,19 @@ function MyStack() {
           headerShown: false,
         }}
       />
+
+      <Stack.Screen
+        name="UserForm"
+        component={UserForm}
+        options={{
+          title: "User Form",
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 export default function UserNavigator() {
-    return <MyStack />
-};
+  return <MyStack />;
+}

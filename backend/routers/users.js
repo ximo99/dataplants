@@ -118,8 +118,8 @@ router.post("/register", async (req, res) => {
   res.send(user);
 });
 
-// update path of a password user by id
-router.put("/:id", authJwt(), async (req, res) => {
+// update path of a user by id
+router.put("/:id", async (req, res) => {
   const userExist = await User.findById(req.params.id);
   let newPassword;
 
