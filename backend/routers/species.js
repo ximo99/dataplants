@@ -10,7 +10,7 @@ const { Specie } = require("../models/specie");
 const { Category } = require("../models/category");
 
 // import authenticate file
-const authUser = require("../helpers/jwtUser");
+const auth = require("../helpers/jwt");
 
 // files extensions
 const FILE_TYPE_MAP = {
@@ -164,7 +164,7 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
 });
 
 // put path to update a specie by id
-router.put("/:id", authUser(), async (req, res) => {
+router.put("/:id", auth(), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
@@ -202,7 +202,7 @@ router.put("/:id", authUser(), async (req, res) => {
 // put path to update the array images
 router.put(
   "/gallery-images/:id",
-  authUser(),
+  auth(),
   uploadOptions.array("images", 10),
   async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
@@ -238,7 +238,7 @@ router.put(
 );
 
 // delete path to delete a specie
-router.delete("/:id", authUser(), async (req, res) => {
+router.delete("/:id", auth(), async (req, res) => {
   Specie.findByIdAndRemove(req.params.id)
     .then((specie) => {
       if (specie) {

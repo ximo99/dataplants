@@ -12,11 +12,13 @@ import UserNavigator from "./UserNavigator";
 
 // import context API
 import AuthGlobal from "../Context/store/AuthGlobal";
+import UserContext from "../Context/UserContext";
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
   const context = useContext(AuthGlobal);
+  const userContext = useContext(UserContext);
 
   return (
     <Tab.Navigator
@@ -40,7 +42,6 @@ const Main = () => {
         name="Posts"
         component={PostNavigator}
         options={{
-          
           tabBarIcon: ({ color }) => (
             <Icon
               name="home"
@@ -69,19 +70,17 @@ const Main = () => {
         }}
       />
 
-      {/*       {
-        context.stateUser.user.isAdmin == true ? ( */}
-      <Tab.Screen
-        name="Admin"
-        component={AdminNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="cog" color={color} size={30} />
-          ),
-        }}
-      />
-      {/*         ) : null
-      } */}
+      {userContext.user && userContext.user.isAdmin ? (
+        <Tab.Screen
+          name="Admin"
+          component={AdminNavigator}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="cog" color={color} size={30} />
+            ),
+          }}
+        />
+      ) : null}
 
       <Tab.Screen
         name="User"

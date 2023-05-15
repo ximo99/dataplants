@@ -10,7 +10,18 @@ const Tab = createMaterialTopTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator 
+    screenOptions={{
+      tabBarActiveTintColor: "#2ea082",
+      tabBarInactiveTintColor: "white",
+      tabBarStyle: {
+        backgroundColor: "#515760",
+      },
+      tabBarIndicatorStyle: {
+        backgroundColor: "#2ea082",
+      },
+    }}
+    >
       <Tab.Screen
         name="Posts"
         component={PostsAdmin}
