@@ -105,7 +105,7 @@ const PostCard = (props) => {
               }}
             />
             <View style={styles.leftContent}>
-              <Text style={styles.title}>{user.name}</Text>
+              <Text style={styles.title}>{user ? user.name : 'User not found'}</Text>
               <Text style={styles.subtitle}>{specie.scientific_name}</Text>
             </View>
 

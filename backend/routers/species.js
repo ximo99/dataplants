@@ -178,8 +178,7 @@ router.put("/:id", auth(), async (req, res) => {
     family: req.body.family,
     gender: req.body.gender,
     state_conservation: req.body.state_conservation,
-    image: req.body.image,
-    isVerified: req.body.isVerified,
+    isVerified: false,
   };
 
   if (req.body.category) {
