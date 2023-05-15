@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Text, StyleSheet, View } from "react-native";
-import { Box, Select, VStack, Toast } from "native-base";
+import { Box, CheckIcon, Select, VStack, Toast } from "native-base";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import of reusable components
 import FormContainer from "../../Shared/Form/FormContainer";
@@ -12,14 +13,18 @@ import EasyButton from "../../Shared/StyledComponents/EasyButton";
 // import data
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
+import statusConservation from "../../assets/data/status.json";
+
+// import context API
+import UserContext from "../../Context/UserContext";
 
 const UpdateSpecie = ({ route, navigation }) => {
+  const userContext = useContext(UserContext);
   const { specieId } = route.params;
 
   const [scientificName, setScientificName] = useState();
   const [commonName, setCommonName] = useState();
   const [description, setDescription] = useState();
-  const [user, setUser] = useState();
   const [division, setDivision] = useState();
   const [family, setFamily] = useState();
   const [gender, setGender] = useState();
@@ -27,9 +32,16 @@ const UpdateSpecie = ({ route, navigation }) => {
   const [category, setCategory] = useState();
   const [pickerValue, setPickerValue] = useState();
   const [categories, setCategories] = useState([]);
+
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState();
 
   useEffect(() => {
+    // get token
+    AsyncStorage.getItem("jwt")
+      .then((res) => setToken(res))
+      .catch((error) => console.log(error));
+
     axios
       .get(`${baseURL}species/${specieId}`)
       .then((res) => {
@@ -37,7 +49,6 @@ const UpdateSpecie = ({ route, navigation }) => {
         setScientificName(specie.scientific_name || "");
         setCommonName(specie.common_name || "");
         setDescription(specie.description || "");
-        setUser(specie.user || "");
         setDivision(specie.division || "");
         setFamily(specie.family || "");
         setGender(specie.gender || "");
@@ -61,17 +72,24 @@ const UpdateSpecie = ({ route, navigation }) => {
 
   const updateSpecie = async () => {
     try {
-      const response = await axios.put(`${baseURL}species/${specieId}`, {
-        scientific_name: scientificName,
-        common_name: commonName,
-        description,
-        user,
-        division,
-        family,
-        gender,
-        state_conservation: stateConservation,
-        category,
-      });
+      const response = await axios.put(
+        `${baseURL}species/${specieId}`,
+        {
+          scientific_name: scientificName,
+          common_name: commonName,
+          description,
+          division,
+          family,
+          gender,
+          state_conservation: stateConservation,
+          category,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         Toast.show({
@@ -84,7 +102,7 @@ const UpdateSpecie = ({ route, navigation }) => {
         });
 
         setTimeout(() => {
-          navigation.navigate("SpecieList");
+          navigation.navigate("Species Admin");
         }, 500);
       }
     } catch (error) {
@@ -102,7 +120,7 @@ const UpdateSpecie = ({ route, navigation }) => {
     <>
       {loading == false ? (
         <View backgroundColor="#515760" height="100%">
-          <FormContainer title="Edit Specie">
+          <FormContainer title="Update specie">
             <View style={styles.label}>
               <Text style={styles.text}>Scientific Name:</Text>
             </View>
@@ -166,17 +184,35 @@ const UpdateSpecie = ({ route, navigation }) => {
             <View style={styles.label}>
               <Text style={styles.text}>State Conservation:</Text>
             </View>
-            <Input
-              name="state_conservation"
-              id="state_conservation"
-              value={stateConservation}
-              onChangeText={(text) => setStateConservation(text)}
-            />
+            <VStack alignItems="center" space={4} style={styles.inputCountry}>
+              <Select
+                selectedValue={stateConservation}
+                minWidth="83%"
+                borderWidth={0}
+                fontSize={14}
+                accessibilityLabel="Select status conservation"
+                placeholder="Select status conservation"
+                onValueChange={(value) => setStateConservation(value)}
+                _selectedItem={{
+                  bg: "cyan.600",
+                  endIcon: <CheckIcon size="4" />,
+                }}
+                _dropdownIcon={{
+                  width: 0,
+                  height: 0,
+                  overflow: "hidden",
+                }}
+              >
+                {statusConservation.map((c) => (
+                  <Select.Item key={c.code} label={c.name} value={c.code} />
+                ))}
+              </Select>
+            </VStack>
 
             <View style={styles.label}>
               <Text style={styles.text}>Category:</Text>
             </View>
-            <VStack alignItems="center" space={4}>
+            <VStack alignItems="center" space={4} style={styles.inputCountry}>
               <Select
                 mode="dropdown"
                 iosIcon={<Icon name="chevron-down-outline" />}
@@ -253,6 +289,14 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     marginBottom: 20,
     width: "80%",
+  },
+  inputCountry: {
+    height: 60,
+    marginHorizontal: 12,
+    marginBottom: 25,
+    borderRadius: 20,
+    paddingVertical: 7,
+    backgroundColor: colors.grey,
   },
   icon: {
     flex: 1,

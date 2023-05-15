@@ -7,7 +7,8 @@ import {
   Button,
   StyleSheet,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Toast } from "native-base";
@@ -18,24 +19,27 @@ import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 
 const SpeciesAdmin = (props) => {
+  const isFocused = useIsFocused();
   const [specieList, setSpecieList] = useState();
   const [token, setToken] = useState();
 
   useEffect(() => {
-    // Get species list
-    axios.get(`${baseURL}species`).then((res) => {
-      setSpecieList(res.data);
-    });
+    if (isFocused) {
+      // Get species list
+      axios.get(`${baseURL}species`).then((res) => {
+        setSpecieList(res.data);
+      });
 
-    // Get token
-    AsyncStorage.getItem("jwt")
-      .then((res) => setToken(res))
-      .catch((error) => console.log(error));
+      // Get token
+      AsyncStorage.getItem("jwt")
+        .then((res) => setToken(res))
+        .catch((error) => console.log(error));
 
-    return () => {
-      setSpecieList();
-    };
-  }, []);
+      return () => {
+        setSpecieList();
+      };
+    }
+  }, [isFocused]);
 
   const deleteSpecie = (specieId) => {
     axios
@@ -122,9 +126,9 @@ const SpeciesAdmin = (props) => {
   };
 
   const updateSpecie = (specieId) => {
-    props.navigation.navigate('Update Specie', { specieId: specieId });
+    props.navigation.navigate("Update Specie", { specieId: specieId });
   };
-  
+
   return (
     <View style={styles.container}>
       <ScrollView>

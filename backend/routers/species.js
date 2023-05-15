@@ -164,8 +164,8 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
 });
 
 // put path to update a specie by id
-//router.put("/:id", auth(), async (req, res) => {
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth(), async (req, res) => {
+//router.put("/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
@@ -174,7 +174,6 @@ router.put("/:id", async (req, res) => {
     scientific_name: req.body.scientific_name,
     common_name: req.body.common_name,
     description: req.body.description,
-    user: req.body.user,
     division: req.body.division,
     family: req.body.family,
     gender: req.body.gender,
