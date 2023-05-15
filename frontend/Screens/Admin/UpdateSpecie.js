@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text, StyleSheet, View } from "react-native";
 import { Box, CheckIcon, Select, VStack, Toast } from "native-base";
 import axios from "axios";
@@ -19,7 +19,6 @@ import statusConservation from "../../assets/data/status.json";
 import UserContext from "../../Context/UserContext";
 
 const UpdateSpecie = ({ route, navigation }) => {
-  const userContext = useContext(UserContext);
   const { specieId } = route.params;
 
   const [scientificName, setScientificName] = useState();

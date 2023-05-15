@@ -1,5 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Text,
   TouchableOpacity,
   View,
@@ -11,7 +12,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { Toast } from "native-base";
+import { Box, Toast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 // import data
@@ -22,6 +23,7 @@ const SpeciesAdmin = (props) => {
   const isFocused = useIsFocused();
   const [specieList, setSpecieList] = useState();
   const [token, setToken] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // get token
@@ -33,6 +35,7 @@ const SpeciesAdmin = (props) => {
       // Get species list
       axios.get(`${baseURL}species`).then((res) => {
         setSpecieList(res.data);
+        setLoading(false);
       });
 
       return () => {
@@ -115,65 +118,83 @@ const SpeciesAdmin = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        {specieList &&
-          specieList.map((specie, index) => (
-            <View key={specie._id} style={styles.specieContainer}>
-              <View style={styles.textContainer}>
-                <Text>
-                  <Text style={[styles.text, { fontStyle: "italic" }]}>
-                    {specie.scientific_name},
-                  </Text>
-                  <Text style={styles.text}> {specie.common_name}</Text>
-                </Text>
+    <>
+      {loading == false ? (
+        <View style={styles.container}>
+          <ScrollView>
+            {specieList &&
+              specieList.map((specie, index) => (
+                <View key={specie._id} style={styles.specieContainer}>
+                  <View style={styles.textContainer}>
+                    <Text>
+                      <Text style={[styles.text, { fontStyle: "italic" }]}>
+                        {specie.scientific_name},
+                      </Text>
+                      <Text style={styles.text}> {specie.common_name}</Text>
+                    </Text>
 
-                <Text style={styles.text}>
-                  {specie.user
-                    ? specie.user.name + " (" + specie.user.country + ")"
-                    : "User not found"}
-                </Text>
-                <Text style={styles.text}>
-                  Created at: {specie.dateCreated}
-                </Text>
-              </View>
-              <View style={styles.iconContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="pencil"
-                  size={24}
-                  color="#2ea082"
-                  onPress={() => updateSpecie(specie._id)}
-                />
-                {specie.isVerified ? (
-                  <Icon
-                    style={styles.icon}
-                    name="check"
-                    size={24}
-                    color="orange"
-                    onPress={() => verifySpecie(specie._id)}
-                  />
-                ) : (
-                  <Icon
-                    style={styles.icon}
-                    name="exclamation-triangle"
-                    size={24}
-                    color="orange"
-                    onPress={() => verifySpecie(specie._id)}
-                  />
-                )}
-                <Icon
-                  style={styles.icon}
-                  name="trash-o"
-                  size={24}
-                  color="red"
-                  onPress={() => deleteSpecie(specie._id)}
-                />
-              </View>
-            </View>
-          ))}
-      </ScrollView>
-    </View>
+                    <Text style={styles.text}>
+                      {specie.user
+                        ? specie.user.name + " (" + specie.user.country + ")"
+                        : "User not found"}
+                    </Text>
+                    <Text style={styles.text}>
+                      Created at: {specie.dateCreated}
+                    </Text>
+                  </View>
+                  <View style={styles.iconContainer}>
+                    <Icon
+                      style={styles.icon}
+                      name="pencil"
+                      size={24}
+                      color="#2ea082"
+                      onPress={() => updateSpecie(specie._id)}
+                    />
+                    {specie.isVerified ? (
+                      <Icon
+                        style={styles.icon}
+                        name="check"
+                        size={24}
+                        color="orange"
+                        onPress={() => verifySpecie(specie._id)}
+                      />
+                    ) : (
+                      <Icon
+                        style={styles.icon}
+                        name="exclamation-triangle"
+                        size={24}
+                        color="orange"
+                        onPress={() => verifySpecie(specie._id)}
+                      />
+                    )}
+                    <Icon
+                      style={styles.icon}
+                      name="trash-o"
+                      size={24}
+                      color="red"
+                      onPress={() => deleteSpecie(specie._id)}
+                    />
+                  </View>
+                </View>
+              ))}
+          </ScrollView>
+        </View>
+      ) : (
+        //Loading
+        <Box
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          bgColor="#515760"
+        >
+          <ActivityIndicator
+            size="large"
+            backgroundColor="#515760"
+            color="#5cb85c"
+          />
+        </Box>
+      )}
+    </>
   );
 };
 

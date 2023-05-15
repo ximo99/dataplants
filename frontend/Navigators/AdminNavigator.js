@@ -40,10 +40,10 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Species Admin Navigator"
+        name="SpeciesStack"
         component={SpeciesStack}
         options={{
-          title: "Species Admin Navigator",
+          title: "Species Admin",
         }}
       />
 
