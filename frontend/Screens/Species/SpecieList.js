@@ -8,7 +8,7 @@ import SpecieCard from "./SpecieCard";
 var { width } = Dimensions.get("window");
 
 const SpecieList = (props) => {
-  const { item} = props;
+  const { item } = props;
 
   return (
     <TouchableOpacity
@@ -17,7 +17,7 @@ const SpecieList = (props) => {
       //activeOpacity={0.5}
     >
       <View style={{ width: width / 2, backgroundColor: "#515760" }}>
-        <SpecieCard {...item}/>
+        <SpecieCard {...item} />
       </View>
     </TouchableOpacity>
   );

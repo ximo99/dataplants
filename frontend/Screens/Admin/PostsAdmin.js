@@ -1,19 +1,21 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, ScrollView, Button, StyleSheet } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  Button,
+  StyleSheet,
+} from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Toast } from "native-base";
 
 // import data
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
-
-// import context API
-import AuthGlobal from "../../Context/store/AuthGlobal";
-
-// import actions
-import { logOutUser } from "../../Context/actions/Auth.actions";
 
 const PostsAdmin = (props) => {
   const [postList, setPostList] = useState();
@@ -62,27 +64,33 @@ const PostsAdmin = (props) => {
         console.log(error);
       });
   };
-  
+
   return (
     <View style={styles.container}>
       <ScrollView>
         {postList &&
           postList.map((post, index) => (
             <View key={post._id} style={styles.postContainer}>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>{post.user.name}</Text>
-              <Text style={styles.text}>{post.specie.scientific_name}, {post.location}</Text>
-              <Text style={styles.text}>Created at: {post.dateCreated}</Text>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>
+                  {post.user
+                    ? post.user.name + " (" + post.user.country + ")"
+                    : "User not found"}
+                </Text>
+                <Text style={styles.text}>
+                  {post.specie.scientific_name}, {post.location}
+                </Text>
+                <Text style={styles.text}>Created at: {post.dateCreated}</Text>
+              </View>
+              <View style={styles.iconContainer}>
+                <Icon
+                  name="trash-o"
+                  size={24}
+                  color="red"
+                  onPress={() => deletePost(post._id)}
+                />
+              </View>
             </View>
-            <View style={styles.iconContainer}>
-              <Icon
-                name="trash-o"
-                size={24}
-                color="red"
-                onPress={() => deletePost(post._id)}
-              />
-            </View>
-          </View>
           ))}
       </ScrollView>
     </View>
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: colors.background
+    backgroundColor: colors.background,
   },
   postContainer: {
     flexDirection: "row",
@@ -108,13 +116,13 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: "flex-end",
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
   },
   text: {
-    color: 'white'
-  }
+    color: "white",
+  },
 });
 
 export default PostsAdmin;
