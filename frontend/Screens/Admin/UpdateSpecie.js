@@ -15,6 +15,7 @@ import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";
 import mime from "mime";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 // import of reusable components
 import FormContainer from "../../Shared/Form/FormContainer";
@@ -48,60 +49,64 @@ const UpdateSpecie = (props) => {
   const [state_conservation, setStateConservation] = useState();
   const [image, setImage] = useState();
   const [mainImage, setMainImage] = useState();
-  const [token, setToken] = useState();
+  //const [token, setToken] = useState();
   const [err, setError] = useState();
   const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const route = useRoute();
+  const { specieId } = route.params;
 
   useEffect(() => {
+    // Load the specie data when the component is mounted
+    axios
+      .get(`${baseURL}species/${specieId}`)
+      .then((res) => {
+        const specie = res.data;
+        setScientificName(specie.scientific_name);
+        setCommonName(specie.common_name);
+        setDescription(specie.description);
+        setCategory(specie.category);
+        setDivision(specie.division);
+        setFamily(specie.family);
+        setGender(specie.gender);
+        setStateConservation(specie.state_conservation);
+        setImage(specie.image);
+        setMainImage(specie.image);
+      })
+      .catch((error) => alert("Error loading the specie data"));
+
     // categories
     axios
       .get(`${baseURL}categories`)
       .then((res) => setCategories(res.data))
       .catch((error) => alert("Error to load categories"));
 
-    // image picker
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } = await ImagePicker.requestCameraPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
-      }
-    })();
+    // get token
+    /* AsyncStorage.getItem("jwt")
+      .then((res) => setToken(res))
+      .catch((error) => console.log(error)); */
 
     return () => {
       setCategories([]);
     };
   }, []);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setMainImage(result.assets[0].uri);
-      setImage(result.assets[0].uri);
-    }
-  };
-
-  const addSpecie = () => {
-    if (scientific_name == "" || common_name == "" || description  == "" || category == "" || division == "" || family == "" || gender == "" || state_conservation == "" ) {
+  const updateSpecie = () => {
+    if (
+      scientific_name == "" ||
+      common_name == "" ||
+      description == "" ||
+      category == "" ||
+      division == "" ||
+      family == "" ||
+      gender == "" ||
+      state_conservation == ""
+    ) {
       setError("Please fill in the form correctly");
     }
 
-    const newImageUri = "file:///" + image.split("file:/").join("");
-
     let formData = new FormData();
-
-    formData.append("image", {
-      uri: newImageUri,
-      type: mime.getType(newImageUri),
-      name: newImageUri.split("/").pop(),
-    });
 
     formData.append("scientific_name", scientific_name);
     formData.append("common_name", common_name);
@@ -117,50 +122,45 @@ const UpdateSpecie = (props) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
+        //"Authorization": `Bearer ${token}`,
       },
     };
 
-    //// LLEVAR
-    setUser(userContext.user.userId)
-    
-    axios
-        .post(`${baseURL}species`, formData, config)
-        .then((res) => {
-          if (res.status == 200 || res.status == 201) {
-            Toast.show({
-              title: "Updated Specie.",
-              description: "The specie was updated to the DB.",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-            });
+    console.log("hola 1");
 
-            setTimeout(() => {
-              props.navigation.navigate("Species Admin");
-            }, 500);
-          }
-        })
-        .catch((error) => {
+    axios
+      .put(`${baseURL}species/${specieId}`, formData, config)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
           Toast.show({
-            title: "Error",
-            description: "Something went wrong. Please try again.",
-            status: "error",
+            title: "Updated Specie.",
+            description: "The specie was updated to the DB.",
+            status: "success",
             duration: 2000,
             isClosable: true,
           });
+          console.log("hola 21");
+          setTimeout(() => {
+            props.navigation.navigate("Species Admin");
+          }, 500);
+          console.log("hola 31");
+        }
+      })
+      .catch((error) => {
+        console.log("hola 41");
+        Toast.show({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
         });
-  }
+      });
+  };
 
   return (
     <View backgroundColor="#515760" height="100%">
       <FormContainer title="Updated specie">
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: mainImage }} />
-          <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
-            <Icon style={{ color: "white" }} name="camera" />
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.label}>
           <Text style={styles.text}>Scientific name:</Text>
         </View>
@@ -205,7 +205,13 @@ const UpdateSpecie = (props) => {
             minWidth="83%"
             borderWidth={0}
             fontSize={14}
-            placeholder="Select the Product Category"
+            name="category"
+            id="category"
+            value={category}
+            placeholder={
+              category ? category.name : "Select the specie category"
+            }
+            placeholderTextColor={"#000"}
             selectedValue={pickerValue}
             onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
           >
@@ -279,11 +285,7 @@ const UpdateSpecie = (props) => {
         {err ? <Error message={message} /> : null}
 
         <View style={styles.buttonContainer}>
-          <EasyButton
-            primary
-            large
-            onPress={() => addSpecie()}
-          >
+          <EasyButton primary large onPress={() => updateSpecie()}>
             <Text style={styles.buttonText}>Confirm</Text>
           </EasyButton>
         </View>

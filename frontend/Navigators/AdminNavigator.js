@@ -14,7 +14,6 @@ const Stack = createStackNavigator();
 function SpeciesStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Species Admin" component={SpeciesAdmin} />
       <Stack.Screen name="Update Specie" component={UpdateSpecie} />
     </Stack.Navigator>
   );

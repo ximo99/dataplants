@@ -205,7 +205,7 @@ const SpecieForm = (props) => {
             minWidth="83%"
             borderWidth={0}
             fontSize={14}
-            placeholder="Select the Product Category"
+            placeholder="Select the Specie Category"
             selectedValue={pickerValue}
             onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
           >

@@ -2,7 +2,7 @@
 const { expressjwt: jwt } = require("express-jwt");
 
 // middleware to handle JWT authentication
-// requests from all users to /users/login and /users/register and GET and OPTIONS requests to /api/v1/products and /api/v1/categories are allowed
+// requests from all users to /users/login and /users/register and GET and OPTIONS requests to /api/v1/species and /api/v1/categories are allowed
 require("dotenv/config");
 const secret = process.env.SECRET;
 const api = process.env.API_URL;

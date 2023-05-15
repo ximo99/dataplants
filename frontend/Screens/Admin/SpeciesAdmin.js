@@ -125,7 +125,6 @@ const SpeciesAdmin = (props) => {
     props.navigation.navigate('Update Specie', { specieId: specieId });
   };
   
-
   return (
     <View style={styles.container}>
       <ScrollView>
