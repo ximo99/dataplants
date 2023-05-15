@@ -24,16 +24,16 @@ const SpeciesAdmin = (props) => {
   const [token, setToken] = useState();
 
   useEffect(() => {
+    // get token
+    AsyncStorage.getItem("jwt")
+      .then((res) => setToken(res))
+      .catch((error) => console.log(error));
+
     if (isFocused) {
       // Get species list
       axios.get(`${baseURL}species`).then((res) => {
         setSpecieList(res.data);
       });
-
-      // Get token
-      AsyncStorage.getItem("jwt")
-        .then((res) => setToken(res))
-        .catch((error) => console.log(error));
 
       return () => {
         setSpecieList();
@@ -75,43 +75,28 @@ const SpeciesAdmin = (props) => {
 
   const verifySpecie = (specieId) => {
     axios
-      .get(`${baseURL}species/${specieId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .put(
+        `${baseURL}species/verify/${specieId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => {
-        const specie = res.data;
-        specie.isVerified = !specie.isVerified;
-
-        axios
-          .put(`${baseURL}species/${specieId}`, specie, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              const updatedSpecies = specieList.map((item) =>
-                item._id === specieId ? specie : item
-              );
-              setSpecieList(updatedSpecies);
-              Toast.show({
-                title: "Specie verification status updated",
-                description:
-                  "The specie verification status was updated successfully.",
-                status: "success",
-                duration: 2000,
-                isClosable: true,
-              });
-            }
-          })
-          .catch((error) => {
-            Toast.show({
-              title: "Error",
-              description: "Something went wrong. Please try again.",
-              status: "error",
-              duration: 2000,
-              isClosable: true,
-            });
-            console.log(error);
+        if (res.status === 200) {
+          const updatedSpecies = specieList.map((item) =>
+            item._id === specieId ? res.data : item
+          );
+          setSpecieList(updatedSpecies);
+          Toast.show({
+            title: "Specie verification status updated",
+            description:
+              "The specie verification status was updated successfully.",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
           });
+        }
       })
       .catch((error) => {
         Toast.show({

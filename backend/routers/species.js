@@ -165,7 +165,6 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
 
 // put path to update a specie by id
 router.put("/:id", auth(), async (req, res) => {
-//router.put("/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
@@ -197,6 +196,33 @@ router.put("/:id", auth(), async (req, res) => {
 
   res.send(specie);
 });
+
+// put path to update the isVerified status of a specie by id
+router.put("/verify/:id", auth(), async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(400).send("Invalid specie ID");
+  }
+
+  
+  // find the specie
+  const specie = await Specie.findById(req.params.id);
+  if (!specie) {
+    return res.status(404).send("Specie not found");
+  }
+
+  // toggle the isVerified status
+  specie.isVerified = !specie.isVerified;
+
+  // save the updated specie
+  const updatedSpecie = await specie.save();
+
+  if (!updatedSpecie) {
+    return res.status(500).send("The specie's verification status could not be updated!");
+  }
+
+  res.send(updatedSpecie);
+});
+
 
 // put path to update the array images
 router.put(
