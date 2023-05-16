@@ -92,12 +92,11 @@ const UpdateSpecie = ({ route, navigation }) => {
 
       if (response.status === 200) {
         Toast.show({
-          text: "Specie updated.",
+          title: "Specie updated.",
           description: "The specie is updated to the DB.",
           status: "success",
           duration: 2000,
           isClosable: true,
-          type: "success",
         });
 
         setTimeout(() => {

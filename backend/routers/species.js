@@ -223,7 +223,6 @@ router.put("/verify/:id", auth(), async (req, res) => {
   res.send(updatedSpecie);
 });
 
-
 // put path to update the array images
 router.put(
   "/gallery-images/:id",
