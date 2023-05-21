@@ -4,7 +4,7 @@ const router = express.Router();
 
 // import files
 const { Category } = require("../models/category");
-const authAdmin = require("../helpers/jwt");
+const auth = require("../helpers/jwt");
 
 // paths
 // read path to get a list of categories
@@ -28,28 +28,36 @@ router.get("/:id", async (req, res) => {
       .json({ message: "the category with the given ID was not found" });
   }
 
-  res.status(200).send(category);
+  res.status(200).json(category);
 });
 
 // write path to add new categories
-router.post("/", authAdmin(), async (req, res) => {
+//router.post("/", auth(), async (req, res) => {
+router.post("/", async (req, res) => {
   let category = new Category({
     name: req.body.name,
     icon: req.body.icon,
     color: req.body.color,
   });
 
-  category = await category.save();
+  try {
+    category = await category.save();
 
-  if (!category) {
-    return res.status(404).send("the category cannot be created!");
+    if (!category) {
+      return res
+        .status(404)
+        .send({ message: "the category cannot be created!" });
+    }
+
+    res.json(category);
+  } catch (err) {
+    res.status(500).json({ message: err.message, error: err });
   }
-
-  res.send(category);
 });
 
 // path to update a category by id
-router.put("/:id", authAdmin(), async (req, res) => {
+//router.put("/:id", auth(), async (req, res) => {
+router.put("/:id", async (req, res) => {
   const category = await Category.findByIdAndUpdate(
     req.params.id,
     {
@@ -61,14 +69,15 @@ router.put("/:id", authAdmin(), async (req, res) => {
   );
 
   if (!category) {
-    return res.status(404).send("the category cannot be created!");
+    return res.status(404).send({ message: "the category cannot be created!" });
   }
 
-  res.send(category);
+  res.json(category);
 });
 
 // delete path to delete a category
-router.delete("/:id", authAdmin(), async (req, res) => {
+//router.delete("/:id", auth(), async (req, res) => {
+router.delete("/:id", async (req, res) => {
   Category.findByIdAndRemove(req.params.id)
     .then((category) => {
       if (category) {

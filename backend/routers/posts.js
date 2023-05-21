@@ -81,7 +81,7 @@ router.get(`/usersFilter`, async (req, res) => {
   }
 
   const postList = await Post.find(filter)
-    .populate("category")
+    //.populate("category")
     .populate("user");
 
   if (!postList) {
@@ -94,7 +94,7 @@ router.get(`/usersFilter`, async (req, res) => {
 // read path to get a post by id
 router.get(`/:id`, async (req, res) => {
   const post = await Post.findById(req.params.id)
-    .populate("category")
+    //.populate("category")
     .populate("user");
 
   if (!post) {
@@ -131,17 +131,12 @@ router.get(`/get/verified`, async (req, res) => {
 
 // write path to add new posts
 router.post(`/`, uploadOptions.single("image"), async (req, res) => {
-  console.log(req.body.specie);
-  console.log(req.body.description);
-  console.log(req.body.user);
-  console.log(req.body.location);
   const specie = await Specie.findById(req.body.specie);
-  console.log('hola 2');
-  
+
   if (!specie) {
     return res.status(400).send("invalid specie");
   }
-  console.log('hola 3');
+
   const user = await User.findById(req.body.user);
 
   if (!user) {

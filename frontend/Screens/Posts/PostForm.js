@@ -125,14 +125,14 @@ const PostForm = (props) => {
             duration: 2000,
             isClosable: true,
           });
-          console.log("hola 2");
+
           setTimeout(() => {
             props.navigation.navigate("Post Container");
           }, 500);
         }
       })
       .catch((error) => {
-        console.log("111:", error);
+
         //console.error(error.response);
         Toast.show({
           title: "Error",
@@ -143,7 +143,7 @@ const PostForm = (props) => {
         });
       });
 
-    console.log("hola 4");
+
   };
 
   return (
