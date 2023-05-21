@@ -17,7 +17,6 @@ import UserContext from "../Context/UserContext";
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
-  const context = useContext(AuthGlobal);
   const userContext = useContext(UserContext);
 
   return (

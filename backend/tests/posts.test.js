@@ -15,7 +15,7 @@ beforeAll(async () => {
   );
 });
 
-// Test for GET request
+// test for GET request
 describe("GET /api/posts", () => {
   it("responds with a json containing a list of posts", async () => {
     const response = await request(app)
@@ -31,7 +31,7 @@ describe("GET /api/posts", () => {
   });
 });
 
-// Test for GET request with species filter
+// test for GET request with species filter
 describe("GET /api/posts/speciesFilter", () => {
   it("responds with a json containing the posts filtered by species", async () => {
     const speciesId = "6442795bfd83fcab715f71bc";
@@ -49,7 +49,7 @@ describe("GET /api/posts/speciesFilter", () => {
   });
 });
 
-// Test for GET request with user filter
+// test for GET request with user filter
 describe("GET /api/posts/usersFilter", () => {
   it("responds with a json containing the posts filtered by user", async () => {
     const userId = "64411708d2a101b0bb3f04c4";

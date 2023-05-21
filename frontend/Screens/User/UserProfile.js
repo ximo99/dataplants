@@ -92,7 +92,7 @@ const UserProfile = (props) => {
             <Text style={[styles.subtitle, { fontWeight: "bold" }]}>
               Your contributions.
             </Text>
-            <Text style={styles.others}>
+            <Text style={[styles.others, { textAlign: "justify" }]}>
               {species.length > 0
                 ? `You have added ${species.length} species. Keep it up! The community thanks you.`
                 : "You haven't added any species yet! We encourage you to do so and to contribute to the community."}

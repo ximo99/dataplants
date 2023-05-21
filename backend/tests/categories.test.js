@@ -15,7 +15,7 @@ beforeAll(async () => {
   );
 });
 
-// Test for GET request
+// test for GET request
 describe("GET /api/categories", () => {
   it("responds with a json containing a list of all categories", (done) => {
     request(app)
@@ -25,7 +25,7 @@ describe("GET /api/categories", () => {
   });
 });
 
-// Test for GET request by id
+// test for GET request by id
 describe("GET /api/categories/:id", () => {
   it("responds with a json containing a specific category", (done) => {
     const id = "64424b71f6b57526de0652db";
@@ -36,7 +36,7 @@ describe("GET /api/categories/:id", () => {
   });
 });
 
-// Test for POST request
+// test for POST request
 describe("POST /api/categories", () => {
   it("responds with a json containing the created category", async () => {
     const newCategory = {
@@ -58,7 +58,7 @@ describe("POST /api/categories", () => {
   });
 });
 
-// Test for PUT request
+// test for PUT request
 describe("PUT /api/categories/:id", () => {
   it("responds with a json containing the updated category", (done) => {
     const id = "64424b71f6b57526de0652db";
@@ -75,7 +75,7 @@ describe("PUT /api/categories/:id", () => {
   });
 });
 
-// Test for DELETE request
+// test for DELETE request
 describe("DELETE /api/categories/:id", () => {
   it("responds with a json showing successful deletion message", (done) => {
     const id = "64424b71f6b57526de0652db";
