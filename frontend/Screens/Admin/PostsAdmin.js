@@ -1,13 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
-  TouchableOpacity,
   View,
   ScrollView,
-  Button,
   StyleSheet,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
