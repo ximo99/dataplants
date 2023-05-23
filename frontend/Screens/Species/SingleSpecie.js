@@ -85,7 +85,7 @@ const SingleSpecie = (props) => {
             style={styles.image}
             source={{
               uri: item.image
-                ? item.image
+                ? "http://192.168.1.144:3000/public/uploads/"+item.image
                 : "https://cdn.pixabay.com/photo/2014/03/24/17/06/box-295029_1280.png",
             }}
           />

@@ -150,14 +150,14 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
   }
 
   const fileName = req.file.filename;
-  const basePath = `${req.protocol}://${req.get("host")}/public/upload/`;
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   let post = new Post({
     specie: req.body.specie,
     description: req.body.description,
     user: req.body.user,
     location: req.body.location,
-    image: `${basePath}${fileName}`,
+    image: fileName,
     
   });
 

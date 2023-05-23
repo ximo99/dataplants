@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
     const fileName = file.originalname.split(" ").join("-");
     const extension = FILE_TYPE_MAP[file.mimetype];
 
-    cb(null, `${fileName}-${Date.now()}.${extension}`);
+    cb(null, `${Date.now()}-${fileName}`);
   },
 });
 
@@ -138,7 +138,7 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
   }
 
   const fileName = req.file.filename;
-  const basePath = `${req.protocol}://${req.get("host")}/public/upload/`;
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   let specie = new Specie({
     scientific_name: req.body.scientific_name,
@@ -150,7 +150,7 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
     family: req.body.family,
     gender: req.body.gender,
     state_conservation: req.body.state_conservation,
-    image: `${basePath}${fileName}`,
+    image: fileName,
     isVerified: req.body.isVerified,
   });
 
