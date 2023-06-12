@@ -9,27 +9,40 @@ import { Toast } from "native-base";
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 
+// import context API
+import UserContext from "../../Context/UserContext";
+
 const UsersAdmin = (props) => {
   const [userList, setUserList] = useState();
   const [token, setToken] = useState();
-
+  
   useEffect(() => {
+    // get token
     AsyncStorage.getItem("jwt")
       .then((res) => setToken(res))
       .catch((error) => console.log(error));
-
-    axios
-      .get(`${baseURL}users`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setUserList(res.data);
-      });
-
+  }, []);
+  
+  useEffect(() => {
+    if (token) {
+      axios
+        .get(`${baseURL}users`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          setUserList(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  
     return () => {
       setUserList();
     };
-  }, []);
+  }, [token]);
+  
+    
 
   const deleteUser = (userId) => {
     axios

@@ -30,6 +30,8 @@ const SpecieCard = (props) => {
     isVerified,
   } = props;
 
+  not_found_image = require('../../assets/404_not_found.png')
+
   return (
     <View style={[styles.container]}>
       <Image
@@ -38,7 +40,7 @@ const SpecieCard = (props) => {
         source={{
           uri: image
             ? "http://192.168.1.144:3000/public/uploads/"+image
-            : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
+            : not_found_image,
         }}
       />
 

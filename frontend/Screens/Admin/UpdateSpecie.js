@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Box, CheckIcon, Select, VStack, Toast } from "native-base";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
+import mime from "mime";
+import * as MediaLibrary from "expo-media-library";
 
 // import of reusable components
 import FormContainer from "../../Shared/Form/FormContainer";
@@ -14,9 +24,6 @@ import EasyButton from "../../Shared/StyledComponents/EasyButton";
 import baseURL from "../../assets/common/baseUrl";
 import colors from "../../assets/common/colors";
 import statusConservation from "../../assets/data/status.json";
-
-// import context API
-import UserContext from "../../Context/UserContext";
 
 const UpdateSpecie = ({ route, navigation }) => {
   const { specieId } = route.params;
@@ -29,8 +36,10 @@ const UpdateSpecie = ({ route, navigation }) => {
   const [gender, setGender] = useState();
   const [stateConservation, setStateConservation] = useState();
   const [category, setCategory] = useState();
-  const [pickerValue, setPickerValue] = useState();
   const [categories, setCategories] = useState([]);
+
+  const [mainImage, setMainImage] = useState();
+  const [currentImage, setCurrentImage] = useState();
 
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState();
@@ -45,14 +54,21 @@ const UpdateSpecie = ({ route, navigation }) => {
       .get(`${baseURL}species/${specieId}`)
       .then((res) => {
         const specie = res.data;
-        setScientificName(specie.scientific_name || "");
-        setCommonName(specie.common_name || "");
-        setDescription(specie.description || "");
-        setDivision(specie.division || "");
-        setFamily(specie.family || "");
-        setGender(specie.gender || "");
-        setStateConservation(specie.state_conservation || "");
-        setCategory(specie.category || "");
+
+        setMainImage(
+          "http://192.168.1.144:3000/public/uploads/" + specie.image
+        );
+        console.log(JSON.stringify(specie.category, null, 3));
+
+        setScientificName(specie.scientific_name);
+        setCommonName(specie.common_name);
+        setDescription(specie.description);
+        setDivision(specie.division);
+        setFamily(specie.family);
+        setGender(specie.gender);
+        setStateConservation(specie.state_conservation);
+        setCategory(specie.category);
+
         setLoading(false);
       })
       .catch((error) => {
@@ -67,51 +83,99 @@ const UpdateSpecie = ({ route, navigation }) => {
       .catch((error) => {
         console.error("Error fetching categories data: ", error);
       });
-  }, []);
+  }, [specieId]);
+
+  useEffect(() => {
+    console.log("category ha cambiado: ", category);
+  }, [category]);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      //const filename = await getFilenameFromUri(result.uri);
+      setMainImage(result.assets[0].uri);
+      setCurrentImage(result.assets[0]);
+    }
+  };
+
+  const getFilenameFromUri = async (uri) => {
+    const asset = await MediaLibrary.getAssetInfoAsync(uri);
+    return asset.filename;
+  };
 
   const updateSpecie = async () => {
-    try {
-      const response = await axios.put(
-        `${baseURL}species/${specieId}`,
-        {
-          scientific_name: scientificName,
-          common_name: commonName,
-          description,
-          division,
-          family,
-          gender,
-          state_conservation: stateConservation,
-          category,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const newImageUri = "file:///" + mainImage.split("file:/").join("");
 
-      if (response.status === 200) {
+    console.log("image: ", JSON.stringify({
+      uri: newImageUri,
+      type: mime.getType(newImageUri),
+      name: newImageUri.split("/").pop(),
+    }, null, 3) );
+    let formData = new FormData();
+
+    formData.append("image", {
+      uri: newImageUri,
+      type: mime.getType(newImageUri),
+      name: newImageUri.split("/").pop(),
+    });
+
+    console.log("categoria: ", category);
+
+    formData.append("scientific_name", scientificName);
+    formData.append("common_name", commonName);
+    formData.append("description", description);
+    formData.append("category", category._id);
+    formData.append("division", division);
+    formData.append("family", family);
+    formData.append("gender", gender);
+    formData.append("state_conservation", stateConservation);
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .put(`${baseURL}species/${specieId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        if (response.status == 200 || response.status == 201) {
+          Toast.show({
+            title: "Specie updated.",
+            description: "The specie is updated to the DB.",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+
+          setTimeout(() => {
+            navigation.navigate("Species Admin");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        
         Toast.show({
-          title: "Specie updated.",
-          description: "The specie is updated to the DB.",
-          status: "success",
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          status: "error",
           duration: 2000,
           isClosable: true,
         });
-
-        setTimeout(() => {
-          navigation.navigate("Species Admin");
-        }, 500);
-      }
-    } catch (error) {
-      Toast.show({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
       });
-    }
   };
 
   return (
@@ -119,6 +183,20 @@ const UpdateSpecie = ({ route, navigation }) => {
       {loading == false ? (
         <View backgroundColor="#515760" height="100%">
           <FormContainer title="Update specie">
+            <View style={styles.imageContainer}>
+              {mainImage ? (
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: mainImage,
+                  }}
+                />
+              ) : null}
+              <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
+                <Icon style={{ color: "white" }} name="camera" />
+              </TouchableOpacity>
+            </View>
+
             <View style={styles.label}>
               <Text style={styles.text}>Scientific Name:</Text>
             </View>
@@ -220,15 +298,18 @@ const UpdateSpecie = ({ route, navigation }) => {
                 fontSize={14}
                 name="category"
                 id="category"
-                value={category}
-                placeholder={category ? category.name : "Select a category"}
+                selectedValue={category._id}
+                placeholder={
+                  specieId.category ? category.name : "Select a category"
+                }
                 placeholderTextColor={"#000"}
-                selectedValue={pickerValue}
-                onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
+                onValueChange={(e) => {
+                  setCategory(categories.find((c) => c._id == e));
+                }}
               >
                 {categories.map((c) => {
                   return (
-                    <Select.Item key={c._id} label={c.name} value={c._id} />
+                    <Select.Item key={c._id} label={c.name} value={c._id}/>
                   );
                 })}
               </Select>
@@ -277,6 +358,32 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+  },
+  imageContainer: {
+    width: 200,
+    height: 200,
+    borderStyle: "solid",
+    borderWidth: 8,
+    padding: 0,
+    justifyContent: "center",
+    borderRadius: 100,
+    borderColor: "#e0e0e0",
+    backgroundColor: colors.background,
+    elevation: 10,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 100,
+  },
+  imagePicker: {
+    position: "absolute",
+    right: 5,
+    bottom: 5,
+    backgroundColor: "grey",
+    padding: 8,
+    borderRadius: 100,
+    elevation: 20,
   },
   inputContainer: {
     flexDirection: "row",

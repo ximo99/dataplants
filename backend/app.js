@@ -23,8 +23,13 @@ const connection = process.env.CONNECTION_STRING;
 
 // middlewares
 // CORS middleware configuration to allow cross-origin resource sharing and allow pre-flight request for all routes
-app.use(cors());
-app.options("*", cors());
+//app.use(cors({}));
+app.use(cors({
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: '*',
+}));
+//app.options("*", cors());
 
 // bodyParser middleware used to parse incoming request bodies in JSON format
 // morgan middleware used to log incoming requests

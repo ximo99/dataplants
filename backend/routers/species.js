@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadOptions = multer({ storage: storage });
+const uploadOptions = multer({ storage: storage, limits: { fileSize: 2048 * 2048 * 5 }});
 
 // paths
 // read path to get a list of species
@@ -164,10 +164,22 @@ router.post(`/`, uploadOptions.single("image"), async (req, res) => {
 });
 
 // put path to update a specie by id
-router.put("/:id", auth(), async (req, res) => {
+router.put("/:id", uploadOptions.single("image"), auth(), async (req, res) => {
+  console.log("llegas a entrar");
+  console.log(req.body);
+    
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
+
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).send("no image in the request");
+  }
+
+  const fileName = req.file.filename;
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   let updatedData = {
     scientific_name: req.body.scientific_name,
@@ -176,6 +188,7 @@ router.put("/:id", auth(), async (req, res) => {
     division: req.body.division,
     family: req.body.family,
     gender: req.body.gender,
+    image: fileName,
     state_conservation: req.body.state_conservation,
     isVerified: false,
   };
