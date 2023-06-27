@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Box, Button, HStack, ScrollView, Toast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Swiper from 'react-native-swiper';
+import Swiper from "react-native-swiper";
 import { connect } from "react-redux";
+import axios from "axios";
+import * as ImagePicker from 'expo-image-picker';
 
 // import data
 import colors from "../../assets/common/colors";
+import baseURL from "../../assets/common/baseUrl";
 
 // import styles
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
@@ -19,6 +22,41 @@ const SingleSpecie = (props) => {
   const [item, setItem] = useState(props.route.params.item);
   const [availability, setAvailability] = useState(null);
   const [availabilityText, setAvailabilityText] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [specieId, setSpecieId] = useState(null); // New state variable for specieId
+
+  const handleAddImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: true,
+      quality: 1,
+    });
+  
+    if (!result.canceled) {
+      const formData = new FormData();
+      const files = result.assets.map((uri) => ({ uri }));
+  
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+  
+      try {
+        const response = await axios.put(
+          `${baseURL}/gallery-images/${specieId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+  
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   useEffect(() => {
     if (props.route.params.item.state_conservation === "GS") {
@@ -48,6 +86,8 @@ const SingleSpecie = (props) => {
     } else {
       setAvailabilityText("No data");
     }
+
+    setSpecieId(item.specieId); // Asignar el valor de item.specieId a specieId
 
     return () => {
       setAvailability(null);
@@ -92,6 +132,13 @@ const SingleSpecie = (props) => {
           />
         </View>
 
+        <View style={styles.info}>
+          <Text style={styles.others}>Description:</Text>
+          <Text style={[styles.others, { textAlign: "justify" }]}>
+            {item.description}
+          </Text>
+        </View>
+
         <View style={{ marginHorizontal: 20 }}>
           {item.images && item.images.length > 0 && (
             <Swiper style={styles.swiper} showsButtons loop>
@@ -111,12 +158,12 @@ const SingleSpecie = (props) => {
           )}
         </View>
 
-        <View style={styles.info}>
-          <Text style={styles.others}>Description:</Text>
-          <Text style={[styles.others, { textAlign: "justify" }]}>
-            {item.description}
-          </Text>
+        <View style={styles.buttonContainer}>
+          <EasyButton onPress={handleAddImage} secondary large>
+            <Text style={{ color: "white" }}>Add More Images</Text>
+          </EasyButton>
         </View>
+
       </ScrollView>
     </Box>
   );
@@ -171,7 +218,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   swiper: {
-    height: 300,
+    height: 200,
+  },
+  buttonContainer: {
+    alignSelf: "center",
+    marginVertical: 20,
   },
 });
 

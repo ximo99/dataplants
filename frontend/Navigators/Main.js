@@ -9,6 +9,7 @@ import SpecieNavigator from "./SpecieNavigator";
 import PostNavigator from "./PostNavigator";
 import AdminNavigator from "./AdminNavigator";
 import UserNavigator from "./UserNavigator";
+import IdentifyNavigator from "./IdentifyNavigator";
 
 // import context API
 import AuthGlobal from "../Context/store/AuthGlobal";
@@ -68,6 +69,23 @@ const Main = () => {
           ),
         }}
       />
+
+      <Tab.Screen
+              name="Identify"
+              component={IdentifyNavigator}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <View>
+                    <Icon
+                      name="search-plus"
+                      style={{ position: "relative" }}
+                      color={color}
+                      size={30}
+                    />
+                  </View>
+                ),
+              }}
+            />
 
       {userContext.user && userContext.user.isAdmin ? (
         <Tab.Screen

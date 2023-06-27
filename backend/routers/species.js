@@ -215,7 +215,6 @@ router.put("/verify/:id", auth(), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send("Invalid specie ID");
   }
-
   
   // find the specie
   const specie = await Specie.findById(req.params.id);
