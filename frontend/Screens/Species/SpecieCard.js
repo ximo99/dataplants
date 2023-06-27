@@ -39,7 +39,7 @@ const SpecieCard = (props) => {
         resizeMode="cover"
         source={{
           uri: image
-            ? "http://192.168.1.144:3000/public/uploads/"+image
+            ? "http://192.168.1.142:3000/public/uploads/"+image
             : not_found_image,
         }}
       />

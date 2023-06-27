@@ -80,7 +80,7 @@ const PostCard = (props) => {
         resizeMode="cover"
         source={{
           uri: image
-            ? "http://192.168.1.144:3000/public/uploads/"+image
+            ? "http://192.168.1.142:3000/public/uploads/"+image
             : "https://cdn.pixabay.com/photo/2015/03/25/13/04/page-not-found-688965_1280.png",
         }}pil
       />

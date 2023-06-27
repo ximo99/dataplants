@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Box, Button, HStack, ScrollView, Toast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Swiper from 'react-native-swiper';
 import { connect } from "react-redux";
 
 // import data
@@ -85,10 +86,29 @@ const SingleSpecie = (props) => {
             style={styles.image}
             source={{
               uri: item.image
-                ? "http://192.168.1.144:3000/public/uploads/"+item.image
+                ? "http://192.168.1.142:3000/public/uploads/" + item.image
                 : "https://cdn.pixabay.com/photo/2014/03/24/17/06/box-295029_1280.png",
             }}
           />
+        </View>
+
+        <View style={{ marginHorizontal: 20 }}>
+          {item.images && item.images.length > 0 && (
+            <Swiper style={styles.swiper} showsButtons loop>
+              {item.images.map((image, index) => (
+                <View key={index}>
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: image
+                        ? "http://192.168.1.142:3000/public/uploads/" + image
+                        : "https://cdn.pixabay.com/photo/2014/03/24/17/06/box-295029_1280.png",
+                    }}
+                  />
+                </View>
+              ))}
+            </Swiper>
+          )}
         </View>
 
         <View style={styles.info}>
@@ -149,6 +169,9 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: 15,
     marginRight: 10,
+  },
+  swiper: {
+    height: 300,
   },
 });
 

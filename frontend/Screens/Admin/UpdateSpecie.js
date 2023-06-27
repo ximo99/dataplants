@@ -56,7 +56,7 @@ const UpdateSpecie = ({ route, navigation }) => {
         const specie = res.data;
 
         setMainImage(
-          "http://192.168.1.144:3000/public/uploads/" + specie.image
+          "http://192.168.1.142:3000/public/uploads/" + specie.image
         );
         console.log(JSON.stringify(specie.category, null, 3));
 
