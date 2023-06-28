@@ -9,9 +9,10 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-
+import axios from 'axios';
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";
+import { compareHist, cv, cvImageToBase64 } from "react-native-opencv";
 
 // import data
 import colors from "../../assets/common/colors";
@@ -29,12 +30,39 @@ const IdentifyContainer = () => {
 
   const identifySpecie = async (mainImage) => {
     setIsLoading(true);
-
-    await new Promise((resolve) => setTimeout(resolve, 10000));
-
-    setIsLoading(false);
-    Alert.alert("Specie not found", "Try another image with more detail.");
+  
+    const mainHist = await calcHist(mainImage);
+  
+    try {
+      const response = await axios.get(`${baseURL}species/histogram`);
+      const speciesHistograms = response.data;
+  
+      let result = null;
+      let maxSimilarity = 0;
+  
+      for (let i = 0; i < speciesHistograms.length; i++) {
+        const speciesHist = speciesHistograms[i];
+        const similarity = await compareHist(mainHist, speciesHist);
+  
+        if (similarity > maxSimilarity) {
+          maxSimilarity = similarity;
+          result = speciesNames[i];
+        }
+      }
+  
+      setIsLoading(false);
+  
+      if (result) {
+        Alert.alert("Specie identified", "The species is: " + result);
+      } else {
+        Alert.alert("Specie not found", "Try another image with more detail.");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert("Error", "Failed to fetch species histograms.");
+    }
   };
+  
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -44,7 +72,7 @@ const IdentifyContainer = () => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setMainImage(result.assets[0].uri);
       setImage(result.assets[0].uri);
     }
@@ -97,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 100,
     borderColor: "#e0e0e0",
-    backgroundColor: colors.background,
+    backgroundColor: "#B0B0B0",
     elevation: 10,
     margin: 20,
   },

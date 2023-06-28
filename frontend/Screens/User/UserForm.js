@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 100,
     borderColor: "#e0e0e0",
-    backgroundColor: colors.background,
+    backgroundColor: "#B0B0B0",
     elevation: 10,
   },
   image: {

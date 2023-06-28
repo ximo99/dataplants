@@ -29,6 +29,7 @@ const Register = (props) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const [error, setError] = useState("");
+  const [showTerms, setShowTerms] = useState(false);
 
   const handleSubmit = () => {
     if (
@@ -39,7 +40,7 @@ const Register = (props) => {
       password === ""
     ) {
       setError("Please fill in your form correctly");
-      return;  // Return here if there's an error.
+      return; // Return here if there's an error.
     } else {
       setError("");
       console.log("success");
@@ -80,6 +81,10 @@ const Register = (props) => {
           isClosable: true,
         });
       });
+  };
+
+  const toggleTerms = () => {
+    setShowTerms(!showTerms);
   };
 
   return (
@@ -147,18 +152,39 @@ const Register = (props) => {
               </Select>
             </VStack>
 
-            <HStack alignItems="center" space={2} style={{ marginBottom: 20 }}>
-              <Checkbox
-                aria-label="accept-conditions"
-                isChecked={!buttonDisabled}
-                onChange={() => setButtonDisabled(!buttonDisabled)}
-                value={buttonDisabled}
-                colorScheme={buttonDisabled ? "white" : "cyan"}
-              />
-              <Text style={{ color: "white" }}>
-                I agree with the terms and conditions
+            <View style={{ alignItems: "center", marginBottom: 20 }}>
+              <HStack
+                alignItems="center"
+                space={2}
+              >
+                <Checkbox
+                  aria-label="accept-conditions"
+                  isChecked={!buttonDisabled}
+                  onChange={() => setButtonDisabled(!buttonDisabled)}
+                  value={buttonDisabled}
+                  colorScheme={buttonDisabled ? "white" : "cyan"}
+                />
+                <Text style={{ color: "white" }}>
+                  I agree with the terms and conditions
+                </Text>
+              </HStack>
+
+              {showTerms ? (
+                <Text style={{ color: colors.primary }} onPress={toggleTerms}>
+                  Read less
+                </Text>
+              ) : (
+                <Text style={{ color: colors.primary }} onPress={toggleTerms}>
+                  Read more
+                </Text>
+              )}
+            </View>
+
+            {showTerms && (
+              <Text style={{ color: "white", marginBottom: 20, marginHorizontal: 20, textAlign: "justify" }}>
+                The management of the application undertakes to collect the data strictly necessary for its operation and also to make responsible use of it. It also undertakes to delete said data as soon as its use is not necessary. The application includes measures to guarantee the security, integrity and confidentiality of the users who make use of it and their respective data. More information at: info@dataplants.com.
               </Text>
-            </HStack>
+            )}
 
             <View>{error ? <Error message={error} /> : null}</View>
 
