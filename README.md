@@ -8,7 +8,7 @@ The project aims to develop a mobile application for the registration and recogn
 
 It has been possible to develop a collaborative mobile application with an intuitive, friendly and simple interface - according to the users in the usability tests - which allows them to contribute to the database by providing their knowledge in botany. On the one hand, it allows the search and consultation of species as well as the addition of new ones. In addition, the functionality of the verification icon allows the verification of the integrity of the information. On the other hand, it is also possible to comment on the species found in nature through the publications. Privileged users have certain extra functionalities, such as editing and verifying species. It should be noted that due to the scope of the project, the identification functionality could only be proposed theoretically and was not implemented, limiting itself to the previous study of how this implementation could be approached.
 
-If you want to read the project report, you can contact me and I will most likely provide you with the document.
+If you wish to read the project report, you can contact me and I will be happy to provide you with the document.
 
 ### ESPAÑOL
 Proyecto de Fin de Grado (TFG) para el Grado de Ingeniería Multimedia de la ETSE - Universitat de València (España). Presentado y realizado por Ximo Casanova y tutorizado por Esther De Ves. Julio 2023. Calificación 8,5.
@@ -17,4 +17,4 @@ El proyecto tiene como objetivo desarrollar una aplicación móvil para el regis
 
 Se ha logrado desarrollar una aplicación móvil colaborativa con una interfaz intuitiva, amigable y sencilla -según los usuarios en las pruebas de usabilidad- que les permite contribuir a la base de datos aportando sus conocimientos en botánica. Por un lado, permite la búsqueda y consulta de especies así como la incorporación de otras nuevas. Además, la funcionalidad del icono de verificación permite verificar la integridad de la información. Por otro lado, también es posible comentar sobre las especies que se encuentran en la naturaleza a través de las publicaciones. Los usuarios privilegiados tienen ciertas funcionalidades extra, como editar y verificar especies. Cabe destacar que por cuestiones de alcance del proyecto, la funcionalidad de identificación únicamente pudo plantarse teóricamente y no llegó a implementarse, limitándose al estudio previo de como podría abordarse esta implementación.
 
-Si usted desea leer la memoria del proyecto, puede contactar conmigo y con mucho le facilitaré el documento.
+Si usted desea leer la memoria del proyecto, puede contactar conmigo y con mucho gusto le facilitaré el documento.
