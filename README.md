@@ -1,4 +1,4 @@
-# Dataplants
+# DataPlants
 Video with the result: https://www.youtube.com/watch?v=bncheGhG1_I
 
 ### ENGLISH
