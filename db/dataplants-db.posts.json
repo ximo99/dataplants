@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "64494f81384bac7654a84637"
+  },
+  "specie": {
+    "$oid": "64425ba5981e5aeb9f96116f"
+  },
+  "description": "As I was exploring the Tagus mouth Natural Park in Portugal, I was delighted to come across a truly impressive specimen of Salvia rosmarinus. The plant was situated in a lush and humid area, surrounded by a variety of other plant species. It was a large and mature specimen, standing tall and proud, with a sprawling canopy of aromatic leaves that exuded a delightful fragrance. The leaves were long and narrow, with a dark green color and a slightly woody texture.",
+  "location": "Portugal",
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "image": "salvia_rosmarinus_2.jpg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-04-26T16:21:21.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "644955c50874fef1d70d7ca1"
+  },
+  "specie": {
+    "$oid": "64467e317b1c84cbd9ba47b7"
+  },
+  "description": "While exploring the arid deserts of Angola, I was amazed to stumble upon a rare specimen of Welwitschia mirabilis. The plant was a true marvel of nature, with only two strap-like leaves that stretched out from the base of the plant and grew up to several meters long. The leaves were tough and leathery, and were believed to be capable of living for up to 2,000 years. The plant had a unique and fascinating appearance, with a short, stout stem that appeared to emerge from the ground.",
+  "location": "Angola",
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "image": "welwitschia_mirabilis_2.jpg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-04-26T16:48:05.365Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645d2a2415826a2892031f8e"
+  },
+  "specie": {
+    "$oid": "644682017b1c84cbd9ba47bd"
+  },
+  "description": "During my adventure in a pristine natural habitat of California, United States, I had the incredible fortune of encountering a breathtaking example of Pseudotsuga menziesii. This magnificent tree commanded attention with its commanding presence, just as the Lilium pomponium had captivated me before. Standing tall and graceful, it boasted a slender yet sturdy stem that reached for the sky.",
+  "location": "United States",
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "image": "pseudotsuga_menziesii_2.jpg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-05-11T17:47:16.109Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646d0d6e28a85f97b0653655"
+  },
+  "specie": {
+    "$oid": "6442795bfd83fcab715f71bc"
+  },
+  "description": "Near my garden, I found this specimen of Lilium pomponium. It was in a very sunny area and surrounded by lush vegetation that obscured it. I almost didn't see it!",
+  "location": "Italy",
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "image": "e536ae23-e63b-40e4-9e60-eee210a3700a.jpeg-1684868462667.jpeg",
+  "images": [],
+  "dateCreated": {
+    "$date": "2023-05-23T19:01:02.926Z"
+  },
+  "__v": 0
+}]

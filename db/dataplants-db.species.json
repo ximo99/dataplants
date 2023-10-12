@@ -1,0 +1,659 @@
+[{
+  "_id": {
+    "$oid": "64466efc7b1c84cbd9ba47b4"
+  },
+  "scientific_name": "Gnetum africanum",
+  "common_name": "Okazi",
+  "description": "The native range of this species is W. Central Tropical Africa to Angola. It is a climber and grows primarily in the wet tropical biome. Has common names and is grown in various countries across Africa, including: Cameroon (okok), Central African Republic, Congo and Angola (KoKo), Nigeria (okazi or afang), Gabon (Nkumu) and the Democratic Republic of Congo (fumbua).",
+  "category": {
+    "$oid": "64424f30f6b57526de0652e9"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Gnetophyta",
+  "family": "Gnetaceae",
+  "gender": "Gnetum",
+  "state_conservation": "NT",
+  "image": "gnetum_africanum.jpg",
+  "images": [
+    "gnetum_africanum_2.jpg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-24T11:58:52.263Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "64467e317b1c84cbd9ba47b7"
+  },
+  "scientific_name": "Welwitschia mirabilis",
+  "common_name": "Tree tumbo",
+  "description": "The native range of this species is SW. Angola to NW. & W. Central Namibia. It is a subshrub and grows primarily in the desert or dry shrubland biome.",
+  "category": {
+    "$oid": "64424f30f6b57526de0652e9"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Spermatophyta",
+  "family": "Welwitschiaceae",
+  "gender": "Welwitschia",
+  "state_conservation": "GS",
+  "image": "1688062307680-f3723c5a-e7ae-41f3-b0dd-1bd00a70e956.jpeg",
+  "images": [
+    "welwitschia_mirabilis_2.jpg",
+    "welwitschia_mirabilis_3.jpg"
+  ],
+  "isVerified": false,
+  "dateCreated": {
+    "$date": "2023-04-24T13:03:45.144Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "6446805f7b1c84cbd9ba47ba"
+  },
+  "scientific_name": "Pinus halepensis",
+  "common_name": "Aleppo Pine",
+  "description": "The native range of this species is the Mediterranean. It is a tree and grows mainly in the temperate biome. Also known as Jerusalem pine. It can reach 25 m in height. The trunk is massive and tortuous, with whitish gray bark and an irregular crown.",
+  "category": {
+    "$oid": "64424f24f6b57526de0652e7"
+  },
+  "user": null,
+  "division": "Pinophyta",
+  "family": "Pinaceae",
+  "gender": "Pinus",
+  "state_conservation": "LC",
+  "image": "pinus_halepensis.jpg",
+  "images": [
+    "pinus_halepensis_2.JPG",
+    "pinus_halepensis_3.jpg"
+  ],
+  "isVerified": false,
+  "dateCreated": {
+    "$date": "2023-04-24T13:13:03.661Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "644682017b1c84cbd9ba47bd"
+  },
+  "scientific_name": "Pseudotsuga menziesii",
+  "common_name": "Douglas Fir",
+  "description": "The Douglas fir is an evergreen conifer species in the pine family. It is native to western North America and is also known as Douglas spruce, Oregon pine, and Columbian pine. There are three varieties: coast Douglas-fir (P. menziesii var. menziesii), Rocky Mountain Douglas-fir (P. menziesii var. glauca) and Mexican Douglas-fir (P. menziesii var. lindleyana). Despite its common names, it is not a true fir (genus Abies), spruce (genus Picea), or pine (genus Pinus). It is also not a hemlock; the genus name Pseudotsuga means false hemlock.",
+  "category": {
+    "$oid": "64424f24f6b57526de0652e7"
+  },
+  "user": null,
+  "division": "Pinophyta",
+  "family": "Pinaceae",
+  "gender": "Pseudotsuga",
+  "state_conservation": "LC",
+  "image": "pseudotsuga_menziesii.jpg",
+  "images": [
+    "pseudotsuga_menziesii_2.jpg",
+    "pseudotsuga_menziesii_3.JPG",
+    "pseudotsuga_menziesii_4.jpg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-24T13:20:01.923Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "644683467b1c84cbd9ba47c0"
+  },
+  "scientific_name": "Sequoia sempervirens",
+  "common_name": "Coastal Redwood",
+  "description": "The native range of this species is SW. Oregon to W. California. It is a tree and grows primarily in the temperate biome. It is used as a medicine and has environmental uses. ",
+  "category": {
+    "$oid": "64424f18f6b57526de0652e5"
+  },
+  "user": null,
+  "division": "Pinophyta",
+  "family": "Cupressaceae",
+  "gender": "Sequoia",
+  "state_conservation": "EN",
+  "image": "sequoia_sempervirens.jpg",
+  "images": [
+    "sequoia_sempervirens_2.jpg",
+    "sequoia_sempervirens_3.jpg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-24T13:25:26.246Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "644683df7b1c84cbd9ba47c3"
+  },
+  "scientific_name": "Thuja occidentalis",
+  "common_name": "Arbor Vitae",
+  "description": "The native range of this species is Central & E. Canada to N. Central & E. U.S.A. It is a tree and grows primarily in the temperate biome. It is used as a medicine, has environmental uses and for food.",
+  "category": {
+    "$oid": "64424f18f6b57526de0652e5"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Pinophyta",
+  "family": "Cupressaceae",
+  "gender": "Thuja",
+  "state_conservation": "LC",
+  "image": "thuja_occidentalis.jpg",
+  "images": [
+    "thuja_occidentalis_2.jpg",
+    "thuja_occidentalis_3.jpg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-24T13:27:59.723Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "64498ac40c58c573c748e46a"
+  },
+  "scientific_name": "Cycas revoluta",
+  "common_name": "Sago Palm",
+  "description": "The native range of this species is China (Fujian), Japan (Kyushu) to E. Taiwan. It is a shrub and grows primarily in the subtropical biome. It is used as a medicine, has environmental uses and for food. ",
+  "category": {
+    "$oid": "64424bb0f6b57526de0652e3"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Cycadophyta",
+  "family": "Cycadaceae",
+  "gender": "Cycas",
+  "state_conservation": "LC",
+  "image": "cycas_revoluta.jpeg",
+  "images": [],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-26T20:34:12.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64498c360c58c573c748e46d"
+  },
+  "scientific_name": "Encephalartos woodii",
+  "common_name": "Wood's cycad",
+  "description": "The native range of this species is China (Fujian), Japan (Kyushu) to E. Taiwan. It is a shrub and grows primarily in the subtropical biome. It is used as a medicine, has environmental uses and for food. ",
+  "category": {
+    "$oid": "64424bb0f6b57526de0652e3"
+  },
+  "user": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "division": "Cycadophyta",
+  "family": "Zamiaceae",
+  "gender": "Encephalartos",
+  "image": "encephalartos_woodii.jpg",
+  "images": [],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-26T20:40:22.635Z"
+  },
+  "__v": 1,
+  "c": "EW",
+  "state_conservation": "EW",
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "64425ba5981e5aeb9f96116f"
+  },
+  "scientific_name": "Salvia rosmarinus",
+  "common_name": "Rosemary",
+  "description": "The native range of this species is Medit. It is a shrub and grows primarily in the temperate biome. It is used as animal food, a medicine and invertebrate food, has environmental uses and social uses and for food.",
+  "category": {
+    "$oid": "64424f8df6b57526de0652ed"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Lamiaceae",
+  "gender": "Salvia",
+  "state_conservation": "GS",
+  "image": "salvia_rosmarinus.jpg",
+  "images": [],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-21T09:47:17.973Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "644263f4bf2fa0add3e77fd8"
+  },
+  "scientific_name": "Myrtus communis",
+  "common_name": "Common Myrtle",
+  "description": "The native range of this species is Macaronesia to Pakistan. It is a shrub or tree and grows primarily in the subtropical biome. It is used as a medicine and invertebrate food, has environmental uses and for fuel and food.",
+  "category": {
+    "$oid": "64424f8df6b57526de0652ed"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Myrtaceae",
+  "gender": "Myrtus",
+  "state_conservation": "LC",
+  "image": "myrtus_communis.jpg",
+  "images": [
+    "1688059038887-fff1d9b9-99ed-4853-b872-a0d870a76e67.jpeg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-21T10:22:44.781Z"
+  },
+  "__v": 1,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "646d0390965a0b08e4bd2a5c"
+  },
+  "scientific_name": "Onoclea struthiopteris",
+  "common_name": "Ostrich Plume Fern",
+  "description": "The native range of this species is Temp. Eurasia. It is a perennial and grows primarily in the temperate biome.",
+  "category": {
+    "$oid": "64424ba2f6b57526de0652e1"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Polypodiophyta",
+  "family": "Onocleaceae",
+  "gender": "Matteuccia",
+  "state_conservation": "GS",
+  "image": "1684865936751-fcf6a17a-04ce-48f5-b7d5-b44c0ce0cf8d.jpeg",
+  "images": [
+    "1688061007932-c7939911-1513-44e8-bd73-a1533e480c0c.jpeg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-05-23T18:18:56.920Z"
+  },
+  "__v": 28,
+  "histogram_data": []
+},
+{
+  "_id": {
+    "$oid": "6442795bfd83fcab715f71bc"
+  },
+  "scientific_name": "Lilium pomponium",
+  "common_name": "Lis de Pompone",
+  "description": "The native range of this species is SW Alps. It is a bulbous geophyte and grows primarily in the temperate biome.",
+  "category": {
+    "$oid": "64424f38f6b57526de0652eb"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Liliaceae",
+  "gender": "Lilium",
+  "state_conservation": "LC",
+  "image": "1687891984570-f8b49b8e-9c89-4b26-a13a-cb29b709bb41.jpeg",
+  "images": [
+    "1688050091609-lilium_pomponium_2.jpg",
+    "1688050091609-lilium_pomponium_3.jpg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-21T11:54:03.828Z"
+  },
+  "__v": 5,
+  "histogram_data": [
+    0.084941933,
+    0.04577777,
+    0.079252455,
+    0.0000870091,
+    0.00033155,
+    0.000459774,
+    0.000880166,
+    0.000145626,
+    0.0000512896,
+    0.001803378,
+    0.536291948,
+    0.066872436,
+    0.077314442,
+    0.00000366354,
+    0,
+    0.000811474,
+    0.0000503737,
+    0,
+    0,
+    0.001668743,
+    0.060522604,
+    0.024246227,
+    0.012636467,
+    0,
+    0,
+    0.00000183177,
+    0,
+    0,
+    0,
+    0.005848842,
+    0.233339534,
+    0.198226687,
+    0.110270957,
+    0.006640625,
+    0.003388517,
+    0.009486607,
+    0.005217634,
+    0.003574529,
+    0.015817212,
+    0.00609499,
+    0.002883185,
+    0.037217882,
+    0.268709697,
+    0.001323785,
+    0.000263517,
+    0.000102307,
+    0.00078125,
+    0.001165675,
+    0.000170511,
+    0.000279018,
+    0.005177331,
+    0.013389757,
+    0.061542039,
+    0.01360057,
+    0.000114707,
+    0.0000341022,
+    0.000616939,
+    0.000399926,
+    0.0000806052,
+    0.0000899058,
+    0.116247073,
+    0.096084602,
+    0.362177986,
+    0.085882611,
+    0.010846019,
+    0.01284031,
+    0.008862705,
+    0.007995463,
+    0.004219116,
+    0.020034397,
+    0.00293106,
+    0.023042301,
+    0.200387881,
+    0.006970872,
+    0.000395199,
+    0.015903103,
+    0.003970287,
+    0.000029274,
+    0.0000109778,
+    0.0000548888,
+    0.000307377,
+    0.002631001,
+    0.016093384,
+    0.001741803,
+    0.0000548888,
+    0.000204918,
+    0.0000622073,
+    0.00000365925,
+    0.00000365925,
+    0.0000109778,
+    0.017636719,
+    0.028330078,
+    0.114511719,
+    0.018710938,
+    0.003701172,
+    0.000888672,
+    0.001373698,
+    0.000380859,
+    0.0000585938,
+    0.003391927,
+    0.048372396,
+    0.12484375,
+    0.250970052,
+    0.000722656,
+    0.000507813,
+    0.0000195313,
+    0.001282552,
+    0.00436849,
+    0.000849609,
+    0.026054688,
+    0.053857422,
+    0.06163737,
+    0.207483724,
+    0.001077474,
+    0.00015625,
+    0.000104167,
+    0.000524089,
+    0.00390625,
+    0.002353516,
+    0.021923828,
+    0.154025176,
+    0.033917594,
+    0.01918911,
+    0.008035714,
+    0.005082699,
+    0.047621487,
+    0.101335626,
+    0.067765662,
+    0.028747073,
+    0.079391101,
+    0.177956674,
+    0.036541276,
+    0.018292594,
+    0.001284397,
+    0.000867242,
+    0.001127049,
+    0.000786739,
+    0.000376903,
+    0.000472043,
+    0.0079113,
+    0.123704625,
+    0.047855679,
+    0.020210041,
+    0.000508636,
+    0.000106118,
+    0.000526932,
+    0.000739169,
+    0.000135392,
+    0.000106118,
+    0.01537983
+  ]
+},
+{
+  "_id": {
+    "$oid": "64426338bf2fa0add3e77fcf"
+  },
+  "scientific_name": "Tulipa gesneriana",
+  "common_name": "Didier's tulipp",
+  "description": "The native range of this species is a cultigen from Türkiye. It is a bulbous geophyte and grows primarily in the temperate biome.",
+  "category": {
+    "$oid": "64424f38f6b57526de0652eb"
+  },
+  "user": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "division": "Magnoliophyta",
+  "family": "Liliaceae",
+  "gender": "Tulipa",
+  "state_conservation": "VU",
+  "image": "1688045811848-49a1686d-4cd0-4e65-bbe8-b20a7c2e8c85.jpeg",
+  "images": [
+    "1688058980799-989f4022-9960-4a43-b4d3-aff993cbcc1a.jpeg"
+  ],
+  "isVerified": true,
+  "dateCreated": {
+    "$date": "2023-04-21T10:19:36.310Z"
+  },
+  "__v": 1,
+  "histogram_data": [
+    0.005751953,
+    0.132679036,
+    0.068320313,
+    0.006923828,
+    0.000660807,
+    0.00015625,
+    0.00054362,
+    0.000172526,
+    0.0003125,
+    0.004707031,
+    0.021116536,
+    0.118222656,
+    0.218251953,
+    0.120849609,
+    0.000826823,
+    0.000169271,
+    0.000400391,
+    0.000208333,
+    0.000117188,
+    0.014134115,
+    0.058561198,
+    0.024733073,
+    0.147542318,
+    0.023815104,
+    0.000146484,
+    0.0000748698,
+    0.000175781,
+    0.0000390625,
+    0.0000260417,
+    0.030361328,
+    0.26476501,
+    0.224955175,
+    0.140211899,
+    0.050355882,
+    0.006117903,
+    0.001336593,
+    0.001016028,
+    0.001124694,
+    0.00806846,
+    0.068584624,
+    0.028829123,
+    0.057739745,
+    0.038071176,
+    0.001434393,
+    0.000141266,
+    0.00000543331,
+    0.0000380331,
+    0.000141266,
+    0.000440098,
+    0.006922032,
+    0.015370823,
+    0.045574572,
+    0.003096985,
+    0.000510731,
+    0.0000325998,
+    0,
+    0.0000434664,
+    0.0000597664,
+    0.000162999,
+    0.034849226,
+    0.017861328,
+    0.374238281,
+    0.165367839,
+    0.017141927,
+    0.001490885,
+    0.000120443,
+    0.000416667,
+    0.00015625,
+    0.000061849,
+    0.000644531,
+    0.063938802,
+    0.058710938,
+    0.122216797,
+    0.007643229,
+    0.0000716146,
+    0.00000325521,
+    0,
+    0.00000325521,
+    0.00000976563,
+    0.010986328,
+    0.085110677,
+    0.010481771,
+    0.003108724,
+    0.000100911,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0.060113932,
+    0.07778343,
+    0.019291424,
+    0.011617006,
+    0.013219477,
+    0.000348837,
+    0.0000581395,
+    0.000559593,
+    0.000261628,
+    0.000159884,
+    0.001755087,
+    0.241595203,
+    0.033524709,
+    0.188277616,
+    0.23943314,
+    0.000327035,
+    0.0000436047,
+    0.0000145349,
+    0.0000181686,
+    0.0000109012,
+    0.00440407,
+    0.01765625,
+    0.000650436,
+    0.008760901,
+    0.005970203,
+    0.0000726744,
+    0.0000436047,
+    0,
+    0,
+    0.0000145349,
+    0.134127907,
+    0.024108073,
+    0.397047526,
+    0.096695964,
+    0.016038411,
+    0.001910807,
+    0.000332031,
+    0.000732422,
+    0.000283203,
+    0.00094401,
+    0.003603516,
+    0.061936849,
+    0.079550781,
+    0.08233724,
+    0.025859375,
+    0.000166016,
+    0.000061849,
+    0.0000358073,
+    0.0000260417,
+    0.002405599,
+    0.027643229,
+    0.092792969,
+    0.00984375,
+    0.013883464,
+    0.00039388,
+    0.0000455729,
+    0.0000227865,
+    0.00000325521,
+    0.0000130208,
+    0.000113932,
+    0.06116862
+  ]
+}]

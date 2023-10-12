@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "64424f18f6b57526de0652e5"
+  },
+  "name": "Ginkgo",
+  "icon": "icon-ginkgo",
+  "color": "#00ffae",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424ba2f6b57526de0652e1"
+  },
+  "name": "Pteridophytes",
+  "icon": "icon-pteridophytes",
+  "color": "#0078ff",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424f38f6b57526de0652eb"
+  },
+  "name": "Monocotyledon",
+  "icon": "icon-monocots",
+  "color": "#ff9b00",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6441296129f003119fd3f1dc"
+  },
+  "name": "Glaucophytes",
+  "icon": "icon-glaucophytes",
+  "color": "#ff0070",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424f30f6b57526de0652e9"
+  },
+  "name": "Gnetophyta",
+  "icon": "icon-gnetals",
+  "color": "#f7ff00",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424b87f6b57526de0652dd"
+  },
+  "name": "Green algae",
+  "icon": "icon-green-algae",
+  "color": "#8300ff",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424f8df6b57526de0652ed"
+  },
+  "name": "Dicotyledones",
+  "icon": "icon-eudicots",
+  "color": "#ff0000",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424b71f6b57526de0652db"
+  },
+  "name": "Red algae",
+  "icon": "icon-rhodophyta",
+  "color": "#ff00ff",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424b9af6b57526de0652df"
+  },
+  "name": "Bryophytes",
+  "icon": "icon-bryophytes",
+  "color": "#0000ff",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424f24f6b57526de0652e7"
+  },
+  "name": "Coniferophyta",
+  "icon": "icon-conifers",
+  "color": "#00ff13",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64424bb0f6b57526de0652e3"
+  },
+  "name": "Cycads",
+  "icon": "icon-cycads",
+  "color": "#00cdff",
+  "__v": 0
+}]

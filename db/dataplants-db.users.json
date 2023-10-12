@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "64411708d2a101b0bb3f04c4"
+  },
+  "name": "Ximo Casanova",
+  "email": "xcasanova99@gmail.com",
+  "passwordHash": "$2a$10$MwZTiJF4gr7Fvhf7zGWvdeoTPSKBeiU9LAd.CayyiwOcQ3GQrxlk.",
+  "country": "Spain",
+  "profession": "Web developer",
+  "photoUser": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Hiking_to_the_Ice_Lakes._San_Juan_National_Forest%2C_Colorado.jpg/640px-Hiking_to_the_Ice_Lakes._San_Juan_National_Forest%2C_Colorado.jpg",
+  "isAdmin": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6441177fd2a101b0bb3f04c8"
+  },
+  "name": "Paco Maldonado",
+  "email": "paco49@gmail.com",
+  "passwordHash": "$2a$10$hYN.VnY9dw61LYt/h0sQCOaNuePNVQ1lG7THyoR5krljpwGnmLfai",
+  "country": "Spain",
+  "profession": "Teacher",
+  "photoUser": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Urbano_Arza.jpg/640px-Urbano_Arza.jpg",
+  "isAdmin": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "644bb5995a1b5e53bdd542c2"
+  },
+  "name": "Marta López",
+  "email": "marta15@email.com",
+  "passwordHash": "$2a$10$X70VAmzs/vR3OiErPdo/De1rImddpOFf5TCZdLTCEX0fU964nJ7qC",
+  "country": "Chile",
+  "profession": "Student",
+  "photoUser": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Maritza_Soto%2C_estudiante_de_doctorado_de_astronom%C3%ADa_de_la_Universidad_de_Chile..jpg/640px-Maritza_Soto%2C_estudiante_de_doctorado_de_astronom%C3%ADa_de_la_Universidad_de_Chile..jpg",
+  "isAdmin": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a011c6cc5b1ab20783408"
+  },
+  "name": "Josefa Ramírez",
+  "email": "josefa12@gmail.com",
+  "passwordHash": "$2a$10$pY6i01k26KnzxQRruEUmJOo6dWRF6hz3VUVp5iboBRvPquPhmUVua",
+  "country": "Angola",
+  "profession": "Police",
+  "photoUser": "",
+  "isAdmin": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a15c3135a7e2f2c7ba395"
+  },
+  "name": "Manolo García",
+  "email": "manolo23@gmail.com",
+  "passwordHash": "$2a$10$VlFLobO3xdbNqVDHYfJpHO1xxsSlj7st6s.WDSVwcXZUqbPzSmCN6",
+  "country": "Estonia",
+  "profession": "Student",
+  "photoUser": "",
+  "isAdmin": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a1bdc4234b174958f1339"
+  },
+  "name": "Ramón Martínez",
+  "email": "ramon42@gmail.com",
+  "passwordHash": "$2a$10$tv7BpRvJk.BvoviC9LiI8utML/UE24Gk3At7iSOTmpnJSyQmGbkSK",
+  "country": "Bermuda",
+  "profession": "Teacher",
+  "photoUser": "",
+  "isAdmin": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "649dc022addaf04de2c5dcaf"
+  },
+  "name": "Maria López",
+  "email": "lopez23@gmail.com",
+  "passwordHash": "$2a$10$GKed6PF5b.7uVIEhiaYHYe3WkRU.EWWTGH6MVEHlQ7MC.TjdWS49.",
+  "country": "Andorra",
+  "profession": "Teacher",
+  "photoUser": "",
+  "isAdmin": false,
+  "__v": 0
+}]
